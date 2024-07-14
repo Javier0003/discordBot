@@ -12,7 +12,7 @@ export default class Hello extends Command_Builder {
       deleted: false
     })
   }
-  public async command(interaction?: CommandInteraction<CacheType>) {
-    interaction?.reply('hello')
+  public async command(interaction: CommandInteraction<CacheType>) {
+    interaction.reply('hello')
   }
 }
