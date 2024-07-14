@@ -4,10 +4,10 @@ import LoaClient from '../loa-client/loa-client'
 export type CommandConfig = {
   name: string
   description: string
-  devOnly: boolean
-  testOnly: boolean
+  devOnly?: boolean
+  testOnly?: boolean
   options?: APIApplicationCommandOption[]
-  deleted: boolean
+  deleted?: boolean
 }
 
 export default class Command_Builder extends LoaClient implements CommandConfig {
