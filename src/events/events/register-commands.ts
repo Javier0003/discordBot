@@ -13,7 +13,7 @@ export default class RegisterCommands extends Event_Builder {
     try {
       const localCommands = await getLocalCommands()
       const applicationCommands = await appCommands(env.guildId)
-
+      
       if (!localCommands) return
       if (!applicationCommands) return
 
