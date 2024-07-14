@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "minecraft-status": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
