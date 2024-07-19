@@ -30,7 +30,7 @@ export default class RegisterCommands extends Event_Builder {
             continue
           }
 
-          if (this.areCommandsDifferent(existingCommand, localCommand)) {
+          if (RegisterCommands.areCommandsDifferent(existingCommand, localCommand)) {
             await applicationCommands.edit(existingCommand.id, {
               description,
               options
@@ -60,7 +60,7 @@ export default class RegisterCommands extends Event_Builder {
     }
   }
 
-  private areCommandsDifferent(existingCommand: any, localCommand: any) {
+  private static areCommandsDifferent(existingCommand: any, localCommand: any) {
     const areChoicesDifferent = (existingChoices: any, localChoices: any) => {
       for (const localChoice of localChoices) {
         const existingChoice = existingChoices?.find(

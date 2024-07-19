@@ -18,11 +18,11 @@ export default class Troll extends Event_Builder implements EventCommand {
     if (r === 500) {
       console.log(`Ha tardado: ${Troll.howManyToTrigger} intentos en activarse`)
       message.reply('CALLATEEEEEEEE GILIPOLLAS !!!!!!!!!!!!!!!!😡😡😡😡😡')
-      this.resetTrigger()
+      Troll.resetTrigger()
     }
   }
 
-  private resetTrigger() {
+  private static resetTrigger() {
     Troll.howManyToTrigger = 0
   }
 }
