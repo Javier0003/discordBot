@@ -1,11 +1,13 @@
 FROM node:20.11.1
 
+RUN npm install -g pnpm
+
 WORKDIR /app
 
-COPY package.json ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN npm install
+RUN pnpm install
 
 COPY . .
 
-CMD [ "npm", "start" ]
+CMD [ "pnpm", "dev" ]

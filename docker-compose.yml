@@ -1,0 +1,17 @@
+version: '3'
+services:
+  discord-bot:
+    build:
+      context: .
+      dockerfile: dockerfile  
+    environment:
+      - BOT_TOKEN = ${BOT_TOKEN}
+      - GUILD_ID = ${GUILD_ID}
+      - CHANNEL_ID = ${CHANNEL_ID}
+      - MC_IP = ${MC_IP}
+      - OPENER_PORT = ${OPENER_PORT}
+      - MC_PORT = ${MC_PORT}
+
+    env_file:
+      - .env
+    restart: always

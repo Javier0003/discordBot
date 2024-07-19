@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-const token = process.env.TOKEN as string
+const token = process.env.BOT_TOKEN as string
 const guildId = process.env.GUILD_ID as string
 const mcIp = process.env.MC_IP as string
 const mcPort = process.env.MC_PORT as string

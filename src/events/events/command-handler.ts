@@ -1,4 +1,3 @@
-import { devs } from '../../../config.json'
 import { Interaction } from 'discord.js'
 import getLocalCommands from '../../utils/get-local-commands'
 import Event_Builder from '../../structures/event-builder/event-builder'
@@ -24,15 +23,6 @@ export default class Command_Handler extends Event_Builder {
 
       if (!commandObject) return
       if (!commandObject.command) return
-      if (commandObject.devOnly) {
-        if (!devs.includes(interaction.member?.user.id ?? '')) {
-          interaction.reply({
-            content: 'Only developers are allowed to run this command.',
-            ephemeral: true
-          })
-          return
-        }
-      }
 
       if (commandObject.testOnly) {
         if (!(interaction.guild?.id === env.guildId)) {
