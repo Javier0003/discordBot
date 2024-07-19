@@ -1,5 +1,5 @@
 import appCommands from '../../utils/app-commands'
-import Event_Builder from '../../structures/event-builder/event-builder'
+import Event_Builder from '../../structures/event-builder'
 import getLocalCommands from '../../utils/get-local-commands'
 import env from '../../env'
 

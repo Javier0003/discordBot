@@ -1,5 +1,5 @@
 import { ClientEvents } from 'discord.js';
-import LoaClient from '../loa-client/loa-client';
+import LoaClient from './loa-client';
 
 export type eventType = 'once' | 'on'
 

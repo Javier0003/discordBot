@@ -1,4 +1,4 @@
-import LoaBot from '../bot/loa-bot'
+import LoaBot from './loa-bot'
 
 export default class LoaClient {
   loa: LoaBot;

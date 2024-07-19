@@ -7,7 +7,7 @@ import {
   ButtonStyle,
   AttachmentBuilder
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder/command-builder'
+import Command_Builder from '../../structures/command-builder'
 import { Socket } from 'node:net'
 
 //@ts-ignore

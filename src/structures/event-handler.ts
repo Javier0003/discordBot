@@ -1,21 +1,24 @@
 import { readdir } from 'node:fs/promises'
-import LoaClient from '../loa-client/loa-client'
-import { EventConfiguration } from '../event-builder/event-builder'
+import LoaClient from './loa-client'
+import { EventConfiguration } from './event-builder'
+import { join } from 'node:path'
+import { readdirSync } from 'node:fs'
 
 export default class Event_Handler extends LoaClient {
   constructor() {
     super()
   }
 
-  public async init() {
-    await this.loadDiscordEvents()
+  public init() {
+   this.loadDiscordEvents()
   }
 
-  private async loadDiscordEvents(): Promise<void> {
+  private loadDiscordEvents(): void {
     try {
-      const events = await readdir('./src/events/events')
+      const path = join(__dirname, '../events/events')
+      const events = readdirSync(path)
       for (const event of events) {
-        const { default: Event } = await import(`../../events/events/${event}`)
+        const Event = require(`${path}/${event}`).default
         const eventInstance: EventConfiguration = new Event()
         if (!eventInstance.event) return
         this.loa['on'](eventInstance.type,eventInstance.event)

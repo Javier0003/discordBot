@@ -1,5 +1,5 @@
 import { CacheType, CommandInteraction } from 'discord.js'
-import Command_Builder from '../../structures/command-builder/command-builder'
+import Command_Builder from '../../structures/command-builder'
 
 export default class Hello extends Command_Builder {
   constructor() {

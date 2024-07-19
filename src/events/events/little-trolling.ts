@@ -1,7 +1,7 @@
 import { Message } from 'discord.js'
 import Event_Builder, {
   EventCommand
-} from '../../structures/event-builder/event-builder'
+} from '../../structures/event-builder'
 
 export default class Troll extends Event_Builder implements EventCommand {
   private static howManyToTrigger = 0

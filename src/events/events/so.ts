@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import Event_Builder, { EventCommand } from '../../structures/event-builder/event-builder'
+import Event_Builder, { EventCommand } from '../../structures/event-builder'
 
 const que = [
   'qe',

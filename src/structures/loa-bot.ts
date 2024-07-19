@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from 'discord.js'
-import env from '../../env'
-import Event_Handler from '../event-handler/event-handler'
-import LoaClient from '../loa-client/loa-client'
+import env from '../env'
+import Event_Handler from './event-handler'
+import LoaClient from './loa-client'
 
 export default class LoaBot extends Client {
   clientLoa = new LoaClient(this)

@@ -1,6 +1,6 @@
-import { Message, VoiceState } from 'discord.js'
+import { ClientEvents, Message, VoiceState } from 'discord.js'
 
-export type EventType = 'messageCreate' | 'voiceStateUpdate' | 'ready'| 'interactionCreate'
+export type EventType = keyof ClientEvents
 export type EventConfiguration = {
   type: EventType
   description?: string

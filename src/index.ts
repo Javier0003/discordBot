@@ -1,3 +1,3 @@
-import LoaBot from './structures/bot/loa-bot'
+import LoaBot from './structures/loa-bot'
 
 export const loaBot = new LoaBot()

@@ -1,7 +1,7 @@
 import { Interaction } from 'discord.js'
 import getLocalCommands from '../../utils/get-local-commands'
-import Event_Builder from '../../structures/event-builder/event-builder'
-import { CommandConfig } from '../../structures/command-builder/command-builder'
+import Event_Builder from '../../structures/event-builder'
+import { CommandConfig } from '../../structures/command-builder'
 import env from '../../env'
 
 interface CommandConfigWithCallback extends CommandConfig {

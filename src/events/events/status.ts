@@ -1,6 +1,6 @@
 import { ActivityType } from 'discord.js'
-import Event_Builder, { EventCommand } from '../../structures/event-builder/event-builder'
-import LoaClient from '../../structures/loa-client/loa-client'
+import Event_Builder, { EventCommand } from '../../structures/event-builder'
+import LoaClient from '../../structures/loa-client'
 
 const status = [
   {

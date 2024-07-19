@@ -1,14 +1,16 @@
-import { readdir } from 'fs/promises'
-import { CommandConfig } from '../structures/command-builder/command-builder'
+import { join } from 'path'
+import { CommandConfig } from '../structures/command-builder'
+import { readdirSync } from 'fs'
 
-export default async function getLocalCommands(): Promise<CommandConfig[] | undefined> {
+export default function getLocalCommands(): CommandConfig[] | undefined {
+    const path = join(__dirname, '../events/commands')
     let localCommands: CommandConfig[] = []
-    const commands = await readdir('./src/events/commands')
+    const commands = readdirSync(path)
 
     for (const command of commands) {
-      const { default: Command } = await import(
-        `../events/commands/${command}`
-      )
+      const Command = require(
+        `${path}/${command}`
+      ).default
       const commandInstance = new Command()
       if (!commandInstance.command) return
 

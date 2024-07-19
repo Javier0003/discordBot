@@ -1,7 +1,7 @@
 import { VoiceState } from 'discord.js'
 import Event_Builder, {
   EventCommand
-} from '../../structures/event-builder/event-builder'
+} from '../../structures/event-builder'
 
 export default class Deafen extends Event_Builder implements EventCommand {
   constructor() {
