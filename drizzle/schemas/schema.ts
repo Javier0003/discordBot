@@ -1,8 +1,8 @@
-import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
+import { integer, pgTable, varchar,  } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   id: varchar('id', { length: 256 }).primaryKey(),
-  name: varchar('name', { length: 256 }),
+  name: varchar('name', { length: 256 }) ,
   completados: integer('completados').default(0),
 });
 
