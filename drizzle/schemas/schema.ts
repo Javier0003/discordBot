@@ -6,7 +6,7 @@ export const users = pgTable('users', {
   completados: integer('completados').default(0),
 });
 
-export type users = typeof users.$inferSelect
-export type newUser = typeof users.$inferInsert
+export type Users = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
 
 

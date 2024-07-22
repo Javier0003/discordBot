@@ -1,32 +1,46 @@
-import { CacheType, CommandInteraction, EmbedBuilder, InteractionResponse, Message } from 'discord.js'
+import {
+  CacheType,
+  CommandInteraction,
+  EmbedBuilder,
+  InteractionResponse,
+  Message,
+  User
+} from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import DbConnection from '../../structures/db-connection'
-import { users } from '../../db/schema'
+import { users, Users } from '../../../drizzle/schemas/schema'
+import { desc } from 'drizzle-orm'
 
-export default class OsuRank extends Command_Builder{
+export default class OsuRank extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
-  embed:EmbedBuilder = new EmbedBuilder().setTitle('osu! Rank').setDescription('Espera un momento')
-  private db: DbConnection = DbConnection.db
+  embed: EmbedBuilder = new EmbedBuilder()
+    .setTitle('osu! Rank')
+    .setDescription('Espera un momento')
+  db = DbConnection.db
 
-  constructor(){
+  constructor() {
     super({
       name: 'osu-rank',
-      description: 'osu!',
+      description: 'osu!'
     })
   }
-  public async command(interaction: CommandInteraction<CacheType>): Promise<void>{
+  public async command(
+    interaction: CommandInteraction<CacheType>
+  ): Promise<void> {
     try {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
 
-      // const user:users[] = await this.db.
+      const usuarios = await this.db
+        .select({ name: users.name, completed: users.completados })
+        .from(users)
+        .orderBy(desc(users.completados))
 
-      // const users = user.map((val, index) =>{
-      //   return `${index + 1}. ${val.nombre} - ${val.completados} completados`
-      // }).join('\n')
+      const description = usuarios.map((val, index) =>{
+        return `${index + 1}. ${val.name} - ${val.completed} completados`
+      }).join('\n')
 
-      // this.embed.setDescription(users).setColor('Random')
-      // this.reply = (await this.reply).edit({ embeds: [this.embed]})
-
+      this.embed.setDescription(description).setColor('Random')
+      this.reply = (await this.reply).edit({ embeds: [this.embed]})
     } catch (error) {
       console.log(error)
     }

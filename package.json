@@ -6,17 +6,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pnpm build && node dist/index.js",
     "build": "tsc",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "migrate": "tsx ./src/utils/migrator.ts",
+    "generate": "npx drizzle-kit generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@neondatabase/serverless": "^0.9.4",
     "discord.js": "14.15.3",
     "dotenv": "16.4.5",
     "drizzle-orm": "^0.32.0",
-    "minecraft-status": "1.1.0"
+    "minecraft-status": "1.1.0",
+    "postgres": "^3.4.4"
   },
   "devDependencies": {
     "@types/node": "20.14.10",

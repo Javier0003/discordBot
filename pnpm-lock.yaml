@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@neondatabase/serverless':
-        specifier: ^0.9.4
-        version: 0.9.4
       discord.js:
         specifier: 14.15.3
         version: 14.15.3
@@ -19,10 +16,13 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.32.0
-        version: 0.32.0(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)
+        version: 0.32.0(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)(postgres@3.4.4)
       minecraft-status:
         specifier: 1.1.0
         version: 1.1.0
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.4
     devDependencies:
       '@types/node':
         specifier: 20.14.10
@@ -712,6 +712,10 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
+  postgres@3.4.4:
+    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+    engines: {node: '>=12'}
+
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
@@ -1029,6 +1033,7 @@ snapshots:
   '@neondatabase/serverless@0.9.4':
     dependencies:
       '@types/pg': 8.11.6
+    optional: true
 
   '@sapphire/async-queue@1.5.2': {}
 
@@ -1048,6 +1053,7 @@ snapshots:
       '@types/node': 20.14.10
       pg-protocol: 1.6.1
       pg-types: 4.0.2
+    optional: true
 
   '@types/ws@8.5.10':
     dependencies:
@@ -1091,10 +1097,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.32.0(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6):
+  drizzle-orm@0.32.0(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)(postgres@3.4.4):
     optionalDependencies:
       '@neondatabase/serverless': 0.9.4
       '@types/pg': 8.11.6
+      postgres: 3.4.4
 
   esbuild-register@3.5.0(esbuild@0.19.12):
     dependencies:
@@ -1206,13 +1213,17 @@ snapshots:
 
   ms@2.1.2: {}
 
-  obuf@1.1.2: {}
+  obuf@1.1.2:
+    optional: true
 
-  pg-int8@1.0.1: {}
+  pg-int8@1.0.1:
+    optional: true
 
-  pg-numeric@1.0.2: {}
+  pg-numeric@1.0.2:
+    optional: true
 
-  pg-protocol@1.6.1: {}
+  pg-protocol@1.6.1:
+    optional: true
 
   pg-types@4.0.2:
     dependencies:
@@ -1223,18 +1234,26 @@ snapshots:
       postgres-date: 2.1.0
       postgres-interval: 3.0.0
       postgres-range: 1.1.4
+    optional: true
 
-  postgres-array@3.0.2: {}
+  postgres-array@3.0.2:
+    optional: true
 
   postgres-bytea@3.0.0:
     dependencies:
       obuf: 1.1.2
+    optional: true
 
-  postgres-date@2.1.0: {}
+  postgres-date@2.1.0:
+    optional: true
 
-  postgres-interval@3.0.0: {}
+  postgres-interval@3.0.0:
+    optional: true
 
-  postgres-range@1.1.4: {}
+  postgres-range@1.1.4:
+    optional: true
+
+  postgres@3.4.4: {}
 
   resolve-pkg-maps@1.0.0: {}
 
