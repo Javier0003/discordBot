@@ -12,14 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "5.17.0",
+    "@neondatabase/serverless": "^0.9.4",
     "discord.js": "14.15.3",
     "dotenv": "16.4.5",
+    "drizzle-orm": "^0.32.0",
     "minecraft-status": "1.1.0"
   },
   "devDependencies": {
     "@types/node": "20.14.10",
-    "prisma": "5.17.0",
+    "drizzle-kit": "^0.23.0",
     "tsx": "4.16.2",
     "typescript": "5.5.3"
   },
