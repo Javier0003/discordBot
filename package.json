@@ -18,6 +18,7 @@
     "dotenv": "16.4.5",
     "drizzle-orm": "^0.32.0",
     "minecraft-status": "1.1.0",
+    "osu-web.js": "^2.5.0",
     "postgres": "^3.4.4"
   },
   "devDependencies": {

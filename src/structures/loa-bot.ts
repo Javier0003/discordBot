@@ -20,6 +20,7 @@ export default class LoaBot extends Client {
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMessageReactions
       ]
     })
     this.init()
