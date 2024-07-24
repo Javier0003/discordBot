@@ -29,7 +29,8 @@ export default class McStatus extends Command_Builder {
   constructor() {
     super({
       name: 'mcserver',
-      description: 'Revisar el estado del server de minecraft'
+      description: 'Revisar el estado del server de minecraft',
+      notUpdated: true
     })
   }
   public async command(

@@ -46,6 +46,13 @@ export default class RegisterCommands extends Event_Builder {
             continue
           }
           
+          if(localCommand.notUpdated){
+            // console.log(
+            //   `⏩ Skipping registering command "${name}" as it's set to not update.`
+            // )
+            continue
+          }
+
           await applicationCommands.create({
             name,
             description,

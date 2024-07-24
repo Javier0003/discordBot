@@ -15,6 +15,7 @@ export default class Command_Handler extends Event_Builder {
 
   public async event(interaction: Interaction): Promise<void> {
     try {
+      
       if (!interaction.isChatInputCommand()) return
       const localCommands = await getLocalCommands()
       const commandObject = localCommands?.find(

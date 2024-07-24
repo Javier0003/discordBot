@@ -1,4 +1,4 @@
-import { CacheType, CommandInteraction } from 'discord.js'
+import { ApplicationCommandOptionType, CacheType, CommandInteraction } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import DbConnection from '../../structures/db-connection'
 import { users } from '../../../drizzle/schemas/schema'
@@ -8,7 +8,14 @@ export default class OsuRegister extends Command_Builder {
   constructor() {
     super({
       name: 'osu-register',
-      description: 'osu!'
+      description: 'osu!',
+      options: [{
+        description: 'Pon tu id de osu!',
+        name: 'register',
+        required: true,
+        type: ApplicationCommandOptionType.String
+      }],
+      notUpdated: true
     })
   }
 
@@ -18,7 +25,8 @@ export default class OsuRegister extends Command_Builder {
     try {
       await this.db.insert(users).values({
         id: interaction.user.id,
-        name: interaction.user.globalName
+        name: interaction.user.globalName,
+        osuId: Number(interaction.options.data[0].value)
       })
 
       interaction.reply({

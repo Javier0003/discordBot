@@ -9,7 +9,8 @@ export default class Hello extends Command_Builder {
       devOnly: false,
       testOnly: false,
       options: [],
-      deleted: false
+      deleted: false,
+      notUpdated: true
     })
   }
   public async command(interaction: CommandInteraction<CacheType>) {

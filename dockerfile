@@ -12,6 +12,4 @@ COPY . .
 
 RUN pnpm generate
 
-RUN pnpm migrate
-
 CMD [ "pnpm", "start" ]

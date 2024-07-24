@@ -8,7 +8,7 @@ import {
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import DbConnection from '../../structures/db-connection'
-import { users, Users } from '../../../drizzle/schemas/schema'
+import { users } from '../../../drizzle/schemas/schema'
 import { desc } from 'drizzle-orm'
 
 export default class OsuRank extends Command_Builder {
@@ -22,6 +22,7 @@ export default class OsuRank extends Command_Builder {
     super({
       name: 'osu-rank',
       description: 'osu!',
+      notUpdated: true,
     })
   }
   public async command(
