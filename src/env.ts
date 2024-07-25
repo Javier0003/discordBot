@@ -6,6 +6,7 @@ const mcIp = process.env.MC_IP as string
 const mcPort = process.env.MC_PORT as string
 const mcPortOpener = Number(process.env.OPENER_PORT) as number
 const dbUrl = process.env.DATABASE_URL as string
+const osuToken = process.env.OSU_TOKEN as string
 
 if(!dbUrl) throw new Error('No database URL provided')
 if (!token) throw new Error('No token provided')
@@ -17,5 +18,6 @@ export default {
   mcIp: mcIp,
   mcPort: mcPort,
   mcPortOpener: mcPortOpener,
-  dbUrl: dbUrl
+  dbUrl: dbUrl,
+  osuToken: osuToken
 }
