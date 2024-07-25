@@ -1,9 +1,25 @@
 {
-  "id": "1f566ffa-33ab-4ff3-9a7e-fe0a50d5d193",
-  "prevId": "a24356ae-e8b9-4595-9bc1-2c3caa1946fb",
+  "id": "c0b4f975-d3a0-4b9b-bcd6-93423e11f899",
+  "prevId": "2d155b45-b942-4924-9888-067967fe0bc1",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.mapas": {
+      "name": "mapas",
+      "schema": "",
+      "columns": {
+        "oldMaps": {
+          "name": "oldMaps",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -18,14 +34,20 @@
           "name": "name",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "completados": {
           "name": "completados",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
+        },
+        "osuId": {
+          "name": "osuId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},

@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1721672346400,
-      "tag": "0000_gray_puff_adder",
+      "when": 1721837436381,
+      "tag": "0000_daffy_legion",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1721674359742,
-      "tag": "0001_normal_tarot",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1721739901228,
-      "tag": "0002_mixed_white_queen",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1721781682748,
-      "tag": "0003_clammy_meggan",
+      "when": 1721838638193,
+      "tag": "0001_charming_vivisector",
       "breakpoints": true
     }
   ]

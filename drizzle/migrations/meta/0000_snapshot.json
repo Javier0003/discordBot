@@ -1,9 +1,25 @@
 {
-  "id": "a24356ae-e8b9-4595-9bc1-2c3caa1946fb",
+  "id": "2d155b45-b942-4924-9888-067967fe0bc1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.mapa": {
+      "name": "mapa",
+      "schema": "",
+      "columns": {
+        "oldMaps": {
+          "name": "oldMaps",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -26,6 +42,12 @@
           "primaryKey": false,
           "notNull": false,
           "default": 0
+        },
+        "osuId": {
+          "name": "osuId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
