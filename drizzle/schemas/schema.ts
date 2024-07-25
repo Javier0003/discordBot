@@ -7,6 +7,10 @@ export const users = pgTable('users', {
   osuId: integer('osuId').notNull(),
 });
 
+export const mapas = pgTable('mapas', {
+  oldMaps: integer('oldMaps').notNull().primaryKey(),
+})
+
 export type Users = typeof users.$inferSelect
 export type NewUser = typeof users.$inferInsert
 
