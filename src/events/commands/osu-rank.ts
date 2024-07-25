@@ -7,16 +7,15 @@ import {
   User,
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
-import DbConnection from '../../structures/db-connection'
 import { users } from '../../../drizzle/schemas/schema'
 import { desc } from 'drizzle-orm'
+import { db } from '../../utils/db'
 
 export default class OsuRank extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Rank')
     .setDescription('Espera un momento')
-  db = DbConnection.db
 
   constructor() {
     super({
@@ -30,8 +29,8 @@ export default class OsuRank extends Command_Builder {
   ): Promise<void> {
     try {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
-
-      const usuarios = await this.db
+      
+      const usuarios = await db
         .select({ name: users.name, completed: users.completados })
         .from(users)
         .orderBy(desc(users.completados))
