@@ -2,9 +2,7 @@ import { Client, GatewayIntentBits } from 'discord.js'
 import env from '../env'
 import Event_Handler from './event-handler'
 import LoaClient from './loa-client'
-import DbConnection from './db-connection'
 export default class LoaBot extends Client {
-  db:DbConnection = new DbConnection()
 
   clientLoa = new LoaClient(this)
 
