@@ -28,7 +28,11 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
       if(!MapasOsu.mapa_diario) {
         const restartBot = await db.select().from(mapas)
 
-
+        if(restartBot.length === 0) {
+          const mapaRandom = await getMapaRandom()
+          await db.insert(mapas).values({oldMaps: mapaRandom.id})
+          MapasOsu.mapa_diario = mapaRandom.id
+        } 
         MapasOsu.mapa_diario = restartBot[restartBot.length - 1].oldMaps
       }
 

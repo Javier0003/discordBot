@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS "mapa" (
-	"oldMaps" integer
+CREATE TABLE IF NOT EXISTS "mapas" (
+	"oldMaps" integer PRIMARY KEY NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (

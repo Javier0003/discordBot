@@ -1,18 +1,18 @@
 {
-  "id": "2d155b45-b942-4924-9888-067967fe0bc1",
+  "id": "b4ed4ebb-668a-440d-84ab-b46975bea53f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.mapa": {
-      "name": "mapa",
+    "public.mapas": {
+      "name": "mapas",
       "schema": "",
       "columns": {
         "oldMaps": {
           "name": "oldMaps",
           "type": "integer",
-          "primaryKey": false,
-          "notNull": false
+          "primaryKey": true,
+          "notNull": true
         }
       },
       "indexes": {},

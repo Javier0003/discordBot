@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1721837436381,
-      "tag": "0000_daffy_legion",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1721838638193,
-      "tag": "0001_charming_vivisector",
+      "when": 1721936819998,
+      "tag": "0000_wise_goliath",
       "breakpoints": true
     }
   ]
