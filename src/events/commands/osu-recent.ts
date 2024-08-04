@@ -43,6 +43,14 @@ export default class osuRecent extends Command_Builder {
 
       const userPlays = await getOsuRecent(user[0].osuId)
 
+      if (userPlays.length === 0) {
+        this.reply = interaction.reply({
+          content: 'No tienes plays recientes',
+          ephemeral: true
+        })
+        return
+      }
+
       const buttons = [
         new ButtonBuilder()
           .setCustomId('-1')
