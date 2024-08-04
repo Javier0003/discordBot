@@ -204,9 +204,7 @@ const osuMods = [
   'NF',
   'EZ',
   'HT',
-  'SD',
   'NC',
-  'PF',
   'FL',
 ]
 
@@ -217,7 +215,8 @@ async function generateDailyRandomMap(): Promise<DailyMap> {
     const map = await getMapaRandom()
     const selectedMods: mods[] | 'nomod'[] = []
 
-    for (let i = 0; i < 2; i++) {
+
+    for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
       if (selectedMods[0] === 'nomod') break
       getMods(selectedMods)
     }
