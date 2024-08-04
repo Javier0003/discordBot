@@ -4,7 +4,6 @@ import {
   EmbedBuilder,
   InteractionResponse,
   Message,
-  User,
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'

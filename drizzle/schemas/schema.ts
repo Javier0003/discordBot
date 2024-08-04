@@ -8,7 +8,9 @@ export const users = pgTable('users', {
 });
 
 export const mapas = pgTable('mapas', {
-  oldMaps: integer('oldMaps').notNull().primaryKey(),
+  oldMapId: integer('oldMaps').notNull().primaryKey(),
+  oldMapMods: varchar('oldMapMods').notNull(),
+  oldMapMinRank: varchar('oldMapMinRank').notNull(),
 })
 
 export type Users = typeof users.$inferSelect

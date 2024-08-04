@@ -1,0 +1,79 @@
+{
+  "id": "aea302cb-c248-418a-bc77-146e91706c0a",
+  "prevId": "6f693a31-51d8-471e-9dac-2c0f49dcaa1a",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.mapas": {
+      "name": "mapas",
+      "schema": "",
+      "columns": {
+        "oldMaps": {
+          "name": "oldMaps",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "oldMapMods": {
+          "name": "oldMapMods",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "oldMapMinRank": {
+          "name": "oldMapMinRank",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(256)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completados": {
+          "name": "completados",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "osuId": {
+          "name": "osuId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

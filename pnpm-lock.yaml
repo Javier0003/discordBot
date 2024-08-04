@@ -15,23 +15,20 @@ importers:
         specifier: 16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.32.0
+        specifier: 0.32.0
         version: 0.32.0(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)(postgres@3.4.4)
       minecraft-status:
         specifier: 1.1.0
         version: 1.1.0
-      osu-web.js:
-        specifier: ^2.5.0
-        version: 2.5.0
       postgres:
-        specifier: ^3.4.4
+        specifier: 3.4.4
         version: 3.4.4
     devDependencies:
       '@types/node':
         specifier: 20.14.10
         version: 20.14.10
       drizzle-kit:
-        specifier: ^0.23.0
+        specifier: 0.23.0
         version: 0.23.0
       tsx:
         specifier: 4.16.2
@@ -681,9 +678,6 @@ packages:
   obuf@1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
 
-  osu-web.js@2.5.0:
-    resolution: {integrity: sha512-Q9k0TViuSaZbiVn6TP4LuaFqaSulq4W2FHijmfQsjXjl6QvHQ0FYCQMx5S44UjzMDzdZykkctQUNaYGOF8zurg==}
-
   pg-int8@1.0.1:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
@@ -1221,8 +1215,6 @@ snapshots:
 
   obuf@1.1.2:
     optional: true
-
-  osu-web.js@2.5.0: {}
 
   pg-int8@1.0.1:
     optional: true

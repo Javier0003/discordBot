@@ -19,6 +19,6 @@
     "strictNullChecks": true,
     "skipLibCheck": true
   },
-  "include": ["src", "drizzle/schemas/schema.ts"],
+  "include": ["src", "drizzle/schemas/schema.ts", "src/utils/.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

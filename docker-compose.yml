@@ -12,8 +12,13 @@ services:
       - OPENER_PORT = ${OPENER_PORT}
       - MC_PORT = ${MC_PORT}
     env_file:
-      - .env
+      - .env.prod
     restart: always
+    networks:
+      - loa_network
+    depends_on:
+      - postgres_db
+
   postgres_db:
     image: postgres:16.2-alpine
     restart: always
@@ -26,7 +31,13 @@ services:
     - postgres_db:/var/lib/postgresql/data
     env_file:
       - .env
+    networks:
+      - loa_network
       
 volumes:
   postgres_db:
     driver: local 
+
+networks:
+  loa_network:
+    driver: bridge
