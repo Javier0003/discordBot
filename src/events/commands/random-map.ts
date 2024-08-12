@@ -18,7 +18,7 @@ export default class randomMap extends Command_Builder {
     super({
       name: 'random-map',
       description: 'Random osu! map',
-      notUpdated: true
+      // notUpdated: true
     })
   }
   public async command(

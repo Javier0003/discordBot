@@ -8,7 +8,9 @@
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
     "migrate": "tsx ./src/utils/migrator.ts",
-    "generate": "npx drizzle-kit generate"
+    "generate": "npx drizzle-kit generate",
+    "test-daily": "tsx ./tests/daily-map.test.ts",
+    "test-aprove": "tsx ./tests/aproved-play.test.ts"
   },
   "keywords": [],
   "author": "",

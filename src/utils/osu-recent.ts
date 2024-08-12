@@ -4,7 +4,7 @@ import getOsuToken from './osu-token'
 export default async function getOsuRecent(user: number) {
   const token = await getOsuToken()
   const json = await fetch(
-    `https://osu.ppy.sh/api/v2/users/${user}/scores/recent?include_fails=0&mode=osu&limit=5`,
+    `https://osu.ppy.sh/api/v2/users/${user}/scores/recent?include_fails=1&mode=osu&limit=5`,
     {
       method: 'GET',
       headers: {

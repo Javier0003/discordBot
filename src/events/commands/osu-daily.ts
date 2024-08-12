@@ -8,7 +8,7 @@ import {
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import MapasOsu from '../events/daily-map'
+import MapasOsu, { OsuRanks } from '../events/daily-map'
 import { db } from '../../utils/db'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
@@ -45,6 +45,8 @@ export default class OsuDaly extends Command_Builder {
         (play: any) => play.beatmap.id === dailyMap.id
       )
 
+      const mods = dailyMap.mods.join(' ') || 'nomod'
+
       this.embed = (await this.embed)
         .setThumbnail(daily.beatmapset.covers.list)
         .setURL(daily.url)
@@ -54,7 +56,7 @@ export default class OsuDaly extends Command_Builder {
           `Difficulty: ${daily.difficulty_rating} ★\n${daily.beatmapset.artist} - ${daily.beatmapset.title} [${daily.version}] \n Max Combo: ${daily.max_combo}`
         )
         .addFields(
-          { name: 'Mods', value: dailyMap.mods.join(' ') },
+          { name: 'Mods', value: mods },
           { name: 'Min Rank', value: dailyMap.minRank }
         )
 
@@ -69,8 +71,10 @@ export default class OsuDaly extends Command_Builder {
         })
 
         if (
-          userPlay.rank === dailyMap.minRank &&
-          userPlay.mods.includes(dailyMap.mods[0])
+          (this.validateRank(dailyMap.minRank, userPlay.rank as OsuRanks) &&
+            dailyMap.mods.every((mod) => userPlay.mods.includes(mod))) ||
+          (this.validateRank(dailyMap.minRank, userPlay.rank as OsuRanks) &&
+            dailyMap.mods.length === 0)
         ) {
           this.embed = (await this.embed).addFields({
             name: 'GG',
@@ -95,5 +99,13 @@ export default class OsuDaly extends Command_Builder {
         console.log(error)
       }
     }
+  }
+
+  private validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
+    const ranks: OsuRanks[] = ['D', 'C', 'B', 'A', 'S', 'SS']
+    const requiredIndex = ranks.indexOf(requiredRank)
+    const rankIndex = ranks.indexOf(rank)
+  
+    return requiredIndex <= rankIndex
   }
 }
