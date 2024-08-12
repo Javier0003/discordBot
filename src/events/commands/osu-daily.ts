@@ -67,7 +67,7 @@ export default class OsuDaly extends Command_Builder {
           name: 'Tu ultima jugada',
           value: `Score: ${userPlay.score}\nCombo: ${
             userPlay?.max_combo
-          }\nRank: ${userPlay?.rank} \n Mods: ${userPlay.mods.join(' ')}`
+          }\nRank: ${userPlay?.rank} \n Accuracy: ${this.accuracy(userPlay.accuracy)}\n Mods: ${userPlay.mods.join(' ')} `
         })
 
         if (
@@ -107,5 +107,16 @@ export default class OsuDaly extends Command_Builder {
     const rankIndex = ranks.indexOf(rank)
   
     return requiredIndex <= rankIndex
+  }
+
+  private accuracy(input: number): string {
+    const numberString = input.toString().split('.').pop()
+
+    if (!numberString) return '0'
+
+    const integerPart = numberString.slice(0, 2)
+    const decimalPart = numberString.slice(2, 4)
+
+    return `${integerPart},${decimalPart}`
   }
 }
