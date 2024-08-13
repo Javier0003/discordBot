@@ -8,7 +8,7 @@ import {
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import MapasOsu, { OsuRanks } from '../events/daily-map'
+import MapasOsu, { DailyMap, OsuRanks, Score } from '../events/daily-map'
 import { db } from '../../utils/db'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
@@ -22,7 +22,8 @@ export default class OsuDaly extends Command_Builder {
   constructor() {
     super({
       name: 'osu-daily',
-      description: 'osu!'
+      description: 'osu!',
+      notUpdated: true
     })
   }
   public async command(
@@ -67,7 +68,9 @@ export default class OsuDaly extends Command_Builder {
           name: 'Tu ultima jugada',
           value: `Score: ${userPlay.score}\nCombo: ${
             userPlay?.max_combo
-          }\nRank: ${userPlay?.rank} \n Accuracy: ${this.accuracy(userPlay.accuracy)}\n Mods: ${userPlay.mods.join(' ')} `
+          }\nRank: ${userPlay?.rank} \n Accuracy: ${this.accuracy(
+            userPlay.accuracy
+          )}\n Mods: ${userPlay.mods.join(' ')} `
         })
 
         if (
@@ -80,12 +83,14 @@ export default class OsuDaly extends Command_Builder {
             name: 'GG',
             value: 'Has hecho el daily'
           })
-          await db
-            .update(users)
-            // @ts-expect-error this won't ever throw error since this value has a default
-            // so it can't be null
-            .set({ completados: user[0].completados + 1 })
-            .where(eq(users.id, user[0].id))
+          MapasOsu.addPlay({
+            mapId: dailyMap.id,
+            uid: user[0].id,
+            rank: userPlay.rank as OsuRanks,
+            score: userPlay.score,
+            accuracy: userPlay.accuracy,
+            points: this.getPoints(userPlay, dailyMap)
+          })
         }
         this.reply = (await this.reply).edit({ embeds: [this.embed] })
       }
@@ -101,11 +106,27 @@ export default class OsuDaly extends Command_Builder {
     }
   }
 
-  private validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
+  private getPoints(rank: Score, requiredRank: DailyMap):number{
+    let score = 10
+
+    if(!rank.mods.includes('NF') && requiredRank.mods.includes('NF')) score = +2
+    if(rank.mods.includes('FL')) score = +2
+
+    if(rank.rank === requiredRank.minRank) return score
+
+    const ranks = ['D', 'C', 'B', 'A', 'S', 'SS']
+    const rankIndex = ranks.indexOf(rank.rank)
+    const requiredIndex = ranks.indexOf(requiredRank.minRank)
+    score += (rankIndex - requiredIndex)*2
+
+    return score
+  }
+
+  public validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
     const ranks: OsuRanks[] = ['D', 'C', 'B', 'A', 'S', 'SS']
     const requiredIndex = ranks.indexOf(requiredRank)
     const rankIndex = ranks.indexOf(rank)
-  
+
     return requiredIndex <= rankIndex
   }
 

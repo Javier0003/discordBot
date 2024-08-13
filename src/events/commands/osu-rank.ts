@@ -3,10 +3,10 @@ import {
   CommandInteraction,
   EmbedBuilder,
   InteractionResponse,
-  Message,
+  Message
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
+import { plays, users } from '../../../drizzle/schemas/schema'
 import { desc } from 'drizzle-orm'
 import { db } from '../../utils/db'
 
@@ -28,21 +28,20 @@ export default class OsuRank extends Command_Builder {
   ): Promise<void> {
     try {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
-      
+
       const usuarios = await db
-        .select({ name: users.name, completed: users.completados })
-        .from(users)
-        .orderBy(desc(users.completados))
+        .select({ name: users.name, id: users.id, puntos: users.puntos })
+        .from(users).orderBy(desc(users.puntos))
 
       const description = usuarios
         .map((val, index) => {
-          return `${index + 1}. ${val.name} - ${val.completed || 0} completados`
+          return `${index + 1}. ${val.name} - ${val.puntos || 0} puntos`
         })
         .join('\n')
 
       if (description) {
         this.embed.setDescription(description).setColor('Random')
-      } else{
+      } else {
         this.embed.setDescription('No hay nadie 😭').setColor('Red')
       }
 

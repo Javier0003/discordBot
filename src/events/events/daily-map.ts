@@ -1,7 +1,7 @@
 import Event_Builder, { EventCommand } from '../../structures/event-builder'
-import { mapas } from '../../../drizzle/schemas/schema'
+import { mapas, plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import getOsuToken, { Beatmap } from '../../utils/osu-token'
 
 type statistics = {
@@ -152,50 +152,13 @@ export type DailyMap = {
   minRank: OsuRanks
 }
 
-export default class MapasOsu extends Event_Builder implements EventCommand {
-  public static dailyMap: DailyMap
-  constructor() {
-    super({ type: 'ready' })
-  }
-
-  public async event() {
-    try {
-      if (!MapasOsu.dailyMap) {
-        const restartBot = await db.select().from(mapas)
-
-        if (restartBot.length === 0) {
-          const mapaRandom = await generateDailyRandomMap()
-          await db.insert(mapas).values({
-            oldMapId: mapaRandom.id,
-            oldMapMods: JSON.stringify(mapaRandom.mods),
-            oldMapMinRank: mapaRandom.minRank
-          })
-          MapasOsu.dailyMap = mapaRandom
-          return
-        }
-
-        MapasOsu.dailyMap = {
-          id: restartBot[restartBot.length - 1].oldMapId,
-          mods: JSON.parse(
-            restartBot[restartBot.length - 1].oldMapMods
-          ) as mods[],
-          minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
-        }
-      }
-
-      setInterval(async () => {
-        const mapaRandom = await generateDailyRandomMap()
-        await db.insert(mapas).values({
-          oldMapId: mapaRandom.id,
-          oldMapMods: JSON.stringify(mapaRandom.mods),
-          oldMapMinRank: mapaRandom.minRank
-        })
-        MapasOsu.dailyMap = mapaRandom
-      }, 86400000)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+type dailyPlays = {
+  uid: string
+  mapId: number
+  score: number
+  rank: OsuRanks
+  accuracy: number
+  points: number
 }
 
 function generateDifficulty() {
@@ -465,5 +428,92 @@ type BeatmapAttributes = {
   attributes: {
     star_rating: number
     approach_rate: number | null
+  }
+}
+
+export default class MapasOsu extends Event_Builder implements EventCommand {
+  public static dailyMap: DailyMap
+  private static dailyPlays: dailyPlays[] = []
+
+  constructor() {
+    super({ type: 'ready' })
+  }
+
+  public async event() {
+    try {
+      if (!MapasOsu.dailyMap) {
+        const restartBot = await db.select().from(mapas)
+
+        if (restartBot.length === 0) {
+          const mapaRandom = await generateDailyRandomMap()
+          await db.insert(mapas).values({
+            oldMapId: mapaRandom.id,
+            oldMapMods: JSON.stringify(mapaRandom.mods),
+            oldMapMinRank: mapaRandom.minRank
+          })
+          MapasOsu.dailyMap = mapaRandom
+          return
+        }
+
+        MapasOsu.dailyMap = {
+          id: restartBot[restartBot.length - 1].oldMapId,
+          mods: JSON.parse(
+            restartBot[restartBot.length - 1].oldMapMods
+          ) as mods[],
+          minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
+        }
+      }
+
+      setInterval(async () => {
+        await MapasOsu.getDailyMap()
+        await MapasOsu.savePlays()
+        MapasOsu.dailyPlays = []
+      }, 86400000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  public static async getDailyMap() {
+    const mapaRandom = await generateDailyRandomMap()
+    await db.insert(mapas).values({
+      oldMapId: mapaRandom.id,
+      oldMapMods: JSON.stringify(mapaRandom.mods),
+      oldMapMinRank: mapaRandom.minRank
+    })
+    MapasOsu.dailyMap = mapaRandom
+  }
+
+  public static async savePlays() {
+    const order = MapasOsu.dailyPlays.sort((a, b) => a.score - b.score)
+
+    for (let i = 0; i < order.length; i++) {
+      order[i].points += order.length - i - 1
+      
+      await db.insert(plays).values({
+        accuracy: order[i].accuracy.toString(),
+        mapId: order[i].mapId,
+        rank: order[i].rank,
+        score: order[i].score,
+        uId: order[i].uid
+      })
+      await db
+        .update(users)
+        .set({
+          puntos: sql`${users.puntos} + ${order[i].points}`
+        })
+        .where(eq(users.id, order[i].uid.toString()))
+    }
+  }
+
+  public static addPlay(play: dailyPlays) {
+    const found = MapasOsu.dailyPlays.map((p) => p.uid).indexOf(play.uid)
+    if (found !== -1) {
+      if (MapasOsu.dailyPlays[found].score < play.score) {
+        MapasOsu.dailyPlays[found] = play
+      }
+      return
+    }
+    MapasOsu.dailyPlays.push(play)
   }
 }
