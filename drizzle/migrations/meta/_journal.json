@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1721936819998,
-      "tag": "0000_wise_goliath",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1722792318876,
-      "tag": "0001_smiling_micromax",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1722792666330,
-      "tag": "0002_perpetual_firebrand",
+      "when": 1723499225496,
+      "tag": "0000_remarkable_scarlet_spider",
       "breakpoints": true
     }
   ]

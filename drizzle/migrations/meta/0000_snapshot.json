@@ -1,5 +1,5 @@
 {
-  "id": "b4ed4ebb-668a-440d-84ab-b46975bea53f",
+  "id": "8c9a8fae-468e-44f5-adc0-2af7702aba0c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -13,10 +13,95 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true
+        },
+        "oldMapMods": {
+          "name": "oldMapMods",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "oldMapMinRank": {
+          "name": "oldMapMinRank",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.plays": {
+      "name": "plays",
+      "schema": "",
+      "columns": {
+        "playId": {
+          "name": "playId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "mapId": {
+          "name": "mapId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uid": {
+          "name": "uid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rank": {
+          "name": "rank",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "accuracy": {
+          "name": "accuracy",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "plays_mapId_mapas_oldMaps_fk": {
+          "name": "plays_mapId_mapas_oldMaps_fk",
+          "tableFrom": "plays",
+          "tableTo": "mapas",
+          "columnsFrom": [
+            "mapId"
+          ],
+          "columnsTo": [
+            "oldMaps"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "plays_uid_users_id_fk": {
+          "name": "plays_uid_users_id_fk",
+          "tableFrom": "plays",
+          "tableTo": "users",
+          "columnsFrom": [
+            "uid"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -36,18 +121,18 @@
           "primaryKey": false,
           "notNull": false
         },
-        "completados": {
-          "name": "completados",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
         "osuId": {
           "name": "osuId",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "puntos": {
+          "name": "puntos",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
         }
       },
       "indexes": {},
