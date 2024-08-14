@@ -109,8 +109,8 @@ export default class OsuDaly extends Command_Builder {
   private getPoints(rank: Score, requiredRank: DailyMap):number{
     let score = 10
 
-    if(!rank.mods.includes('NF') && requiredRank.mods.includes('NF')) score = +2
-    if(rank.mods.includes('FL')) score = +2
+    if(!rank.mods.includes('NF') && requiredRank.mods.includes('NF')) score += 2
+    if(rank.mods.includes('FL')) score += 2
 
     if(rank.rank === requiredRank.minRank) return score
 

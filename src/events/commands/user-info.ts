@@ -44,10 +44,18 @@ export default class InfoOsu extends Command_Builder {
       this.embed = (await this.embed)
         .setTitle(`osu! Profile of: ${userInfo?.data[0].name}`)
         .setColor('Random')
-        .setDescription(`User: ${userInfo?.data[0].name}\nPuntos: ${userInfo?.data[0].puntos}`)
+        .setDescription(
+          `User: ${userInfo?.data[0].name}\nPuntos: ${userInfo?.data[0].puntos}\nPasados: ${userInfo?.scores.length}`
+        )
         .addFields(
-          { name: 'Accuracy', value: this.getAvgAccuracy(userInfo?.scores as scores[]) },
-          { name: 'Ranks' , value: this.getRankString(userInfo?.scores as scores[]) }
+          {
+            name: 'Accuracy',
+            value: this.getAvgAccuracy(userInfo?.scores as scores[])
+          },
+          {
+            name: 'Ranks',
+            value: this.getRankString(userInfo?.scores as scores[])
+          }
         )
         .setThumbnail(`https://a.ppy.sh/${userInfo?.data[0].osuId}`)
 
@@ -56,7 +64,7 @@ export default class InfoOsu extends Command_Builder {
       console.log(error)
     }
   }
-  
+
   private getAvgAccuracy(scores: scores[]): string {
     const total = scores.reduce((acc: number, score: any) => {
       return acc + parseFloat(score.accuracy)
@@ -65,7 +73,7 @@ export default class InfoOsu extends Command_Builder {
     return `${avg.toFixed(2)}%`
   }
 
-  private getRankString(scores: scores[]): string{
+  private getRankString(scores: scores[]): string {
     const ranks = {
       SS: 0,
       S: 0,
@@ -107,11 +115,17 @@ export default class InfoOsu extends Command_Builder {
   private userScores: scores[] = []
   private async getOsuData(interaction: CommandInteraction<CacheType>) {
     try {
-      if(interaction.options.data.length !== 0){
-        this.userData = await db.select().from(users).where(eq(users.name, interaction.options.data[0].value as string))
+      if (interaction.options.data.length !== 0) {
+        this.userData = await db
+          .select()
+          .from(users)
+          .where(eq(users.name, interaction.options.data[0].value as string))
         interaction.options.data[0].value
       } else {
-        this.userData = await db.select().from(users).where(eq(users.id, interaction.user.id))
+        this.userData = await db
+          .select()
+          .from(users)
+          .where(eq(users.id, interaction.user.id))
       }
 
       this.userScores = await db
@@ -131,17 +145,17 @@ export default class InfoOsu extends Command_Builder {
 }
 
 type user = {
-  id: string;
-  name: string | null;
-  osuId: number;
-  puntos: number;
+  id: string
+  name: string | null
+  osuId: number
+  puntos: number
 }
 
-type scores= {
-  playId: number;
-  mapId: number;
-  uId: string;
-  rank: string;
-  score: number;
-  accuracy: string;
+type scores = {
+  playId: number
+  mapId: number
+  uId: string
+  rank: string
+  score: number
+  accuracy: string
 }

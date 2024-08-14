@@ -264,6 +264,9 @@ async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
     const data = (await json.json()) as Beatmap
     if (data.mode !== 'osu') return await mapa(token, selectedMods)
 
+    if ([1, 2, 3, 4].indexOf(parseInt(data.status)) === -1)
+      return await mapa(token, selectedMods)
+
     if (!selectedMods) {
       return data
     }
@@ -454,7 +457,8 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
           MapasOsu.dailyMap = mapaRandom
           return
         }
-
+      } else {
+        const restartBot = await db.select().from(mapas)
         MapasOsu.dailyMap = {
           id: restartBot[restartBot.length - 1].oldMapId,
           mods: JSON.parse(
@@ -464,17 +468,44 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         }
       }
 
-      setInterval(async () => {
+      MapasOsu.triggerAt5AM(async () => {
         await MapasOsu.getDailyMap()
         await MapasOsu.savePlays()
         MapasOsu.dailyPlays = []
-      }, 86400000)
+      })
     } catch (error) {
       console.log(error)
     }
   }
 
-  public static async getDailyMap() {
+  public static triggerAt5AM(callback: () => Promise<void>) {
+    function scheduleNext() {
+      const now = new Date()
+      const nextTrigger = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        5, // Hour (5 AM)
+        0, // Minute
+        0 // Second
+      )
+
+      if (now > nextTrigger) {
+        nextTrigger.setDate(nextTrigger.getDate() + 1)
+      }
+
+      const timeUntilTrigger = nextTrigger.getTime() - now.getTime()
+
+      setTimeout(async () => {
+        await callback()
+        scheduleNext()
+      }, timeUntilTrigger)
+    }
+
+    scheduleNext()
+  }
+
+  private static async getDailyMap() {
     const mapaRandom = await generateDailyRandomMap()
     await db.insert(mapas).values({
       oldMapId: mapaRandom.id,
@@ -489,7 +520,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
 
     for (let i = 0; i < order.length; i++) {
       order[i].points += order.length - i - 1
-      
+
       await db.insert(plays).values({
         accuracy: order[i].accuracy.toString(),
         mapId: order[i].mapId,
