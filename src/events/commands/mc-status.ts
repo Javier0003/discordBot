@@ -10,7 +10,7 @@ import {
 import Command_Builder from '../../structures/command-builder'
 import { Socket } from 'node:net'
 
-//@ts-ignore
+//@ts-expect-error (no type declarations sadly)
 import { MinecraftServerListPing } from 'minecraft-status'
 import env from '../../env'
 
@@ -51,7 +51,7 @@ export default class McStatus extends Command_Builder {
         process.env.MC_IP,
         process.env.MC_PORT, //server port
         2000 //timeout (discord limit is 3000, recomended to be lower than that)
-      ).catch((err: Error) => false)
+      ).catch(false)
 
       if (serverStatus) {
         if (serverStatus.players.online > 0) {
@@ -106,7 +106,7 @@ export default class McStatus extends Command_Builder {
 
         await reply.edit({
           embeds: [embed],
-          //@ts-ignore
+          //@ts-expect-error don't really know what this error is for 😭
           components: [row]
         })
 

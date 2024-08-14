@@ -8,10 +8,16 @@ import {
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import MapasOsu, { DailyMap, OsuRanks, Score } from '../events/daily-map'
+import MapasOsu from '../events/daily-map'
 import { db } from '../../utils/db'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
+import osuConfig, {
+  DailyMap,
+  OsuRanks,
+  Score
+} from '../../utils/osu-daily.config'
+import getOsuToken from '../../utils/osu-token'
 
 export default class OsuDaly extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
@@ -31,6 +37,8 @@ export default class OsuDaly extends Command_Builder {
   ): Promise<void> {
     this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
     try {
+      const token = await getOsuToken()
+
       const user = await db
         .select()
         .from(users)
@@ -39,11 +47,11 @@ export default class OsuDaly extends Command_Builder {
       if (user.length === 0) throw new Error('No estas registrado')
 
       const dailyMap = MapasOsu.dailyMap
-      const daily = await getOsuMap(dailyMap.id)
-      const userPlays = await getOsuRecent(user[0].osuId)
+      const daily = await getOsuMap(dailyMap.id, token)
+      const userPlays = await getOsuRecent(user[0].osuId, token)
 
       const userPlay = userPlays.find(
-        (play: any) => play.beatmap.id === dailyMap.id
+        (play: { beatmap: { id: number } }) => play.beatmap.id === dailyMap.id
       )
 
       const mods = dailyMap.mods.join(' ') || 'nomod'
@@ -94,8 +102,8 @@ export default class OsuDaly extends Command_Builder {
         }
         this.reply = (await this.reply).edit({ embeds: [this.embed] })
       }
-    } catch (error: any) {
-      if (error.message === 'No estas registrado') {
+    } catch (error: Error | unknown) {
+      if (error instanceof Error && error.message === 'No estas registrado') {
         this.reply = (await this.reply).edit({
           content: 'No estas registrado',
           embeds: []
@@ -106,26 +114,25 @@ export default class OsuDaly extends Command_Builder {
     }
   }
 
-  private getPoints(rank: Score, requiredRank: DailyMap):number{
-    let score = 10
+  private getPoints(rank: Score, requiredRank: DailyMap): number {
+    let score = osuConfig.points.completePoints
 
-    if(!rank.mods.includes('NF') && requiredRank.mods.includes('NF')) score += 2
-    if(rank.mods.includes('FL')) score += 2
+    if (!rank.mods.includes('NF') && requiredRank.mods.includes('NF'))
+      score += osuConfig.points.noNFwhenNF
+    if (rank.mods.includes('FL')) score += osuConfig.points.FLPlay
 
-    if(rank.rank === requiredRank.minRank) return score
+    if (rank.rank === requiredRank.minRank) return score
 
-    const ranks = ['D', 'C', 'B', 'A', 'S', 'SS']
-    const rankIndex = ranks.indexOf(rank.rank)
-    const requiredIndex = ranks.indexOf(requiredRank.minRank)
-    score += (rankIndex - requiredIndex)*2
+    const rankIndex = osuConfig.ranks.indexOf(rank.rank)
+    const requiredIndex = osuConfig.ranks.indexOf(requiredRank.minRank)
+    score += (rankIndex - requiredIndex) * osuConfig.points.multiplierForBetterRankThanAsked
 
     return score
   }
 
   public validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
-    const ranks: OsuRanks[] = ['D', 'C', 'B', 'A', 'S', 'SS']
-    const requiredIndex = ranks.indexOf(requiredRank)
-    const rankIndex = ranks.indexOf(rank)
+    const requiredIndex = osuConfig.ranks.indexOf(requiredRank)
+    const rankIndex = osuConfig.ranks.indexOf(rank)
 
     return requiredIndex <= rankIndex
   }

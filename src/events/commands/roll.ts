@@ -14,7 +14,7 @@ export default class Roll extends Command_Builder {
     })
   }
   public async command(interaction: CommandInteraction<CacheType>) {
-    let random = Math.floor(Math.random() * 100)
+    const random = Math.floor(Math.random() * 100)
     if (random === 69) {
       interaction.reply(`😎😎 ${random}`)
     } else {

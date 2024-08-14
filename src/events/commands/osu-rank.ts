@@ -6,7 +6,7 @@ import {
   Message
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
-import { plays, users } from '../../../drizzle/schemas/schema'
+import { users } from '../../../drizzle/schemas/schema'
 import { desc } from 'drizzle-orm'
 import { db } from '../../utils/db'
 

@@ -1,7 +1,6 @@
-import getOsuToken, { Beatmap } from './osu-token'
+import { Beatmap } from './osu-daily.config'
 
-export default async function getOsuMap(id: number): Promise<Beatmap> {
-  const token = await getOsuToken()
+export default async function getOsuMap(id: number, token: string): Promise<Beatmap> {
   const res = await fetch(
     `https://osu.ppy.sh/api/v2/beatmaps/${id}`,
     {

@@ -1,8 +1,6 @@
-import { Score } from '../events/events/daily-map'
-import getOsuToken from './osu-token'
+import { Score } from './osu-daily.config'
 
-export default async function getOsuRecent(user: number) {
-  const token = await getOsuToken()
+export default async function getOsuRecent(user: number, token: string): Promise<Score[]> {
   const json = await fetch(
     `https://osu.ppy.sh/api/v2/users/${user}/scores/recent?include_fails=1&mode=osu&limit=5`,
     {

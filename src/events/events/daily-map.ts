@@ -2,195 +2,39 @@ import Event_Builder, { EventCommand } from '../../structures/event-builder'
 import { mapas, plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import { eq, sql } from 'drizzle-orm'
-import getOsuToken, { Beatmap } from '../../utils/osu-token'
-
-type statistics = {
-  count_100: number | null
-  count_300: number | null
-  count_50: number | null
-  count_geki: number | null
-  count_katu: number | null
-  count_miss: number | null
-}
-
-export type Score = {
-  accuracy: number
-  best_id: number | null
-  created_at: string
-  id: number
-  max_combo: number
-  mode: string
-  mode_int: number
-  mods: mods[] // Specify the type if known, e.g., string[]
-  passed: boolean
-  perfect: boolean
-  pp: number | null
-  rank: string
-  replay: boolean
-  score: number
-  statistics: {
-    count_100: number
-    count_300: number
-    count_50: number
-    count_geki: number | null
-    count_katu: number | null
-    count_miss: number
-  }
-  type: string
-  user_id: number
-  current_user_attributes: {
-    pin: number | null
-  }
-  beatmap: {
-    beatmapset_id: number
-    difficulty_rating: number
-    id: number
-    mode: string
-    status: string
-    total_length: number
-    user_id: number
-    version: string
-    accuracy: number
-    ar: number
-    bpm: number
-    convert: boolean
-    count_circles: number
-    count_sliders: number
-    count_spinners: number
-    cs: number
-    deleted_at: string | null
-    drain: number
-    hit_length: number
-    is_scoreable: boolean
-    last_updated: string
-    mode_int: number
-    passcount: number
-    playcount: number
-    ranked: number
-    url: string
-    checksum: string
-  }
-  beatmapset: {
-    artist: string
-    artist_unicode: string
-    covers: {
-      cover: string
-      'cover@2x': string
-      card: string
-      'card@2x': string
-      list: string
-      'list@2x': string
-      slimcover: string
-      'slimcover@2x': string
-    }
-    creator: string
-    favourite_count: number
-    hype: null | number
-    id: number
-    nsfw: boolean
-    offset: number
-    play_count: number
-    preview_url: string
-    source: string
-    spotlight: boolean
-    status: string
-    title: string
-    title_unicode: string
-    track_id: number | null
-    user_id: number
-    video: boolean
-  }
-  user: {
-    avatar_url: string
-    country_code: string
-    default_group: string
-    id: number
-    is_active: boolean
-    is_bot: boolean
-    is_deleted: boolean
-    is_online: boolean
-    is_supporter: boolean
-    last_visit: string
-    pm_friends_only: boolean
-    profile_colour: string | null
-    username: string
-  }
-}
-
-export type UserPlay = {
-  accuracy: number
-  max_combo: number
-  mods: mods[]
-  passed: boolean
-  perfect: boolean
-  rank: OsuRanks
-  statistics: statistics
-  score: number
-}
-
-export type mods =
-  | 'HD'
-  | 'DT'
-  | 'HR'
-  | 'NF'
-  | 'EZ'
-  | 'HT'
-  | 'SD'
-  | 'NC'
-  | 'PF'
-  | 'FL'
-  | 'RX'
-  | 'AP'
-  | 'SO'
-  | 'nomod'
-
-export type OsuRanks = 'D' | 'C' | 'B' | 'A' | 'S' | 'SS'
-
-export type DailyMap = {
-  id: number
-  mods: mods[]
-  minRank: OsuRanks
-}
-
-type dailyPlays = {
-  uid: string
-  mapId: number
-  score: number
-  rank: OsuRanks
-  accuracy: number
-  points: number
-}
+import getOsuToken from '../../utils/osu-token'
+import osuConfig, { Beatmap, DailyMap, dailyPlays, mods, OsuRanks } from '../../utils/osu-daily.config'
 
 function generateDifficulty() {
   const mods: mods[] = []
 
   const speedRoll = Math.random() * 100
-  if (speedRoll < 75) {
+  if (speedRoll < osuConfig.modChances.speed.nomod) {
     // No speed mod (NoMod)
-  } else if (speedRoll < 98) {
+  } else if (speedRoll < osuConfig.modChances.speed.DTNC) {
     mods.push(Math.random() < 0.5 ? 'DT' : 'NC')
   } else {
     mods.push('HT')
   }
 
   const diffRoll = Math.random() * 100
-  if (diffRoll < 75) {
+  if (diffRoll < osuConfig.modChances.diff.nomod) {
     // No difficulty mod (NoMod)
-  } else if (diffRoll < 98) {
+  } else if (diffRoll < osuConfig.modChances.diff.hr) {
     mods.push('HR')
   } else {
     mods.push('EZ')
   }
 
-  if (Math.random() < 0.2) {
+  if (Math.random() < osuConfig.modChances.HD) {
     mods.push('HD')
   }
 
-  if (Math.random() < 0.05) {
+  if (Math.random() < osuConfig.modChances.FL) {
     mods.push('FL')
   }
 
-  if (Math.random() < 0.01) {
+  if (Math.random() < osuConfig.modChances.NF) {
     mods.push('NF')
   }
 
@@ -202,21 +46,18 @@ function generateDifficulty() {
 }
 
 function getRandomDifficulty(): OsuRanks {
-  const difficulties = ['D', 'C', 'B', 'A', 'S', 'SS'] as OsuRanks[]
-  const weights = [2, 8, 32, 16, 2, 1]
-
-  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0)
+  const totalWeight = osuConfig.difficultyWeights.reduce((sum, weight) => sum + weight, 0)
   const randomNum = Math.random() * totalWeight
 
   let weightSum = 0
-  for (let i = 0; i < difficulties.length; i++) {
-    weightSum += weights[i]
+  for (let i = 0; i < osuConfig.ranks.length; i++) {
+    weightSum += osuConfig.difficultyWeights[i]
     if (randomNum <= weightSum) {
-      return difficulties[i]
+      return osuConfig.ranks[i]
     }
   }
 
-  return difficulties[0]
+  return osuConfig.ranks[0]
 }
 
 export async function generateDailyRandomMap(): Promise<DailyMap> {
@@ -248,7 +89,9 @@ export async function generateDailyRandomMap(): Promise<DailyMap> {
 
 async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
   try {
-    const mapaRandomXd = Math.floor(Math.random() * 4705543)
+    const mapaRandomXd = Math.floor(
+      Math.random() * osuConfig.mapGeneratorNumber
+    )
     const json = await fetch(
       `https://osu.ppy.sh/api/v2/beatmaps/${mapaRandomXd}`,
       {
@@ -299,10 +142,7 @@ export async function getMapaRandom(selectedMods?: mods[]): Promise<Beatmap> {
 }
 
 function validateCombos(input: mods[]): boolean {
-  const invalidCombos: mods[][] = [
-    ['DT', 'EZ'],
-    ['HT', 'EZ']
-  ]
+  const invalidCombos: mods[][] = osuConfig.badModCombos
 
   for (const combo of invalidCombos) {
     if (combo.every((item) => input.includes(item as mods))) {
@@ -318,7 +158,8 @@ async function checkDifficultyRating(
   selectedMods: mods[] | 'nomod'[],
   map: Beatmap
 ): Promise<boolean> {
-  if (map.difficulty_rating >= 8) return false
+  if (map.difficulty_rating >= osuConfig.dailyMaps.maximumDifficulty)
+    return false
   if (selectedMods[0] === 'nomod') return true
   const json = await fetch(
     `https://osu.ppy.sh/api/v2/beatmaps/${map.id}/attributes`,
@@ -400,29 +241,55 @@ function validateDifficultyLimits(
 
   if (selectedMods.includes('NF')) return true
 
-  if (map.attributes.star_rating >= 7 && selectedMods.includes('HR'))
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.HRMax &&
+    selectedMods.includes('HR')
+  )
     return false
 
-  if (map.attributes.star_rating >= 7 && selectedMods.includes('DT'))
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.DTMax &&
+    selectedMods.includes('DT')
+  )
     return false
 
-  if (map.attributes.star_rating >= 7 && selectedMods.includes('NC'))
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.NCMax &&
+    selectedMods.includes('NC')
+  )
     return false
 
   if (selectedMods.includes('EZ')) {
-    if (map.attributes.star_rating > 6) return false
-    if (selectedMods.includes('DT') && map.attributes.star_rating >= 3.7)
+    if (map.attributes.star_rating > osuConfig.dailyMaps.modConfig.EZMax)
       return false
-    if (selectedMods.includes('NC') && map.attributes.star_rating >= 3.7)
+    if (
+      selectedMods.includes('DT') &&
+      map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.anyDTMax
+    )
+      return false
+    if (
+      selectedMods.includes('NC') &&
+      map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.anyDTMax
+    )
       return false
     return true
   }
 
-  if (map.attributes.star_rating < 4 && !selectedMods.includes('FL'))
-    return false
-
-  if (selectedMods.includes('FL') && map.attributes.star_rating >= 5)
-    return false
+  if (selectedMods.includes('FL')) {
+    if (map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.FLMax)
+      return false
+    if (
+      selectedMods.includes('DT') &&
+      map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.anyDTMax
+    )
+      return false
+    if (
+      selectedMods.includes('NC') &&
+      map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.anyDTMax
+    )
+      return false
+    return true
+  }
 
   return true
 }
@@ -485,7 +352,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         now.getFullYear(),
         now.getMonth(),
         now.getDate(),
-        5, // Hour (5 AM)
+        osuConfig.dailyChangeHour, // Hour
         0, // Minute
         0 // Second
       )

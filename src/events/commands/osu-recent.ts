@@ -12,9 +12,10 @@ import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import { mods, Score } from '../events/daily-map'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
+import osuConfig, { mods, Score } from '../../utils/osu-daily.config'
+import getOsuToken from '../../utils/osu-token'
 
 export default class osuRecent extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
@@ -33,6 +34,7 @@ export default class osuRecent extends Command_Builder {
     interaction: CommandInteraction<CacheType>
   ): Promise<void> {
     try {
+      const token = await getOsuToken()
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
       const user = await db
         .select()
@@ -41,7 +43,7 @@ export default class osuRecent extends Command_Builder {
 
       if (user.length === 0) throw new Error('No estas registrado')
 
-      const userPlays = await getOsuRecent(user[0].osuId)
+      const userPlays = await getOsuRecent(user[0].osuId, token)
 
       if (userPlays.length === 0) {
         this.reply = interaction.reply({
@@ -68,11 +70,11 @@ export default class osuRecent extends Command_Builder {
 
       const row = new ActionRowBuilder().addComponents(buttons)
 
-      /*
+      /** 
        * maybe % si no completas el mapa
        */
 
-      await this.editEmbed(userPlays[0])
+      await this.editEmbed(userPlays[0], token)
 
       this.reply = (await this.reply).edit({
         content: `**Recent osu! Play for ${userPlays[0].user.username}**`,
@@ -86,7 +88,7 @@ export default class osuRecent extends Command_Builder {
           await this.reply
         )
           .awaitMessageComponent({
-            time: 30_000
+            time: osuConfig.recentWaitForInteractionTime
           })
           .catch(async () => {
             await this.removeButtons()
@@ -101,11 +103,11 @@ export default class osuRecent extends Command_Builder {
 
         await userInteraction.deferUpdate()
 
-        await this.editEmbed(userPlays[index])
+        await this.editEmbed(userPlays[index], token)
       }
       
-    } catch (error: any) {
-      if(error.message === 'No estas registrado') {
+    } catch (error: Error | unknown) {
+      if(error instanceof Error && error.message === 'No estas registrado') {
         this.reply = interaction.reply({
           content: error.message,
           ephemeral: true
@@ -147,8 +149,8 @@ export default class osuRecent extends Command_Builder {
     return modString
   }
 
-  private async editEmbed(score: Score): Promise<void> {
-    const mapInfo = await getOsuMap(score.beatmap.id)
+  private async editEmbed(score: Score, token: string): Promise<void> {
+    const mapInfo = await getOsuMap(score.beatmap.id, token)
 
     this.embed = (await this.embed)
       .setTitle(

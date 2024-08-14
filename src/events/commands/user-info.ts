@@ -66,8 +66,8 @@ export default class InfoOsu extends Command_Builder {
   }
 
   private getAvgAccuracy(scores: scores[]): string {
-    const total = scores.reduce((acc: number, score: any) => {
-      return acc + parseFloat(score.accuracy)
+    const total = scores.reduce((acc: number, score: scores) => {
+      return acc + parseFloat(score.accuracy.toString())
     }, 0)
     const avg = total / scores.length
     return `${avg.toFixed(2)}%`
@@ -83,7 +83,7 @@ export default class InfoOsu extends Command_Builder {
       D: 0
     }
 
-    scores.forEach((score: any) => {
+    scores.forEach((score: scores) => {
       switch (score.rank) {
         case 'SS':
           ranks.SS++
@@ -120,7 +120,6 @@ export default class InfoOsu extends Command_Builder {
           .select()
           .from(users)
           .where(eq(users.name, interaction.options.data[0].value as string))
-        interaction.options.data[0].value
       } else {
         this.userData = await db
           .select()

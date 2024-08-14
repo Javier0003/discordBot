@@ -56,7 +56,7 @@ export default class OsuRegister extends Command_Builder {
             'Authorization': `Bearer ${token}`
           }
         })
-        const osuName: any = await res.json()
+        const osuName = await res.json() as {username: string, id: string}
 
         await db.insert(users).values({
           id: interaction.user.id,
@@ -69,8 +69,8 @@ export default class OsuRegister extends Command_Builder {
         content: `Usuario registrado\n${interaction.user.globalName}`,
         ephemeral: true
       })
-    } catch (error: any) {
-      if(error.message === 'No data inserted') {
+    } catch (error: Error | unknown) {
+      if(error instanceof Error && error.message === 'No data inserted') {
         interaction.reply({ content: 'No has insertado ningun dato', ephemeral: true })
       }
       interaction.reply({ content: 'ya estas registrado', ephemeral: true })
