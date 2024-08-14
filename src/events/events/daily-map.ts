@@ -322,7 +322,6 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
             oldMapMinRank: mapaRandom.minRank
           })
           MapasOsu.dailyMap = mapaRandom
-          return
         }else{
           const restartBot = await db.select().from(mapas)
   
