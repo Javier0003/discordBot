@@ -116,14 +116,27 @@ export default class OsuDaly extends Command_Builder {
 
   private getPoints(rank: Score, requiredRank: DailyMap): number {
     let score = osuConfig.points.completePoints
+    let rankFixer = '' as OsuRanks
+
+    switch (rank.rank) {
+      case 'SH':
+        rankFixer = 'S'
+        break
+      case 'SSH':
+        rankFixer = 'SS'
+        break
+      default:
+        rankFixer = rank.rank
+        break
+    }
 
     if (!rank.mods.includes('NF') && requiredRank.mods.includes('NF'))
       score += osuConfig.points.noNFwhenNF
     if (rank.mods.includes('FL')) score += osuConfig.points.FLPlay
 
-    if (rank.rank === requiredRank.minRank) return score
+    if (rankFixer === requiredRank.minRank) return score
 
-    const rankIndex = osuConfig.ranks.indexOf(rank.rank)
+    const rankIndex = osuConfig.ranks.indexOf(rankFixer)
     const requiredIndex = osuConfig.ranks.indexOf(requiredRank.minRank)
     score += (rankIndex - requiredIndex) * osuConfig.points.multiplierForBetterRankThanAsked
 
