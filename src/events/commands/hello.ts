@@ -17,7 +17,12 @@ export default class Hello extends Command_Builder {
     })
   }
   public async command(interaction: CommandInteraction<CacheType>) {
-    interaction.reply('hello')
+    try {
+      interaction.reply('hello')
+      
+    } catch (error) {
+      console.log(error)
+    }
     // const xd = ['D', 'C', 'B', 'A', 'S', 'SS']
 
 

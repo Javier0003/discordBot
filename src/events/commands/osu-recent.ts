@@ -46,9 +46,9 @@ export default class osuRecent extends Command_Builder {
       const userPlays = await getOsuRecent(user[0].osuId, token)
 
       if (userPlays.length === 0) {
-        this.reply = interaction.reply({
+        this.reply = (await this.reply).edit({
           content: 'No tienes plays recientes',
-          ephemeral: true
+          embeds: []
         })
         return
       }
@@ -108,13 +108,14 @@ export default class osuRecent extends Command_Builder {
       
     } catch (error: Error | unknown) {
       if(error instanceof Error && error.message === 'No estas registrado') {
-        this.reply = interaction.reply({
+        this.reply = (await this.reply)?.edit({
           content: error.message,
-          ephemeral: true
         })
         return
       }
-      console.log(error)
+      this.reply = (await this.reply)?.edit({
+        content: 'No tienes plays recientes',
+      })
     }
   }
 

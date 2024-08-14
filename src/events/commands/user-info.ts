@@ -137,8 +137,9 @@ export default class InfoOsu extends Command_Builder {
         data: this.userData,
         scores: this.userScores
       }
-    } catch (error) {
-      console.log(error)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
+      this.reply = (await this.reply)?.edit({ content: 'No se encontró el usuario', embeds: [] })
     }
   }
 }

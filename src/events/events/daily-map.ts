@@ -323,17 +323,18 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
           })
           MapasOsu.dailyMap = mapaRandom
           return
+        }else{
+          const restartBot = await db.select().from(mapas)
+  
+          MapasOsu.dailyMap = {
+            id: restartBot[restartBot.length - 1].oldMapId,
+            mods: JSON.parse(
+              restartBot[restartBot.length - 1].oldMapMods
+            ) as mods[],
+            minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
+          }
         }
-      } else {
-        const restartBot = await db.select().from(mapas)
-        MapasOsu.dailyMap = {
-          id: restartBot[restartBot.length - 1].oldMapId,
-          mods: JSON.parse(
-            restartBot[restartBot.length - 1].oldMapMods
-          ) as mods[],
-          minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
-        }
-      }
+      } 
 
       MapasOsu.triggerAt5AM(async () => {
         await MapasOsu.getDailyMap()

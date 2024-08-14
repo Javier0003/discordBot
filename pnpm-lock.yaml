@@ -25,16 +25,16 @@ importers:
         version: 3.4.4
     devDependencies:
       '@eslint/js':
-        specifier: ^9.9.0
+        specifier: 9.9.0
         version: 9.9.0
       drizzle-kit:
         specifier: 0.23.0
         version: 0.23.0
       eslint:
-        specifier: ^9.9.0
+        specifier: 9.9.0
         version: 9.9.0
       globals:
-        specifier: ^15.9.0
+        specifier: 15.9.0
         version: 15.9.0
       tsx:
         specifier: 4.16.2
@@ -43,7 +43,7 @@ importers:
         specifier: 5.5.3
         version: 5.5.3
       typescript-eslint:
-        specifier: ^8.1.0
+        specifier: 8.1.0
         version: 8.1.0(eslint@9.9.0)(typescript@5.5.3)
 
 packages:

@@ -1,7 +1,9 @@
 import {
   ApplicationCommandOptionType,
   CacheType,
-  CommandInteraction
+  CommandInteraction,
+  InteractionResponse,
+  Message
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
@@ -9,6 +11,8 @@ import { db } from '../../utils/db'
 import getOsuToken from '../../utils/osu-token'
 
 export default class OsuRegister extends Command_Builder {
+  reply: Promise<InteractionResponse<boolean> | Message> | undefined
+
   constructor() {
     super({
       name: 'osu-register',
@@ -35,6 +39,10 @@ export default class OsuRegister extends Command_Builder {
     interaction: CommandInteraction<CacheType>
   ): Promise<void> {
     try {
+      this.reply = interaction.reply({ content: 'Espera un segundo', ephemeral: true })
+
+      if(interaction.options.data.length === 0) throw new Error('No data inserted')
+
       const insertedData = interaction.options.data[0]
 
       if(!insertedData) throw new Error('No data inserted')
@@ -65,16 +73,19 @@ export default class OsuRegister extends Command_Builder {
         })
       }
 
-      interaction.reply({
+      this.reply = (await this.reply).edit({
         content: `Usuario registrado\n${interaction.user.globalName}`,
-        ephemeral: true
       })
     } catch (error: Error | unknown) {
       if(error instanceof Error && error.message === 'No data inserted') {
-        interaction.reply({ content: 'No has insertado ningun dato', ephemeral: true })
+        if (this.reply) {
+          this.reply = (await this.reply).edit({ content: 'No has insertado ningun dato'});
+        }
       }
-      interaction.reply({ content: 'ya estas registrado', ephemeral: true })
-      console.log(error)
+
+      if (this.reply) {
+        this.reply = (await this.reply).edit({ content: 'ya estas registrado'});
+      }
     }
   }
 }
