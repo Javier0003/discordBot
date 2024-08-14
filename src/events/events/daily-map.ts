@@ -3,7 +3,13 @@ import { mapas, plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import { eq, sql } from 'drizzle-orm'
 import getOsuToken from '../../utils/osu-token'
-import osuConfig, { Beatmap, DailyMap, dailyPlays, mods, OsuRanks } from '../../utils/osu-daily.config'
+import osuConfig, {
+  Beatmap,
+  DailyMap,
+  dailyPlays,
+  mods,
+  OsuRanks
+} from '../../utils/osu-daily.config'
 
 function generateDifficulty() {
   const mods: mods[] = []
@@ -46,7 +52,10 @@ function generateDifficulty() {
 }
 
 function getRandomDifficulty(): OsuRanks {
-  const totalWeight = osuConfig.difficultyWeights.reduce((sum, weight) => sum + weight, 0)
+  const totalWeight = osuConfig.difficultyWeights.reduce(
+    (sum, weight) => sum + weight,
+    0
+  )
   const randomNum = Math.random() * totalWeight
 
   let weightSum = 0
@@ -103,11 +112,9 @@ async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
         }
       }
     )
-
     const data = (await json.json()) as Beatmap
     if (data.mode !== 'osu') return await mapa(token, selectedMods)
-
-    if ([1, 2, 3, 4].indexOf(parseInt(data.status)) === -1)
+    if ([1, 2, 3, 4].indexOf(data.ranked) === -1)
       return await mapa(token, selectedMods)
 
     if (!selectedMods) {
@@ -130,7 +137,6 @@ export async function getMapaRandom(selectedMods?: mods[]): Promise<Beatmap> {
     if (!selectedMods) {
       return await mapa(token)
     }
-
     return await mapa(token, selectedMods)
   } catch (error) {
     console.log(error)
@@ -313,18 +319,16 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
     try {
       if (!MapasOsu.dailyMap) {
         const restartBot = await db.select().from(mapas)
-
         if (restartBot.length === 0) {
           const mapaRandom = await generateDailyRandomMap()
+
           await db.insert(mapas).values({
             oldMapId: mapaRandom.id,
             oldMapMods: JSON.stringify(mapaRandom.mods),
             oldMapMinRank: mapaRandom.minRank
           })
           MapasOsu.dailyMap = mapaRandom
-        }else{
-          const restartBot = await db.select().from(mapas)
-  
+        } else {
           MapasOsu.dailyMap = {
             id: restartBot[restartBot.length - 1].oldMapId,
             mods: JSON.parse(
@@ -333,7 +337,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
             minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
           }
         }
-      } 
+      }
 
       MapasOsu.triggerAt5AM(async () => {
         await MapasOsu.getDailyMap()
