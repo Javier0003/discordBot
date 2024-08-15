@@ -87,9 +87,10 @@ export default class OsuDaly extends Command_Builder {
           (this.validateRank(dailyMap.minRank, userPlay.rank as OsuRanks) &&
             dailyMap.mods.length === 0)
         ) {
+          const scoredPoints = this.getPoints(userPlay, dailyMap)
           this.embed = (await this.embed).addFields({
             name: 'GG',
-            value: 'Has hecho el daily'
+            value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`
           })
           MapasOsu.addPlay({
             mapId: dailyMap.id,
@@ -97,7 +98,7 @@ export default class OsuDaly extends Command_Builder {
             rank: userPlay.rank as OsuRanks,
             score: userPlay.score,
             accuracy: userPlay.accuracy,
-            points: this.getPoints(userPlay, dailyMap)
+            points: scoredPoints
           })
         }
         this.reply = (await this.reply).edit({ embeds: [this.embed] })
@@ -138,7 +139,9 @@ export default class OsuDaly extends Command_Builder {
 
     const rankIndex = osuConfig.ranks.indexOf(rankFixer)
     const requiredIndex = osuConfig.ranks.indexOf(requiredRank.minRank)
-    score += (rankIndex - requiredIndex) * osuConfig.points.multiplierForBetterRankThanAsked
+    score +=
+      (rankIndex - requiredIndex) *
+      osuConfig.points.multiplierForBetterRankThanAsked
 
     return score
   }

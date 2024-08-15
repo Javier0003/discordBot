@@ -390,7 +390,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
     const order = MapasOsu.dailyPlays.sort((a, b) => a.score - b.score)
 
     for (let i = 0; i < order.length; i++) {
-      order[i].points += order.length - i - 1
+      order[i].points += i
 
       await db.insert(plays).values({
         accuracy: order[i].accuracy.toString(),
