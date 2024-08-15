@@ -245,26 +245,6 @@ function validateDifficultyLimits(
     console.log('----------------------------------------------------')
   }
 
-  if (selectedMods.includes('NF')) return true
-
-  if (
-    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.HRMax &&
-    selectedMods.includes('HR')
-  )
-    return false
-
-  if (
-    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.DTMax &&
-    selectedMods.includes('DT')
-  )
-    return false
-
-  if (
-    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.NCMax &&
-    selectedMods.includes('NC')
-  )
-    return false
-
   if (selectedMods.includes('EZ')) {
     if (map.attributes.star_rating > osuConfig.dailyMaps.modConfig.EZMax)
       return false
@@ -296,6 +276,32 @@ function validateDifficultyLimits(
       return false
     return true
   }
+
+  if (
+    map.attributes.star_rating < osuConfig.dailyMaps.minimumDifficulty
+  ) {
+    return false
+  }
+
+  if (selectedMods.includes('NF')) return true
+
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.HRMax &&
+    selectedMods.includes('HR')
+  )
+    return false
+
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.DTMax &&
+    selectedMods.includes('DT')
+  )
+    return false
+
+  if (
+    map.attributes.star_rating >= osuConfig.dailyMaps.modConfig.NCMax &&
+    selectedMods.includes('NC')
+  )
+    return false
 
   return true
 }

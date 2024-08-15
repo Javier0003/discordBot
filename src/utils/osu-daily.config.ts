@@ -1,7 +1,7 @@
 const osuConfig = {
   dailyMaps: {
     maximumDifficulty: 8,
-    minimumDifficulty: 4,
+    minimumDifficulty: 5,
     modConfig: {
       DTMax: 7,
       NCMax: 7,
