@@ -1,7 +1,7 @@
 import Event_Builder, { EventCommand } from '../../structures/event-builder'
-import { mapas, plays, users } from '../../../drizzle/schemas/schema'
+import { mapas, plays } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
-import { eq, sql } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import getOsuToken from '../../utils/osu-token'
 import osuConfig, {
   Beatmap,
@@ -403,14 +403,9 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         mapId: order[i].mapId,
         rank: order[i].rank,
         score: order[i].score,
-        uId: order[i].uid
+        uId: order[i].uid,
+        puntos: order[i].points
       })
-      await db
-        .update(users)
-        .set({
-          puntos: sql`${users.puntos} + ${order[i].points}`
-        })
-        .where(eq(users.id, order[i].uid.toString()))
     }
   }
 

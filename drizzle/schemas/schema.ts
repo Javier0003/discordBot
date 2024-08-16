@@ -5,7 +5,6 @@ export const users = pgTable('users', {
   id: varchar('id', { length: 256 }).primaryKey(),
   name: varchar('name', { length: 256 }),
   osuId: integer('osuId').notNull(),
-  puntos: integer('puntos').notNull().default(0),
 });
 
 export const plays = pgTable('plays', {
@@ -15,6 +14,7 @@ export const plays = pgTable('plays', {
   rank: varchar('rank').notNull(),
   score: integer('score').notNull(),
   accuracy: varchar('accuracy').notNull(),
+  puntos: integer('puntos').notNull().default(0),
 })
 
 export const mapas = pgTable('mapas', {

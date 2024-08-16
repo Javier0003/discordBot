@@ -6,8 +6,7 @@ import {
   Message
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
-import { desc } from 'drizzle-orm'
+import { plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 
 export default class OsuRank extends Command_Builder {
@@ -30,12 +29,24 @@ export default class OsuRank extends Command_Builder {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
 
       const usuarios = await db
-        .select({ name: users.name, id: users.id, puntos: users.puntos })
-        .from(users).orderBy(desc(users.puntos))
+        .select({ name: users.name, id: users.id })
+        .from(users)
 
-      const description = usuarios
+      const usersAndScores = await db.select({ puntos: plays.puntos, uId: plays.uId }).from(plays)
+      
+      const playersWithPoints = usuarios.map((val) => {
+        let score = 0
+        usersAndScores.forEach((user) => {
+          if (user.uId === val.id) {
+            score += user.puntos
+          }
+        })
+        return { name: val.name, score }
+      }).sort((a, b) => b.score - a.score)
+
+      const description = playersWithPoints
         .map((val, index) => {
-          return `${index + 1}. ${val.name} - ${val.puntos || 0} puntos`
+          return `${index + 1}. ${val.name} - ${val.score || 0} puntos`
         })
         .join('\n')
 

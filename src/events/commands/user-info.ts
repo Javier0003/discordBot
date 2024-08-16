@@ -45,7 +45,10 @@ export default class InfoOsu extends Command_Builder {
         .setTitle(`osu! Profile of: ${userInfo?.data[0].name}`)
         .setColor('Random')
         .setDescription(
-          `User: ${userInfo?.data[0].name}\nPuntos: ${userInfo?.data[0].puntos}\nPasados: ${userInfo?.scores.length}`
+          `User: ${userInfo?.data[0].name}\nPuntos: ${userInfo?.scores.reduce(
+            (sum, add) => sum + add.puntos,
+            0
+          )}\nPasados: ${userInfo?.scores.length}`
         )
         .addFields(
           {
@@ -137,9 +140,12 @@ export default class InfoOsu extends Command_Builder {
         data: this.userData,
         scores: this.userScores
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
-      this.reply = (await this.reply)?.edit({ content: 'No se encontró el usuario', embeds: [] })
+      this.reply = (await this.reply)?.edit({
+        content: 'No se encontró el usuario',
+        embeds: []
+      })
     }
   }
 }
@@ -148,7 +154,6 @@ type user = {
   id: string
   name: string | null
   osuId: number
-  puntos: number
 }
 
 type scores = {
@@ -158,4 +163,5 @@ type scores = {
   rank: string
   score: number
   accuracy: string
+  puntos: number
 }
