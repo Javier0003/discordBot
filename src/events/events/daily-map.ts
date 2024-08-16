@@ -239,7 +239,7 @@ function validateDifficultyLimits(
         map.attributes.star_rating >= 3.7 && selectedMods.includes('NC')
       }`
     )
-
+    console.log(map.attributes.star_rating)
     console.log(`Validar 4⭐: ${map.attributes.star_rating >= 4}`)
 
     console.log('----------------------------------------------------')

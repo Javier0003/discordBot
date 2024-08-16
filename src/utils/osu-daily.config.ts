@@ -52,7 +52,9 @@ const osuConfig = {
     multiplierForBetterRankThanAsked: 2
   },
 
-  recentWaitForInteractionTime: 30_000
+  recentWaitForInteractionTime: 30_000,
+
+  modBansWhenNotAskedFor: ['DT', 'NC', 'HR', 'NF', 'HD', 'EZ'] as mods[]
 } as const
 
 export default osuConfig

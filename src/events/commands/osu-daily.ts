@@ -19,7 +19,7 @@ import osuConfig, {
 } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
 
-export default class OsuDaly extends Command_Builder {
+export default class OsuDaily extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Daily map')
@@ -82,9 +82,9 @@ export default class OsuDaly extends Command_Builder {
         })
 
         if (
-          (this.validateRank(dailyMap.minRank, userPlay.rank as OsuRanks) &&
-            dailyMap.mods.every((mod) => userPlay.mods.includes(mod))) ||
-          (this.validateRank(dailyMap.minRank, userPlay.rank as OsuRanks) &&
+          (this.validateRank(dailyMap.minRank, userPlay.rank) &&
+            OsuDaily.validateMods(dailyMap, userPlay)) ||
+          (this.validateRank(dailyMap.minRank, userPlay.rank) &&
             dailyMap.mods.length === 0)
         ) {
           const scoredPoints = this.getPoints(userPlay, dailyMap)
@@ -95,7 +95,7 @@ export default class OsuDaly extends Command_Builder {
           MapasOsu.addPlay({
             mapId: dailyMap.id,
             uid: user[0].id,
-            rank: userPlay.rank as OsuRanks,
+            rank: userPlay.rank,
             score: userPlay.score,
             accuracy: userPlay.accuracy,
             points: scoredPoints
@@ -112,6 +112,22 @@ export default class OsuDaly extends Command_Builder {
       } else {
         console.log(error)
       }
+    }
+  }
+
+  public static validateMods(dailyMap: DailyMap, userPlay: Score) {
+    const modBan = osuConfig.modBansWhenNotAskedFor
+
+    if (
+      modBan.some(
+        (mod) => !dailyMap.mods.includes(mod) && userPlay.mods.includes(mod)
+      )
+    ) {
+      return false
+    }
+
+    if (dailyMap.mods.every((mod) => userPlay.mods.includes(mod))) {
+      return true
     }
   }
 

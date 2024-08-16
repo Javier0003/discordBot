@@ -12,7 +12,8 @@
     "test-daily": "tsx ./tests/daily-map.test.ts",
     "test-aprove": "tsx ./tests/aproved-play.test.ts",
     "addplay": "tsx ./tests/add-play.test.ts",
-    "purge-db": "tsx ./src/utils/purge-db.ts"
+    "purge-db": "tsx ./src/utils/purge-db.ts",
+    "mod-check": "tsx ./tests/validate-no-dt.test.ts"
   },
   "keywords": [],
   "author": "",
