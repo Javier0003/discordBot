@@ -54,16 +54,20 @@ const que = [
   '¿?'
 ]
 
-export default class So extends Event_Builder implements EventCommand{
+export default class So extends Event_Builder implements EventCommand {
   constructor() {
     super({ type: 'messageCreate' })
   }
 
   public event(message: Message<boolean>) {
-    if (message.author.bot) return
+    try {
+      if (message.author.bot) return
 
-    if (que.indexOf(message.content.toLowerCase()) !== -1) {
-      message.reply('so')
+      if (que.indexOf(message.content.toLowerCase()) !== -1) {
+        message.reply('so')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -39,9 +39,13 @@ export default class Status extends Event_Builder implements EventCommand {
   }
 
   public event() {
-    setInterval(() => {
-      const random = Math.floor(Math.random() * status.length)
-      LoaClient.LoA.user?.setActivity(status[random])
-    }, 10000)
+    try {
+      setInterval(() => {
+        const random = Math.floor(Math.random() * status.length)
+        LoaClient.LoA.user?.setActivity(status[random])
+      }, 10000)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

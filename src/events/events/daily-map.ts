@@ -117,6 +117,8 @@ async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
     if ([1, 2, 3, 4].indexOf(data.ranked) === -1)
       return await mapa(token, selectedMods)
 
+    if(data.beatmapset.availability.download_disabled) return await mapa(token, selectedMods)
+
     if (!selectedMods) {
       return data
     }

@@ -1,4 +1,4 @@
-import { APIApplicationCommandOption, ApplicationCommandOptionType, CacheType, CommandInteraction } from 'discord.js'
+import { APIApplicationCommandOption, CacheType, CommandInteraction } from 'discord.js'
 import LoaClient from './loa-client'
 
 export type CommandConfig = {

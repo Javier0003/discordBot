@@ -14,11 +14,15 @@ export default class Roll extends Command_Builder {
     })
   }
   public async command(interaction: CommandInteraction<CacheType>) {
-    const random = Math.floor(Math.random() * 100)
-    if (random === 69) {
-      interaction.reply(`😎😎 ${random}`)
-    } else {
-      interaction.reply(`roll ${random}`)
+    try {
+      const random = Math.floor(Math.random() * 100)
+      if (random === 69) {
+        interaction.reply(`😎😎 ${random}`)
+      } else {
+        interaction.reply(`roll ${random}`)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 }

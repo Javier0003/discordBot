@@ -19,5 +19,5 @@ export default {
   mcPort: mcPort,
   mcPortOpener: mcPortOpener,
   dbUrl: dbUrl,
-  osuBody: osuBody
+  osuBody: osuBody,
 }

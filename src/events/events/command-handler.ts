@@ -20,7 +20,7 @@ export default class Command_Handler extends Event_Builder {
       const localCommands = await getLocalCommands()
       const commandObject = localCommands?.find(
         (cmd) => cmd.name === interaction.commandName
-      ) as CommandConfigWithCallback | undefined
+      ) as CommandConfigWithCallback
 
       if (!commandObject) return
       if (!commandObject.command) return
@@ -34,6 +34,16 @@ export default class Command_Handler extends Event_Builder {
           return
         }
       }
+
+      // if (commandObject.devOnly) {
+      //   if (!devs.includes(interaction.member.id)) {
+      //     interaction.reply({
+      //       content: 'Only developers are allowed to run this command.',
+      //       ephemeral: true,
+      //     });
+      //     return;
+      //   }
+      // }
 
       // if (commandObject.permissionsRequired?.length) {
       //   for (const permission of commandObject.permissionsRequired) {
