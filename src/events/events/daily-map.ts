@@ -1,7 +1,7 @@
 import Event_Builder, { EventCommand } from '../../structures/event-builder'
 import { mapas, plays } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
-import { eq } from 'drizzle-orm'
+import { and, asc, eq } from 'drizzle-orm'
 import getOsuToken from '../../utils/osu-token'
 import osuConfig, {
   Beatmap,
@@ -117,7 +117,8 @@ async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
     if ([1, 2, 3, 4].indexOf(data.ranked) === -1)
       return await mapa(token, selectedMods)
 
-    if(data.beatmapset.availability.download_disabled) return await mapa(token, selectedMods)
+    if (data.beatmapset.availability.download_disabled)
+      return await mapa(token, selectedMods)
 
     if (!selectedMods) {
       return data
@@ -279,9 +280,7 @@ function validateDifficultyLimits(
     return true
   }
 
-  if (
-    map.attributes.star_rating < osuConfig.dailyMaps.minimumDifficulty
-  ) {
+  if (map.attributes.star_rating < osuConfig.dailyMaps.minimumDifficulty) {
     return false
   }
 
@@ -317,7 +316,6 @@ type BeatmapAttributes = {
 
 export default class MapasOsu extends Event_Builder implements EventCommand {
   public static dailyMap: DailyMap
-  private static dailyPlays: dailyPlays[] = []
 
   constructor() {
     super({ type: 'ready' })
@@ -348,9 +346,8 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
       }
 
       MapasOsu.triggerAt5AM(async () => {
-        await MapasOsu.getDailyMap()
         await MapasOsu.savePlays()
-        MapasOsu.dailyPlays = []
+        await MapasOsu.getDailyMap()
       })
     } catch (error) {
       console.log(error)
@@ -358,30 +355,35 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
   }
 
   public static triggerAt5AM(callback: () => Promise<void>) {
-    function scheduleNext() {
-      const now = new Date()
-      const nextTrigger = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        osuConfig.dailyChangeHour, // Hour
-        0, // Minute
-        0 // Second
-      )
+    try {
+      function scheduleNext() {
+        const now = new Date()
+        const nextTrigger = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          osuConfig.dailyChangeHour, // Hour
+          0, // Minute
+          0 // Second
+        )
 
-      if (now > nextTrigger) {
-        nextTrigger.setDate(nextTrigger.getDate() + 1)
+        if (now > nextTrigger) {
+          nextTrigger.setDate(nextTrigger.getDate() + 1)
+        }
+
+        const timeUntilTrigger = nextTrigger.getTime() - now.getTime()
+
+        setTimeout(async () => {
+          await callback()
+          scheduleNext()
+        }, timeUntilTrigger)
       }
 
-      const timeUntilTrigger = nextTrigger.getTime() - now.getTime()
-
-      setTimeout(async () => {
-        await callback()
-        scheduleNext()
-      }, timeUntilTrigger)
+      scheduleNext()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      console.log('Error rescheduling')
     }
-
-    scheduleNext()
   }
 
   private static async getDailyMap() {
@@ -395,30 +397,50 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
   }
 
   public static async savePlays() {
-    const order = MapasOsu.dailyPlays.sort((a, b) => a.score - b.score)
+    const order = await db.select().from(plays).orderBy(asc(plays.score))
 
     for (let i = 0; i < order.length; i++) {
-      order[i].points += i
+      order[i].puntos += i
 
-      await db.insert(plays).values({
-        accuracy: order[i].accuracy.toString(),
-        mapId: order[i].mapId,
-        rank: order[i].rank,
-        score: order[i].score,
-        uId: order[i].uid,
-        puntos: order[i].points
-      })
+      await db
+        .update(plays)
+        .set({
+          puntos: order[i].puntos
+        })
+        .where(eq(plays.uId, order[i].uId))
     }
   }
 
-  public static addPlay(play: dailyPlays) {
-    const found = MapasOsu.dailyPlays.map((p) => p.uid).indexOf(play.uid)
-    if (found !== -1) {
-      if (MapasOsu.dailyPlays[found].score < play.score) {
-        MapasOsu.dailyPlays[found] = play
+  public static async addPlay(play: dailyPlays) {
+    const playInDb = await db
+      .select()
+      .from(plays)
+      .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
+
+    if (playInDb.length !== 0) {
+      if (playInDb[0].score < play.score) {
+        await db
+          .update(plays)
+          .set({
+            accuracy: play.accuracy.toString(),
+            mapId: play.mapId,
+            rank: play.rank,
+            score: play.score,
+            uId: play.uid,
+            puntos: play.points
+          })
+          .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
       }
       return
+    } else {
+      await db.insert(plays).values({
+        accuracy: play.accuracy.toString(),
+        mapId: play.mapId,
+        rank: play.rank,
+        score: play.score,
+        uId: play.uid,
+        puntos: play.points
+      })
     }
-    MapasOsu.dailyPlays.push(play)
   }
 }

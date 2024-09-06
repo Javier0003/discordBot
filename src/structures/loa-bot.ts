@@ -3,7 +3,6 @@ import env from '../env'
 import Event_Handler from './event-handler'
 import LoaClient from './loa-client'
 export default class LoaBot extends Client {
-
   clientLoa = new LoaClient(this)
 
   eventHandler = new Event_Handler()

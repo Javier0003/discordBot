@@ -92,7 +92,7 @@ export default class OsuDaily extends Command_Builder {
             name: 'GG',
             value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`
           })
-          MapasOsu.addPlay({
+          await MapasOsu.addPlay({
             mapId: dailyMap.id,
             uid: user[0].id,
             rank: userPlay.rank,
