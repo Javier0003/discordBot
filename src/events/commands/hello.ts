@@ -23,15 +23,5 @@ export default class Hello extends Command_Builder {
     } catch (error) {
       console.log(error)
     }
-    // const xd = ['D', 'C', 'B', 'A', 'S', 'SS']
-
-
-    // console.log(await db.select().from(mapas))
-
-    // xd.forEach(async (rank) => {
-    //   await db.delete(mapas).where(eq(mapas.oldMapMinRank, rank))
-    // })
-
-    // console.log(await db.select().from(mapas))
   }
 }

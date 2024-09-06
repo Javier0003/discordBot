@@ -37,8 +37,9 @@ export default class RegisterCommands extends Event_Builder {
 
         console.log(`👍 Registered command ${name}.`)
       }
-    } catch (error) {
-      console.log(error)
+    } catch (_) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      _;
     }
   }
 }

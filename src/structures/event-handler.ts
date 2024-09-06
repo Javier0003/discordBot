@@ -23,6 +23,7 @@ export default class Event_Handler extends LoaClient {
         if (!eventInstance.event) return
         this.loa['on'](eventInstance.type,eventInstance.event)
       }
+      
     } catch (error) {
       console.log(`Error loading events: ${error}`)
     }
