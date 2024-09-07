@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOptionType,
   CacheType,
+  ChatInputCommandInteraction,
   CommandInteraction,
   EmbedBuilder,
   InteractionResponse,
@@ -34,7 +35,7 @@ export default class InfoOsu extends Command_Builder {
   }
 
   public async command(
-    interaction: CommandInteraction<CacheType>
+    interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })

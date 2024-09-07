@@ -1,6 +1,6 @@
 import {
   CacheType,
-  CommandInteraction
+  ChatInputCommandInteraction
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
@@ -17,7 +17,7 @@ export default class RemoveOsuAccount extends Command_Builder {
   }
 
   public async command(
-    interaction: CommandInteraction<CacheType>
+    interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
       await db.delete(users).where(eq(users.id, interaction.user.id))

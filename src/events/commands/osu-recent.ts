@@ -3,7 +3,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   CacheType,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   EmbedBuilder,
   InteractionResponse,
   Message
@@ -31,7 +31,7 @@ export default class osuRecent extends Command_Builder {
     })
   }
   public async command(
-    interaction: CommandInteraction<CacheType>
+    interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
       const token = await getOsuToken()
@@ -83,7 +83,8 @@ export default class osuRecent extends Command_Builder {
       })
 
       let index = 0
-      while (true) {
+      let loop = true
+      while (loop) {
         const userInteraction = await (
           await this.reply
         )
@@ -92,6 +93,7 @@ export default class osuRecent extends Command_Builder {
           })
           .catch(async () => {
             await this.removeButtons()
+            loop = false
           })
 
         if (!userInteraction) break

@@ -386,7 +386,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
     }
   }
 
-  private static async getDailyMap() {
+  public static async getDailyMap() {
     const mapaRandom = await generateDailyRandomMap()
     await db.insert(mapas).values({
       oldMapId: mapaRandom.id,

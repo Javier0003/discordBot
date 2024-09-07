@@ -1,7 +1,7 @@
 import {
   ApplicationCommandOptionType,
   CacheType,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   InteractionResponse,
   Message
 } from 'discord.js'
@@ -36,7 +36,7 @@ export default class OsuRegister extends Command_Builder {
   }
 
   public async command(
-    interaction: CommandInteraction<CacheType>
+    interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
       this.reply = interaction.reply({ content: 'Espera un segundo', ephemeral: true })
@@ -74,7 +74,7 @@ export default class OsuRegister extends Command_Builder {
       }
 
       this.reply = (await this.reply).edit({
-        content: `Usuario registrado\n${interaction.user.globalName}`,
+        content: `Usuario registrado: ${interaction.user.globalName}`,
       })
     } catch (error: Error | unknown) {
       if(error instanceof Error && error.message === 'No data inserted') {

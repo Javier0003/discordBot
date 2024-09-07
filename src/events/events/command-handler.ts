@@ -35,15 +35,16 @@ export default class Command_Handler extends Event_Builder {
         }
       }
 
-      // if (commandObject.devOnly) {
-      //   if (!devs.includes(interaction.member.id)) {
-      //     interaction.reply({
-      //       content: 'Only developers are allowed to run this command.',
-      //       ephemeral: true,
-      //     });
-      //     return;
-      //   }
-      // }
+
+      if (commandObject.devOnly) {
+        if (!env.dev.includes(interaction.member?.user.id || '')) {
+          interaction.reply({
+            content: 'Only developers are allowed to run this command.',
+            ephemeral: true,
+          });
+          return;
+        }
+      }
 
       // if (commandObject.permissionsRequired?.length) {
       //   for (const permission of commandObject.permissionsRequired) {

@@ -1,4 +1,4 @@
-import { CacheType, CommandInteraction } from 'discord.js'
+import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 
 export default class Roll extends Command_Builder {
@@ -13,7 +13,7 @@ export default class Roll extends Command_Builder {
       notUpdated: true
     })
   }
-  public async command(interaction: CommandInteraction<CacheType>) {
+  public async command(interaction: ChatInputCommandInteraction<CacheType>) {
     try {
       const random = Math.floor(Math.random() * 100)
       if (random === 69) {

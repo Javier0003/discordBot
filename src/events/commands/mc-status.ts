@@ -1,11 +1,11 @@
 import {
   CacheType,
-  CommandInteraction,
   EmbedBuilder,
   ButtonBuilder,
   ActionRowBuilder,
   ButtonStyle,
-  AttachmentBuilder
+  AttachmentBuilder,
+  ChatInputCommandInteraction
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { Socket } from 'node:net'
@@ -34,7 +34,7 @@ export default class McStatus extends Command_Builder {
     })
   }
   public async command(
-    interaction: CommandInteraction<CacheType>
+    interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
       const embed = new EmbedBuilder()
