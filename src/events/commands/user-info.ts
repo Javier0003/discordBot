@@ -5,7 +5,7 @@ import {
   CommandInteraction,
   EmbedBuilder,
   InteractionResponse,
-  Message
+  Message,
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
@@ -27,10 +27,10 @@ export default class InfoOsu extends Command_Builder {
         {
           name: 'user',
           description: 'Usuario de osu!',
-          type: ApplicationCommandOptionType.String,
-          required: false
-        }
-      ]
+          type: ApplicationCommandOptionType.User,
+          required: false,
+        },
+      ],
     })
   }
 
@@ -40,28 +40,33 @@ export default class InfoOsu extends Command_Builder {
     try {
       this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
 
-      const userInfo = await this.getOsuData(interaction)
+      await this.getOsuData(interaction)
+
+      let description = 'No se encontraron scores'
+      if (this.userScores.length !== 0) {
+        description = `User: ${
+          this.userData[0].name
+        }\nPuntos: ${this.userScores.reduce(
+          (sum, add) => sum + add.puntos,
+          0
+        )}\nPasados: ${this.userScores.length}`
+      }
 
       this.embed = (await this.embed)
-        .setTitle(`osu! Profile of: ${userInfo?.data[0].name}`)
+        .setTitle(`osu! Profile of: ${this.userData[0].name}`)
         .setColor('Random')
-        .setDescription(
-          `User: ${userInfo?.data[0].name}\nPuntos: ${userInfo?.scores.reduce(
-            (sum, add) => sum + add.puntos,
-            0
-          )}\nPasados: ${userInfo?.scores.length}`
-        )
+        .setDescription(description)
         .addFields(
           {
             name: 'Accuracy',
-            value: this.getAvgAccuracy(userInfo?.scores as scores[])
+            value: this.getAvgAccuracy(this.userScores as scores[]),
           },
           {
             name: 'Ranks',
-            value: this.getRankString(userInfo?.scores as scores[])
+            value: this.getRankString(this.userScores as scores[]),
           }
         )
-        .setThumbnail(`https://a.ppy.sh/${userInfo?.data[0].osuId}`)
+        .setThumbnail(`https://a.ppy.sh/${this.userData[0].osuId}`)
 
       this.reply = (await this.reply).edit({ embeds: [this.embed] })
     } catch (error) {
@@ -70,6 +75,7 @@ export default class InfoOsu extends Command_Builder {
   }
 
   private getAvgAccuracy(scores: scores[]): string {
+    if (scores.length === 0) return '0%'
     const total = scores.reduce((acc: number, score: scores) => {
       return acc + parseFloat(score.accuracy.toString())
     }, 0)
@@ -84,8 +90,10 @@ export default class InfoOsu extends Command_Builder {
       A: 0,
       B: 0,
       C: 0,
-      D: 0
+      D: 0,
     }
+
+    if(!scores) return 'No scores'
 
     scores.forEach((score: scores) => {
       switch (score.rank) {
@@ -117,13 +125,16 @@ export default class InfoOsu extends Command_Builder {
 
   private userData: user[] = []
   private userScores: scores[] = []
-  private async getOsuData(interaction: CommandInteraction<CacheType>) {
+  private async getOsuData(
+    interaction: ChatInputCommandInteraction<CacheType>
+  ) {
     try {
       if (interaction.options.data.length !== 0) {
+        const user = interaction.options.getUser('user')?.id
         this.userData = await db
           .select()
           .from(users)
-          .where(eq(users.name, interaction.options.data[0].value as string))
+          .where(eq(users.id, user as string))
       } else {
         this.userData = await db
           .select()
@@ -137,15 +148,11 @@ export default class InfoOsu extends Command_Builder {
         .where(eq(plays.uId, interaction.user.id))
       if (!this.userData.length) throw new Error('No se encontró el usuario')
       if (!this.userScores.length) throw new Error('No se encontraron scores')
-      return {
-        data: this.userData,
-        scores: this.userScores
-      }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       this.reply = (await this.reply)?.edit({
         content: 'No se encontró el usuario',
-        embeds: []
+        embeds: [],
       })
     }
   }
