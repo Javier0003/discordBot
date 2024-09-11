@@ -407,7 +407,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         .set({
           puntos: order[i].puntos
         })
-        .where(eq(plays.uId, order[i].uId))
+        .where(and(eq(plays.uId, order[i].uId), eq(plays.mapId, order[i].mapId)))
     }
   }
 
