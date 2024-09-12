@@ -28,4 +28,5 @@ export type NewUser = typeof users.$inferInsert
 
 export type Plays = typeof plays.$inferSelect
 
-
+export type Mapas = typeof mapas.$inferSelect
+export type NewMap = typeof mapas.$inferInsert

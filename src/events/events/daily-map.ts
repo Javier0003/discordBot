@@ -1,7 +1,7 @@
 import Event_Builder, { EventCommand } from '../../structures/event-builder'
 import { mapas, plays } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
-import { and, asc, eq } from 'drizzle-orm'
+import { and, asc, desc, eq } from 'drizzle-orm'
 import getOsuToken from '../../utils/osu-token'
 import osuConfig, {
   Beatmap,
@@ -397,7 +397,8 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
   }
 
   public static async savePlays() {
-    const order = await db.select().from(plays).orderBy(asc(plays.score))
+    const map = await db.select().from(mapas).orderBy(desc(mapas.oldMapId)).limit(1)
+    const order = await db.select().from(plays).orderBy(asc(plays.puntos)).where(eq(plays.mapId, map[0].oldMapId))
 
     for (let i = 0; i < order.length; i++) {
       order[i].puntos += i
