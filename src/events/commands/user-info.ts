@@ -2,10 +2,9 @@ import {
   ApplicationCommandOptionType,
   CacheType,
   ChatInputCommandInteraction,
-  CommandInteraction,
   EmbedBuilder,
   InteractionResponse,
-  Message,
+  Message
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
@@ -22,15 +21,15 @@ export default class InfoOsu extends Command_Builder {
     super({
       name: 'user-osu',
       description: 'información de osu!',
-      notUpdated: true,
+      // notUpdated: true,
       options: [
         {
           name: 'user',
           description: 'Usuario de osu!',
           type: ApplicationCommandOptionType.User,
-          required: false,
-        },
-      ],
+          required: false
+        }
+      ]
     })
   }
 
@@ -59,11 +58,11 @@ export default class InfoOsu extends Command_Builder {
         .addFields(
           {
             name: 'Accuracy',
-            value: this.getAvgAccuracy(this.userScores as scores[]),
+            value: this.getAvgAccuracy(this.userScores as scores[])
           },
           {
             name: 'Ranks',
-            value: this.getRankString(this.userScores as scores[]),
+            value: this.getRankString(this.userScores as scores[])
           }
         )
         .setThumbnail(`https://a.ppy.sh/${this.userData[0].osuId}`)
@@ -90,10 +89,10 @@ export default class InfoOsu extends Command_Builder {
       A: 0,
       B: 0,
       C: 0,
-      D: 0,
+      D: 0
     }
 
-    if(!scores) return 'No scores'
+    if (!scores) return 'No scores'
 
     scores.forEach((score: scores) => {
       switch (score.rank) {
@@ -130,29 +129,33 @@ export default class InfoOsu extends Command_Builder {
   ) {
     try {
       if (interaction.options.data.length !== 0) {
-        const user = interaction.options.getUser('user')?.id
+        const user = interaction.options.get('user')?.value
         this.userData = await db
           .select()
           .from(users)
           .where(eq(users.id, user as string))
+        this.userScores = await db
+          .select()
+          .from(plays)
+          .where(eq(plays.uId, user as string))
       } else {
         this.userData = await db
           .select()
           .from(users)
           .where(eq(users.id, interaction.user.id))
+        this.userScores = await db
+          .select()
+          .from(plays)
+          .where(eq(plays.uId, interaction.user.id))
       }
 
-      this.userScores = await db
-        .select()
-        .from(plays)
-        .where(eq(plays.uId, interaction.user.id))
       if (!this.userData.length) throw new Error('No se encontró el usuario')
       if (!this.userScores.length) throw new Error('No se encontraron scores')
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       this.reply = (await this.reply)?.edit({
         content: 'No se encontró el usuario',
-        embeds: [],
+        embeds: []
       })
     }
   }
