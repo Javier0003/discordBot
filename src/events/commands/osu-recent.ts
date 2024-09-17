@@ -16,6 +16,7 @@ import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, { mods, Score } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
+import OsuDaily from './osu-daily'
 
 export default class osuRecent extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
@@ -127,17 +128,6 @@ export default class osuRecent extends Command_Builder {
     })
   }
 
-  private accuracy(input: number): string {
-    const numberString = input.toString().split('.').pop()
-
-    if (!numberString) return '0'
-
-    const integerPart = numberString.slice(0, 2)
-    const decimalPart = numberString.slice(2, 4)
-
-    return `${integerPart},${decimalPart}`
-  }
-
   private mods(input: mods[]): string {
     if (input.length === 0) return 'No mods'
     let modString = 'Mods: ['
@@ -180,7 +170,7 @@ export default class osuRecent extends Command_Builder {
       .setDescription(
         `▸ **'${score.rank}' RANK**\n▸ ** ${Math.ceil(
           score.pp || 0
-        )}PP **${this.accuracy(score.accuracy)}% Accuracy\n${this.mods(
+        )}PP **${OsuDaily.accuracy(score.accuracy)}% Accuracy\n${this.mods(
           score.mods
         )}`
       )

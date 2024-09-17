@@ -7,7 +7,7 @@ import {
   InteractionResponse,
   Message,
   StringSelectMenuBuilder,
-  StringSelectMenuOptionBuilder,
+  StringSelectMenuOptionBuilder
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
@@ -16,11 +16,12 @@ import {
   Plays,
   plays,
   Users,
-  users,
+  users
 } from '../../../drizzle/schemas/schema'
 import { desc, eq } from 'drizzle-orm'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuToken from '../../utils/osu-token'
+import OsuDaily from './osu-daily'
 
 type playStats = {
   plays: Plays
@@ -39,7 +40,7 @@ export default class MapStats extends Command_Builder {
     super({
       name: 'map-stats',
       description: 'Muestra las estadisticas de un mapa',
-      options: [],
+      options: []
     })
   }
 
@@ -66,13 +67,13 @@ export default class MapStats extends Command_Builder {
       this.reply = await interaction.reply({
         embeds: [this.embed],
         //@ts-expect-error same error as always with discord.js
-        components: [row],
+        components: [row]
       })
 
       const collector = this.reply.createMessageComponentCollector({
         componentType: ComponentType.StringSelect,
         time: 60_000,
-        filter: (i) => i.user.id === interaction.user.id,
+        filter: (i) => i.user.id === interaction.user.id
       })
 
       collector.on('collect', async (i) => {
@@ -98,7 +99,11 @@ export default class MapStats extends Command_Builder {
       const mapData = await getOsuMap(mapId, this.token)
       const fields = stats.map((stat, index) => ({
         name: `#${index + 1}`,
-        value: `${stat.users.name}:\nPuntos:${stat.plays.puntos}\nRank: ${stat.plays.rank}\nScore: ${stat.plays.score}\nAccuracy: ${stat.plays.accuracy}%`,
+        value: `${stat.users.name}:\nPuntos:${stat.plays.puntos}\nRank: ${
+          stat.plays.rank
+        }\nScore: ${stat.plays.score}\nAccuracy: ${OsuDaily.accuracy(
+          Number(stat.plays.accuracy)
+        )}%`
       }))
 
       this.embed = this.embed.setFields([])
@@ -111,7 +116,7 @@ export default class MapStats extends Command_Builder {
         .addFields(fields)
 
       this.reply = await this.reply?.edit({
-        embeds: [this.embed],
+        embeds: [this.embed]
       })
     } catch (error) {
       console.log(error)

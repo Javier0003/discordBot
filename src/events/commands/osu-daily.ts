@@ -29,7 +29,7 @@ export default class OsuDaily extends Command_Builder {
     super({
       name: 'osu-daily',
       description: 'osu!',
-      notUpdated: true
+      // notUpdated: true
     })
   }
   public async command(
@@ -76,7 +76,7 @@ export default class OsuDaily extends Command_Builder {
           name: 'Tu ultima jugada',
           value: `Score: ${userPlay.score}\nCombo: ${
             userPlay?.max_combo
-          }\nRank: ${userPlay?.rank} \n Accuracy: ${this.accuracy(
+          }\nRank: ${userPlay?.rank} \n Accuracy: ${OsuDaily.accuracy(
             userPlay.accuracy
           )}\n Mods: ${userPlay.mods.join(' ')} `
         })
@@ -169,7 +169,7 @@ export default class OsuDaily extends Command_Builder {
     return requiredIndex <= rankIndex
   }
 
-  private accuracy(input: number): string {
+  public static accuracy(input: number): string {
     const numberString = input.toString().split('.').pop()
 
     if (!numberString) return '0'
