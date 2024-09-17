@@ -293,6 +293,7 @@ export type DailyMap = {
   id: number
   mods: mods[]
   minRank: OsuRanks
+  name: string
 }
 
 export type dailyPlays = {

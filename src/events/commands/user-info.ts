@@ -1,8 +1,6 @@
 import {
-  ApplicationCommandOptionType,
   CacheType,
   ChatInputCommandInteraction,
-  CommandInteraction,
   EmbedBuilder,
   InteractionResponse,
   Message,
@@ -11,6 +9,14 @@ import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
+import OptionBuilder from '../../structures/option-builder'
+
+const opciones = new OptionBuilder()
+  .addUserOption({
+    description: 'Usuario de osu!',
+    name: 'user',
+  })
+  .build()
 
 export default class InfoOsu extends Command_Builder {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
@@ -23,14 +29,7 @@ export default class InfoOsu extends Command_Builder {
       name: 'user-osu',
       description: 'información de osu!',
       notUpdated: true,
-      options: [
-        {
-          name: 'user',
-          description: 'Usuario de osu!',
-          type: ApplicationCommandOptionType.User,
-          required: false,
-        },
-      ],
+      options: opciones,
     })
   }
 
@@ -93,7 +92,7 @@ export default class InfoOsu extends Command_Builder {
       D: 0,
     }
 
-    if(!scores) return 'No scores'
+    if (!scores) return 'No scores'
 
     scores.forEach((score: scores) => {
       switch (score.rank) {

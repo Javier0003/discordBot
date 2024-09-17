@@ -8,7 +8,7 @@ import osuConfig, {
   DailyMap,
   dailyPlays,
   mods,
-  OsuRanks
+  OsuRanks,
 } from '../../utils/osu-daily.config'
 
 function generateDifficulty() {
@@ -80,13 +80,14 @@ export async function generateDailyRandomMap(): Promise<DailyMap> {
     const dailyMap: DailyMap = {
       id: map.id,
       mods: selectedMods,
-      minRank: osuRanks
+      minRank: osuRanks,
+      name: map.beatmapset.title,
     } as DailyMap
 
     const mapInDb = await db
       .select()
       .from(mapas)
-      .where(eq(mapas.oldMapId, map.id))
+      .where(eq(mapas.oldMaps, map.id))
     if (mapInDb.length !== 0) return await generateDailyRandomMap()
 
     return dailyMap
@@ -108,8 +109,8 @@ async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       }
     )
     const data = (await json.json()) as Beatmap
@@ -177,12 +178,12 @@ async function checkDifficultyRating(
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         ruleset: 'osu',
-        mods: selectedMods
-      })
+        mods: selectedMods,
+      }),
     }
   )
 
@@ -328,19 +329,28 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         if (restartBot.length === 0) {
           const mapaRandom = await generateDailyRandomMap()
 
+          const currentDate = new Date()
+          const day = currentDate.getDate()
+          const month = currentDate.getMonth() + 1
+          const year = currentDate.getFullYear()
+
           await db.insert(mapas).values({
-            oldMapId: mapaRandom.id,
+            oldMaps: mapaRandom.id,
             oldMapMods: JSON.stringify(mapaRandom.mods),
-            oldMapMinRank: mapaRandom.minRank
+            oldMapMinRank: mapaRandom.minRank,
+            mapName: mapaRandom.name,
+            date: `${day}/${month.toString().padStart(2, '0')}/${year}`,
           })
           MapasOsu.dailyMap = mapaRandom
         } else {
           MapasOsu.dailyMap = {
-            id: restartBot[restartBot.length - 1].oldMapId,
+            id: restartBot[restartBot.length - 1].oldMaps,
             mods: JSON.parse(
               restartBot[restartBot.length - 1].oldMapMods
             ) as mods[],
-            minRank: restartBot[restartBot.length - 1].oldMapMinRank as OsuRanks
+            minRank: restartBot[restartBot.length - 1]
+              .oldMapMinRank as OsuRanks,
+            name: restartBot[restartBot.length - 1].mapName,
           }
         }
       }
@@ -388,10 +398,17 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
 
   public static async getDailyMap() {
     const mapaRandom = await generateDailyRandomMap()
+    const currentDate = new Date()
+    const day = currentDate.getDate()
+    const month = currentDate.getMonth() + 1
+    const year = currentDate.getFullYear()
+
     await db.insert(mapas).values({
-      oldMapId: mapaRandom.id,
+      oldMaps: mapaRandom.id,
       oldMapMods: JSON.stringify(mapaRandom.mods),
-      oldMapMinRank: mapaRandom.minRank
+      oldMapMinRank: mapaRandom.minRank,
+      mapName: mapaRandom.name,
+      date: `${day}/${month.toString().padStart(2, '0')}/${year}`,
     })
     MapasOsu.dailyMap = mapaRandom
   }
@@ -405,7 +422,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
       await db
         .update(plays)
         .set({
-          puntos: order[i].puntos
+          puntos: order[i].puntos,
         })
         .where(eq(plays.uId, order[i].uId))
     }
@@ -427,7 +444,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
             rank: play.rank,
             score: play.score,
             uId: play.uid,
-            puntos: play.points
+            puntos: play.points,
           })
           .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
       }
@@ -439,7 +456,7 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
         rank: play.rank,
         score: play.score,
         uId: play.uid,
-        puntos: play.points
+        puntos: play.points,
       })
     }
   }

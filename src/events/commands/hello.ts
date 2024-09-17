@@ -10,7 +10,7 @@ export default class Hello extends Command_Builder {
       testOnly: false,
       options: [],
       deleted: false,
-      // notUpdated: true
+      notUpdated: true
     })
   }
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
