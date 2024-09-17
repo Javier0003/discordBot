@@ -414,8 +414,8 @@ export default class MapasOsu extends Event_Builder implements EventCommand {
   }
 
   public static async savePlays() {
-    const map = await db.select().from(mapas).orderBy(desc(mapas.oldMapId)).limit(1)
-    const order = await db.select().from(plays).orderBy(asc(plays.puntos)).where(eq(plays.mapId, map[0].oldMapId))
+    const map = await db.select().from(mapas).orderBy(desc(mapas.oldMaps)).limit(1)
+    const order = await db.select().from(plays).orderBy(asc(plays.puntos)).where(eq(plays.mapId, map[0].oldMaps))
 
     for (let i = 0; i < order.length; i++) {
       order[i].puntos += i
