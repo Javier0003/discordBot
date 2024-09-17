@@ -56,7 +56,7 @@ export default class MapStats extends Command_Builder {
         .addOptions(
           maps.map((map) =>
             new StringSelectMenuOptionBuilder()
-              .setLabel(`${map.mapName}`)
+              .setLabel(`${map.mapName} - ${map.date}`)
               .setValue(`${map.oldMaps}`)
           )
         )

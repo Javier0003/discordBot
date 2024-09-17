@@ -144,6 +144,7 @@ export default class InfoOsu extends Command_Builder {
           .select()
           .from(users)
           .where(eq(users.id, interaction.user.id))
+          console.log(this.userData)
         this.userScores = await db
           .select()
           .from(plays)
@@ -151,11 +152,10 @@ export default class InfoOsu extends Command_Builder {
       }
 
       if (!this.userData.length) throw new Error('No se encontró el usuario')
-      if (!this.userScores.length) throw new Error('No se encontraron scores')
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_) {
+    } catch (error) {
+      if (!(error instanceof Error)) return
       this.reply = (await this.reply)?.edit({
-        content: 'No se encontró el usuario',
+        content: error.message,
         embeds: []
       })
     }
