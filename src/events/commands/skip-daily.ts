@@ -26,7 +26,7 @@ export default class skipDaily extends Command_Builder {
       testOnly: false,
       options: [],
       deleted: false,
-      // notUpdated: true,
+      notUpdated: true,
     })
   }
 
