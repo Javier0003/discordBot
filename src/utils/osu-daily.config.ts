@@ -14,7 +14,9 @@ const osuConfig = {
   dailyChangeHour: 5,
   badModCombos: [
     ['DT', 'EZ'],
-    ['HT', 'EZ']
+    ['HT', 'EZ'],
+    ["NC", 'HR'],
+    ["DT", 'HR']
   ] as mods[][],
 
   /**

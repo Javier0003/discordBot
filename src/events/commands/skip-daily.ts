@@ -6,7 +6,7 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
   InteractionResponse,
-  Message
+  Message,
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import MapasOsu from '../events/daily-map'
@@ -26,7 +26,7 @@ export default class skipDaily extends Command_Builder {
       testOnly: false,
       options: [],
       deleted: false,
-      notUpdated: true
+      notUpdated: true,
     })
   }
 
@@ -37,10 +37,10 @@ export default class skipDaily extends Command_Builder {
           .setCustomId('true')
           .setLabel('Yes')
           .setStyle(ButtonStyle.Primary),
-          new ButtonBuilder()
+        new ButtonBuilder()
           .setCustomId('false')
           .setLabel('No')
-          .setStyle(ButtonStyle.Secondary)
+          .setStyle(ButtonStyle.Secondary),
       ]
 
       const row = new ActionRowBuilder().addComponents(buttons)
@@ -49,26 +49,30 @@ export default class skipDaily extends Command_Builder {
         embeds: [this.embed],
         ephemeral: false,
         //@ts-expect-error weird error, it works just fine
-        components: [row]
+        components: [row],
       })
 
       let loop = true
 
-      while (loop){
+      while (loop) {
         const reply = await this.interaction
         const button = await reply.awaitMessageComponent({
-          time: 30_000
+          time: 30_000,
         })
 
-        if (button.customId === 'true'){
+        if (button.customId === 'true') {
           loop = false
-          this.embed = this.embed.setDescription('Skipped')
-          await reply.edit({embeds: [this.embed], components: []})
+          this.embed = this.embed.setDescription('Espera...')
+          await reply.edit({ embeds: [this.embed], components: [] })
           await MapasOsu.getDailyMap()
-        } else if (button.customId === 'false'){
+          await reply.edit({
+            embeds: [this.embed.setDescription('Daily map skipped')],
+            components: [],
+          })
+        } else if (button.customId === 'false') {
           loop = false
           this.embed = this.embed.setDescription('Cancelled')
-          await reply.edit({embeds: [this.embed], components: []})
+          await reply.edit({ embeds: [this.embed], components: [] })
         }
       }
     } catch (error) {
