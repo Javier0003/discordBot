@@ -10,6 +10,7 @@ import { db } from '../../utils/db'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 import OptionBuilder from '../../structures/option-builder'
+import OsuDaily from './osu-daily'
 
 const opciones = new OptionBuilder()
   .addUserOption({
@@ -43,12 +44,11 @@ export default class InfoOsu extends Command_Builder {
 
       let description = 'No se encontraron scores'
       if (this.userScores.length !== 0) {
-        description = `User: ${
-          this.userData[0].name
-        }\nPuntos: ${this.userScores.reduce(
-          (sum, add) => sum + add.puntos,
-          0
-        )}\nPasados: ${this.userScores.length}`
+        description = `User: ${this.userData[0].name
+          }\nPuntos: ${this.userScores.reduce(
+            (sum, add) => sum + add.puntos,
+            0
+          )}\nPasados: ${this.userScores.length}`
       }
 
       this.embed = (await this.embed)
@@ -75,11 +75,10 @@ export default class InfoOsu extends Command_Builder {
 
   private getAvgAccuracy(scores: scores[]): string {
     if (scores.length === 0) return '0%'
-    const total = scores.reduce((acc: number, score: scores) => {
-      return acc + parseFloat(score.accuracy.toString())
-    }, 0)
-    const avg = total / scores.length
-    return `${avg.toFixed(2)}%`
+    
+    const total = scores.reduce((acc: number, score: scores) => acc + Number(score.accuracy), 0)
+
+    return `${OsuDaily.accuracy(total / scores.length)}%`
   }
 
   private getRankString(scores: scores[]): string {
@@ -144,7 +143,7 @@ export default class InfoOsu extends Command_Builder {
           .select()
           .from(users)
           .where(eq(users.id, interaction.user.id))
-          console.log(this.userData)
+        console.log(this.userData)
         this.userScores = await db
           .select()
           .from(plays)
@@ -168,7 +167,7 @@ type user = {
   osuId: number
 }
 
-type scores = {
+export type scores = {
   playId: number
   mapId: number
   uId: string
