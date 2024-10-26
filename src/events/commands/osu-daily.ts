@@ -29,7 +29,7 @@ export default class OsuDaily extends Command_Builder {
     super({
       name: 'osu-daily',
       description: 'osu!',
-      // notUpdated: true
+      notUpdated: true
     })
   }
   public async command(

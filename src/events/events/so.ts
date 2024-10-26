@@ -1,5 +1,6 @@
 import { Message } from 'discord.js'
 import Event_Builder, { EventCommand } from '../../structures/event-builder'
+import SoTryhard from '../commands/so-tryhard'
 
 const que = [
   'qe',
@@ -51,7 +52,8 @@ const que = [
   '¿¿',
   '¿¿¿',
   '?¿',
-  '¿?'
+  '¿?',
+  'qeu'
 ]
 
 export default class So extends Event_Builder implements EventCommand {
@@ -62,12 +64,40 @@ export default class So extends Event_Builder implements EventCommand {
   public event(message: Message<boolean>) {
     try {
       if (message.author.bot) return
+      const mensaje = SoTryhard.soTryhard 
+      ? soTryhard(message.content.toLowerCase())! 
+      : soNormal(message.content.toLowerCase())! 
 
-      if (que.indexOf(message.content.toLowerCase()) !== -1) {
-        message.reply('so')
-      }
+      if (!mensaje) return
+
+      message.reply(mensaje)
     } catch (error) {
       console.log(error)
     }
+  }
+}
+
+function soNormal(mensaje: string){
+  try {
+    if (que.indexOf(mensaje) !== -1) {
+      return 'so'
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function soTryhard(mensaje: string){
+  try {
+    const splitted: string[] = mensaje.split(' ')
+
+    const regex = /que|[?¿]|^q$|^k$|q$|k$|^k|^q/g
+
+    for(let i = 0; i < splitted.length; i++){
+      const isRegexTrue = regex.test(splitted[i])
+      if (isRegexTrue) return 'so'
+    }
+  } catch (error) {
+    console.log(error)
   }
 }

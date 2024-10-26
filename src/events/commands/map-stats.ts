@@ -40,7 +40,8 @@ export default class MapStats extends Command_Builder {
     super({
       name: 'map-stats',
       description: 'Muestra las estadisticas de un mapa',
-      options: []
+      options: [],
+      notUpdated: true
     })
   }
 
