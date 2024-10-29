@@ -21,7 +21,8 @@ export default class Event_Handler extends LoaClient {
         const Event = require(`${path}/${event}`).default
         const eventInstance: EventConfiguration = new Event()
         if (!eventInstance.event) return
-        this.loa['on'](eventInstance.type,eventInstance.event)
+        //@ts-expect-error idk bro
+        this.loa[eventInstance.type](eventInstance.eventType,eventInstance.event)
       }
       
     } catch (error) {

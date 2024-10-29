@@ -5,7 +5,7 @@ export default class Tony_Padalec
   extends Event_Builder<'messageCreate'>
 {
   constructor() {
-    super({ type: 'messageCreate' })
+    super({ eventType: 'messageCreate', type: 'on' })
   }
   public event(message: Message) {
     try {

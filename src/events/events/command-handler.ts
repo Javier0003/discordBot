@@ -10,7 +10,7 @@ interface CommandConfigWithCallback extends CommandConfig {
 
 export default class Command_Handler extends Event_Builder<'interactionCreate'> {
   constructor() {
-    super({ type: 'interactionCreate' })
+    super({ eventType: 'interactionCreate', type: 'on' })
   }
 
   public async event(interaction: Interaction): Promise<void> {

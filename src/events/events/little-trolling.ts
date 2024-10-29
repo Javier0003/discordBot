@@ -5,7 +5,7 @@ export default class Troll extends Event_Builder<'messageCreate'> {
   private static howManyToTrigger = 0
 
   constructor() {
-    super({ type: 'messageCreate' })
+    super({ eventType: 'messageCreate', type: 'on' })
   }
 
   public event(message: Message) {

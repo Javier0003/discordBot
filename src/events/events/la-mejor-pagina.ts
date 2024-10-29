@@ -6,7 +6,7 @@ export default class LaMejorPagina
 {
   constructor() {
     super({
-      type: 'messageCreate'
+      eventType: 'messageCreate', type: 'on'
     })
   }
 

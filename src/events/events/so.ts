@@ -58,7 +58,7 @@ const que = [
 
 export default class So extends Event_Builder<'messageCreate'> {
   constructor() {
-    super({ type: 'messageCreate' })
+    super({ eventType: 'messageCreate', type: 'on' })
   }
 
   public event(message: Message): void {

@@ -5,7 +5,7 @@ import env from '../../env'
 
 export default class RegisterCommands extends Event_Builder<'ready'> {
   constructor() {
-    super({ type: 'ready' })
+    super({ eventType: 'ready', type: 'on' })
     this.event()
   }
 

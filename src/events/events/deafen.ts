@@ -3,7 +3,7 @@ import Event_Builder from '../../structures/event-builder'
 
 export default class Deafen extends Event_Builder<'voiceStateUpdate'> {
   constructor() {
-    super({ type: 'voiceStateUpdate' })
+    super({ eventType: 'voiceStateUpdate', type: 'on' })
   }
 
   public static mover(newState: VoiceState) {
