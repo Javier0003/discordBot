@@ -1,29 +1,25 @@
-import { ClientEvents, Message, VoiceState } from 'discord.js'
+import { ClientEvents } from 'discord.js'
 
 export type EventType = keyof ClientEvents
 export type EventConfiguration = {
-  type: EventType
   description?: string
   event?: () => void
   name?: string
 }
 
-export type EventCommand = {
-  event: ((message: Message) => void) | ((oldState: VoiceState, newState: VoiceState) => void)
-}
-
-export default class Event_Builder {
+export default abstract class Event_Builder<Event extends keyof ClientEvents> {
   name = 'event-builder'
   description = 'event builder'
-  type = 'messageCreate'
+  eventType: Event
 
   constructor({
     name = 'command',
     description = 'command',
     type
-  }: EventConfiguration) {
+  }: EventConfiguration & {type: Event}) {
     this.name = name
     this.description = description
-    this.type = type
+    this.eventType = type
   }
+  abstract event(...args: ClientEvents[Event]): void
 }

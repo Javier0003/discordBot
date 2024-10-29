@@ -3,13 +3,13 @@ import Event_Builder from '../../structures/event-builder'
 import getLocalCommands from '../../utils/get-local-commands'
 import env from '../../env'
 
-export default class RegisterCommands extends Event_Builder {
+export default class RegisterCommands extends Event_Builder<'ready'> {
   constructor() {
     super({ type: 'ready' })
     this.event()
   }
 
-  private async event(): Promise<void> {
+  public async event(): Promise<void> {
     try {
       const localCommands = getLocalCommands()
       const applicationCommands = await appCommands(env.guildId)

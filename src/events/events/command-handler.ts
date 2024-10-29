@@ -8,7 +8,7 @@ interface CommandConfigWithCallback extends CommandConfig {
   command?: (interaction: Interaction) => void
 }
 
-export default class Command_Handler extends Event_Builder {
+export default class Command_Handler extends Event_Builder<'interactionCreate'> {
   constructor() {
     super({ type: 'interactionCreate' })
   }

@@ -1,5 +1,5 @@
 import { ActivityType } from 'discord.js'
-import Event_Builder, { EventCommand } from '../../structures/event-builder'
+import Event_Builder from '../../structures/event-builder'
 import LoaClient from '../../structures/loa-client'
 
 const status = [
@@ -33,7 +33,7 @@ const status = [
   }
 ]
 
-export default class Status extends Event_Builder implements EventCommand {
+export default class Status extends Event_Builder<'ready'> {
   constructor() {
     super({ type: 'ready' })
   }

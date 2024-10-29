@@ -1,4 +1,4 @@
-import Event_Builder, { EventCommand } from '../../structures/event-builder'
+import Event_Builder from '../../structures/event-builder'
 import { mapas, plays } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import { and, asc, desc, eq } from 'drizzle-orm'
@@ -315,7 +315,7 @@ type BeatmapAttributes = {
   }
 }
 
-export default class MapasOsu extends Event_Builder implements EventCommand {
+export default class MapasOsu extends Event_Builder<'ready'> {
   public static dailyMap: DailyMap
 
   constructor() {

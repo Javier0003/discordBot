@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import Event_Builder, { EventCommand } from '../../structures/event-builder'
+import Event_Builder from '../../structures/event-builder'
 import SoTryhard from '../commands/so-tryhard'
 
 const que = [
@@ -56,12 +56,12 @@ const que = [
   'qeu'
 ]
 
-export default class So extends Event_Builder implements EventCommand {
+export default class So extends Event_Builder<'messageCreate'> {
   constructor() {
     super({ type: 'messageCreate' })
   }
 
-  public event(message: Message<boolean>) {
+  public event(message: Message): void {
     try {
       if (message.author.bot) return
       const mensaje = SoTryhard.soTryhard 
