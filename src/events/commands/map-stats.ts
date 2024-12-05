@@ -49,6 +49,7 @@ export default class MapStats extends Command_Builder {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
+      this.reply = await interaction.reply('Espera un momento')
       this.token = await getOsuToken()
       const maps = await db.select().from(mapas)
 
@@ -63,11 +64,10 @@ export default class MapStats extends Command_Builder {
           )
         )
 
-      const row = new ActionRowBuilder().addComponents(select)
+      const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select)
 
-      this.reply = await interaction.reply({
+      this.reply = await this.reply.edit({
         embeds: [this.embed],
-        //@ts-expect-error same error as always with discord.js
         components: [row]
       })
 
