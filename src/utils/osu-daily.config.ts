@@ -29,7 +29,7 @@ const osuConfig = {
    * */
   difficultyWeights: [2, 8, 32, 16, 2, 1],
 
-  ranks: ['D', 'C', 'B', 'A', 'S','SH', 'SS', 'SSH'] as OsuRanks[],
+  ranks: ['D', 'C', 'B', 'A', 'S', 'SS', 'SH', 'SSH'] as OsuRanks[],
 
   modChances: {
     speed: {

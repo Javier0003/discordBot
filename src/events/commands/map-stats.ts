@@ -1,17 +1,18 @@
 import {
   ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
   CacheType,
   ChatInputCommandInteraction,
   ComponentType,
   EmbedBuilder,
   InteractionResponse,
   Message,
-  StringSelectMenuBuilder,
-  StringSelectMenuOptionBuilder
 } from 'discord.js'
 import Command_Builder from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import {
+  Mapas,
   mapas,
   Plays,
   plays,
@@ -28,6 +29,11 @@ type playStats = {
   users: Users
 }
 
+type MapList = {
+  month: string
+  maps: Mapas[]
+}
+
 export default class MapStats extends Command_Builder {
   private reply: InteractionResponse<boolean> | Message | undefined
   private embed: EmbedBuilder = new EmbedBuilder()
@@ -41,7 +47,7 @@ export default class MapStats extends Command_Builder {
       name: 'map-stats',
       description: 'Muestra las estadisticas de un mapa',
       options: [],
-      notUpdated: true
+      // notUpdated: true
     })
   }
 
@@ -50,77 +56,92 @@ export default class MapStats extends Command_Builder {
   ): Promise<void> {
     try {
       this.reply = await interaction.reply('Espera un momento')
-      this.token = await getOsuToken()
+      // this.token = await getOsuToken()
       const maps = await db.select().from(mapas)
+      const mapData = this.transformMapData(maps)
 
-      const select = new StringSelectMenuBuilder()
-        .setCustomId('map-stats')
-        .setPlaceholder('Selecciona un mapa')
-        .addOptions(
-          maps.map((map) =>
-            new StringSelectMenuOptionBuilder()
-              .setLabel(`${map.mapName} - ${map.date}`)
-              .setValue(`${map.oldMaps}`)
-          )
+      console.log(mapData)
+      const buttons: ButtonBuilder[] = []
+
+      mapData.forEach((map) => {
+        buttons.push(
+          new ButtonBuilder()
+          .setLabel(map.month)
+          .setStyle(ButtonStyle.Primary)
+          .setCustomId(`${map.month}`)
         )
+      })
 
-      const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select)
+      const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+        ...buttons
+      )
 
       this.reply = await this.reply.edit({
-        embeds: [this.embed],
-        components: [row]
+        content: 'Elige el mes que quieres ver',
+        components: [actionRow]
       })
 
-      const collector = this.reply.createMessageComponentCollector({
-        componentType: ComponentType.StringSelect,
-        time: 60_000,
-        filter: (i) => i.user.id === interaction.user.id
-      })
+      // mapData[0].maps.forEach((map) => {
+      //   buttons.push(
+      //     new ButtonBuilder()
+      //     .setLabel(map.mapName)
+      //     .setStyle(ButtonStyle.Primary)
+      //     .setCustomId(`${map.oldMaps}`)
+      //   )
+      // })
 
-      collector.on('collect', async (i) => {
-        await i.deferUpdate()
-        const mapId = Number(i.values[0])
+      // const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      //   ...buttons
+      // )
 
-        const stats = (await db
-          .select()
-          .from(plays)
-          .where(eq(plays.mapId, mapId))
-          .orderBy(desc(plays.puntos))
-          .leftJoin(users, eq(plays.uId, users.id))) as unknown as playStats[]
+      // this.reply = await this.reply.edit({
+      //   content: 'Elige el mapa que quieres ver',
+      //   components: [actionRow]
+      // })
 
-        await this.updateEmbed(mapId, stats)
-      })
+      // const collector = this.reply.createMessageComponentCollector({
+      //   componentType: ComponentType.Button,
+      //   time: 60_000,
+      //   filter: (i) => i.user.id === interaction.user.id
+      // })
+
+      // collector.on('collect', async (i) => {
+      //   await i.deferUpdate()
+      //   console.log(i.customId)
+
+      //   this.reply = await this.reply?.edit({
+      //     content: 'Espera un momento'
+      //   })
+      // })
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  private async updateEmbed(mapId: number, stats: playStats[]): Promise<void> {
-    try {
-      const mapData = await getOsuMap(mapId, this.token)
-      const fields = stats.map((stat, index) => ({
-        name: `#${index + 1}`,
-        value: `${stat.users.name}:\nPuntos:${stat.plays.puntos}\nRank: ${
-          stat.plays.rank
-        }\nScore: ${stat.plays.score}\nAccuracy: ${OsuDaily.accuracy(
-          Number(stat.plays.accuracy)
-        )}%`
-      }))
-
-      this.embed = this.embed.setFields([])
-
-      this.embed = this.embed
-        .setDescription(
-          `[${mapData.beatmapset.title}](${mapData.url}) - ${mapData.version} - ${mapData.difficulty_rating}★ \n`
-        )
-        .setThumbnail(mapData.beatmapset.covers.list)
-        .addFields(fields)
-
-      this.reply = await this.reply?.edit({
-        embeds: [this.embed]
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  private transformMapData(inputData: Mapas[]): MapList[] {
+    const groupedData = new Map();
+    inputData.forEach(item => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [day, month, year] = item.date.split('/').map(Number);
+      
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      const monthYear = `${monthNames[month - 1]} ${year}`;
+  
+      if (!groupedData.has(monthYear)) {
+        groupedData.set(monthYear, { 
+          month: monthYear, 
+          maps: [] 
+        });
+      }
+  
+      const monthData = groupedData.get(monthYear);
+      monthData.maps.push(item);
+    });
+  
+    return Array.from(groupedData.values());
   }
 }
