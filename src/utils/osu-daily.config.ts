@@ -306,3 +306,42 @@ export type dailyPlays = {
   accuracy: number
   points: number
 }
+
+export interface Welcome {
+  scores: ScoreBest[];
+}
+
+export interface ScoreBest {
+  accuracy:                number;
+  best_id:                 number;
+  created_at:              Date;
+  id:                      number;
+  max_combo:               number;
+  mode:                    string;
+  mode_int:                number;
+  mods:                    mods[];
+  passed:                  boolean;
+  perfect:                 boolean;
+  pp:                      number;
+  rank:                    string;
+  replay:                  boolean;
+  score:                   number;
+  statistics:              Statistics;
+  type:                    string;
+  user_id:                 number;
+  current_user_attributes: CurrentUserAttributes;
+}
+
+export interface CurrentUserAttributes {
+  pin: null;
+}
+
+export interface Statistics {
+  count_100:  number;
+  count_300:  number;
+  count_50:   number;
+  count_geki: null;
+  count_katu: null;
+  count_miss: number;
+}
+
