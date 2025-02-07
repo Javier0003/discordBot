@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-const { BOT_TOKEN, GUILD_ID, MC_IP, MC_PORT, OPENER_PORT, DATABASE_URL, OSU_BODY, DEV1, DEV2, CLIENT_SECRET_DISCORD, CLIENT_ID_DISCORD, REDIRECT_URI } = process.env
+const { BOT_TOKEN, GUILD_ID, MC_IP, MC_PORT, OPENER_PORT, DATABASE_URL, OSU_BODY, DEV1, DEV2, CLIENT_SECRET_DISCORD, CLIENT_ID_DISCORD, REDIRECT_URI, DOMAIN } = process.env
 
 if (!REDIRECT_URI) throw new Error('No dev1 ID provided')
 if (!CLIENT_SECRET_DISCORD) throw new Error('No Discord client secret provided')
@@ -26,5 +26,6 @@ export default {
     clientId: CLIENT_ID_DISCORD,
     clientSecret: CLIENT_SECRET_DISCORD,
     redirectUri: REDIRECT_URI
-  }
+  },
+  DOMAIN
 }

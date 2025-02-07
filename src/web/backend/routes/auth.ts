@@ -38,7 +38,8 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
 async function insertSession(userRes: UserData, data: DiscordTokenResponse) {
   try {
     await db.insert(sessionTable).values({ id: userRes.id, refreshToken: data.refresh_token })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.log(error)
+    console.log("session already exists")
   }
 }

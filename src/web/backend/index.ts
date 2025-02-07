@@ -1,9 +1,10 @@
 import { Hono } from 'hono'
 import { UserData } from './utils/discord'
 import routeHandler from './utils/route-handler/route-handler'
-import pageHandler from './utils/frontend-router/page-handler'
+import pageHandler from './utils/frontend-router/router/page-handler'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
+import env from '../../env'
 
 declare module 'hono' {
   interface Context {
@@ -24,7 +25,7 @@ export function startServer() {
       port: 3000
     },
     (info) => {
-      console.log(`Server is running on port http://localhost:${info.port}`)
+      console.log(`Server is running on port ${env.DOMAIN ?? "http://localhost:"}${info.port}`)
     }
   )
 }

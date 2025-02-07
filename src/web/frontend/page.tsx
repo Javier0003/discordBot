@@ -17,7 +17,6 @@ const Home: FC<{ context: Context }> = async ({ context }) => {
 
       <div class={header}>
         <h1>Home</h1>
-
         <a href="/mapas">Home page</a>
       </div>
     </Fragment>

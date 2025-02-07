@@ -1,6 +1,6 @@
 import { Context, Next } from 'hono'
 import RouteBuilder from '../utils/route-handler/route-builder'
-import { getCookie } from 'hono/cookie'
+import { deleteCookie, getCookie } from 'hono/cookie'
 import { getUserData } from '../utils/discord'
 
 export default class Validate extends RouteBuilder<Promise<Response | void>> {
@@ -14,9 +14,12 @@ export default class Validate extends RouteBuilder<Promise<Response | void>> {
     const cookie = getCookie(c, 'token')
     if (c.req.path === '/' && !cookie) return await next()
     
-
     const userData = await getUserData(cookie!)
-    if (!userData) return c.redirect('/')
+
+    if (!userData) {
+      deleteCookie(c, 'token')
+      return c.redirect('/')
+    }
 
     c.userData = userData
     await next()
