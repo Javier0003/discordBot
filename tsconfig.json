@@ -6,9 +6,7 @@
   },
   "compilerOptions": {
     "target": "es2021",
-    "lib": [
-      "es2021"
-    ],
+    "lib": ["es2021"],
     "module": "Node16",
     "moduleResolution": "Node16",
     "outDir": "./dist",
@@ -17,7 +15,9 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
   },
   "include": ["src", "drizzle/schemas/schema.ts", "src/utils/.d.ts"],
   "exclude": ["node_modules", "dist"]

@@ -2,10 +2,13 @@ import { Client, GatewayIntentBits } from 'discord.js'
 import env from '../env'
 import Event_Handler from './event-handler'
 import LoaClient from './loa-client'
+import { startServer } from '../web/backend'
 export default class LoaBot extends Client {
   clientLoa = new LoaClient(this)
 
   eventHandler = new Event_Handler()
+
+  api = startServer()
 
   constructor() {
     super({

@@ -1,0 +1,1 @@
+ALTER TABLE "plays" ADD COLUMN "pp" integer DEFAULT 0 NOT NULL;

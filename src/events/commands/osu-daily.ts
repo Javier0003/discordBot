@@ -98,7 +98,9 @@ export default class OsuDaily extends Command_Builder {
             rank: userPlay.rank,
             score: userPlay.score,
             accuracy: userPlay.accuracy,
-            points: scoredPoints
+            points: scoredPoints,
+            pp: Math.ceil(userPlay.pp || 0),
+            combo: userPlay.max_combo
           })
         }
         this.reply = (await this.reply).edit({ embeds: [this.embed] })
@@ -170,6 +172,7 @@ export default class OsuDaily extends Command_Builder {
   }
 
   public static accuracy(input: number): string {
+    if(input === 1) return '100'
     const numberString = input.toString().split('.').pop()
 
     if (!numberString) return '0'

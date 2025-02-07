@@ -1,0 +1,1 @@
+ALTER TABLE "plays" ADD COLUMN "combo" integer DEFAULT 0 NOT NULL;

@@ -19,9 +19,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@lucia-auth/oauth": "^3.5.3",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "discord.js": "14.15.3",
     "dotenv": "16.4.5",
     "drizzle-orm": "0.32.0",
+    "hono": "^4.6.16",
+    "lucia": "^3.2.2",
     "minecraft-status": "1.1.0",
     "postgres": "3.4.4"
   },

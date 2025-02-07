@@ -305,6 +305,8 @@ export type dailyPlays = {
   rank: OsuRanks
   accuracy: number
   points: number
+  pp: number
+  combo: number
 }
 
 export interface Welcome {

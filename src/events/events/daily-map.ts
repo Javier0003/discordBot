@@ -446,6 +446,8 @@ export default class MapasOsu extends Event_Builder<'ready'> {
             score: play.score,
             uId: play.uid,
             puntos: play.points,
+            pp: play.pp,
+            combo: play.combo
           })
           .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
       }
@@ -458,6 +460,8 @@ export default class MapasOsu extends Event_Builder<'ready'> {
         score: play.score,
         uId: play.uid,
         puntos: play.points,
+        pp: play.pp,
+        combo: play.combo
       })
     }
   }

@@ -36,6 +36,34 @@
       "when": 1726601633508,
       "tag": "0004_big_sasquatch",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1736290522726,
+      "tag": "0005_neat_grandmaster",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1736291450637,
+      "tag": "0006_living_vanisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1736300241125,
+      "tag": "0007_hard_phil_sheldon",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1738957559560,
+      "tag": "0008_regular_satana",
+      "breakpoints": true
     }
   ]
 }
