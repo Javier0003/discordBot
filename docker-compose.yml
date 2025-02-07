@@ -1,9 +1,12 @@
-version: '3'
 services:
   discord-bot:
     build:
       context: .
       dockerfile: dockerfile  
+    ports:
+      - '42069:42069'
+    env_file:
+      - .env.prod
     environment:
       - BOT_TOKEN = ${BOT_TOKEN}
       - GUILD_ID = ${GUILD_ID}
@@ -11,8 +14,13 @@ services:
       - MC_IP = ${MC_IP}
       - OPENER_PORT = ${OPENER_PORT}
       - MC_PORT = ${MC_PORT}
-    env_file:
-      - .env.prod
+      - REDIRECT_URI= ${REDIRECT_URI}
+      - OSU_BODY = ${OSU_BODY}
+      - CLIENT_ID_DISCORD = ${CLIENT_ID_DISCORD}
+      - CLIENT_SECRET_DISCORD = ${CLIENT_SECRET_DISCORD}
+      - DOMAIN = https://loabot.darkjaslo.dev
+      - DEV1 = ${DEV1}
+      - DEV2 = ${DEV2}
     restart: always
     networks:
       - loa_network

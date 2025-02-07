@@ -22,7 +22,7 @@ export function startServer() {
   serve(
     {
       fetch: honoApp.fetch,
-      port: 3000
+      port: 42069
     },
     (info) => {
       console.log(`Server is running on port ${env.DOMAIN ?? "http://localhost:"}${info.port}`)

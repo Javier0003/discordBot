@@ -31,7 +31,7 @@ export function subFolderPathHandler(path: string, honoApp: Hono) {
       return PageInstance.event(c)
     })
 
-    const routes = pages.filter((page) => !page.endsWith('.tsx'))
+    const routes = pages.filter((page) => !page.endsWith('.tsx') && !page.endsWith('.js'))
 
     for (const route of routes) {
       subFolderPathHandler(`${path}/${route}`, honoApp)
