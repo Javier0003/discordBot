@@ -22,7 +22,7 @@ const Layout: FC = ({ children }) => {
           crossorigin=""
         />
         <link rel="icon" href="/static/logo.ico" type="image/x-icon" />
-        <title>segs</title>
+        <title>Loa Page</title>
         <Style />
       </head>
       <body class={styles}>
