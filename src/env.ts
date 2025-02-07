@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 const { BOT_TOKEN, GUILD_ID, MC_IP, MC_PORT, OPENER_PORT, DATABASE_URL, OSU_BODY, DEV1, DEV2, CLIENT_SECRET_DISCORD, CLIENT_ID_DISCORD, REDIRECT_URI, DOMAIN } = process.env
 
-if (!REDIRECT_URI) throw new Error('No dev1 ID provided')
+if (!REDIRECT_URI) throw new Error('No redirect uri provided')
 if (!CLIENT_SECRET_DISCORD) throw new Error('No Discord client secret provided')
 if (!CLIENT_ID_DISCORD) throw new Error('No Discord client ID provided')
 if (!MC_IP) throw new Error('No Minecraft IP provided')

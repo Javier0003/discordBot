@@ -20,7 +20,8 @@ export default class RegisterCommands extends Event_Builder<'ready'> {
       for (const localCommand of localCommands) {
         const { name, description, options } = localCommand
 
-        if (!process.env.REGISTER_ALL) {
+
+        if (process.env.REGISTER_ALL) {
           if (localCommand.notUpdated) {
             // console.log(
             //   `⏩ Skipping registering command "${name}" as it's set to not update.`

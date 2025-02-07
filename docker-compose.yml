@@ -1,3 +1,57 @@
+# services:
+#   discord-bot:
+#     build:
+#       context: .
+#       dockerfile: dockerfile  
+#     ports:
+#       - '42069:42069'
+#     env_file:
+#       - .env.prod
+#     environment:
+#       - BOT_TOKEN = ${BOT_TOKEN}
+#       - GUILD_ID = ${GUILD_ID}
+#       - CHANNEL_ID = ${CHANNEL_ID}
+#       - MC_IP = ${MC_IP}
+#       - OPENER_PORT = ${OPENER_PORT}
+#       - MC_PORT = ${MC_PORT}
+#       - REDIRECT_URI= ${REDIRECT_URI}
+#       - OSU_BODY = ${OSU_BODY}
+#       - CLIENT_ID_DISCORD = ${CLIENT_ID_DISCORD}
+#       - CLIENT_SECRET_DISCORD = ${CLIENT_SECRET_DISCORD}
+#       - DOMAIN = https://loabot.darkjaslo.dev
+#       - DEV1 = ${DEV1}
+#       - DEV2 = ${DEV2}
+#     restart: always
+#     networks:
+#       - loa_network
+#     depends_on:
+#       - postgres_db
+
+#   postgres_db:
+#     image: postgres:16.2-alpine
+#     restart: always
+#     environment:
+#       - POSTGRES_PASSWORD = ${POSTGRES_PASSWORD}
+#       - POSTGRES_USER = ${POSTGRES_USER}
+#     ports:
+#     - '5432:5432'
+#     volumes:
+#     - postgres_db:/var/lib/postgresql/data
+#     env_file:
+#       - .env
+#     networks:
+#       - loa_network
+      
+# volumes:
+#   postgres_db:
+#     driver: local 
+
+# networks:
+#   loa_network:
+#     driver: bridge
+
+
+
 services:
   discord-bot:
     build:
@@ -5,8 +59,6 @@ services:
       dockerfile: dockerfile  
     ports:
       - '42069:42069'
-    env_file:
-      - .env.prod
     environment:
       - BOT_TOKEN = ${BOT_TOKEN}
       - GUILD_ID = ${GUILD_ID}
@@ -18,29 +70,33 @@ services:
       - OSU_BODY = ${OSU_BODY}
       - CLIENT_ID_DISCORD = ${CLIENT_ID_DISCORD}
       - CLIENT_SECRET_DISCORD = ${CLIENT_SECRET_DISCORD}
-      - DOMAIN = https://loabot.darkjaslo.dev
+      - DOMAIN = "https://loabot.darkjaslo.dev"
       - DEV1 = ${DEV1}
       - DEV2 = ${DEV2}
+      - DATABASE_URL = ${DATABASE_URL}
+      - OSU_API_KEY = ${OSU_API_KEY}
     restart: always
     networks:
       - loa_network
     depends_on:
       - postgres_db
+    env_file:
+      - .env.prod
 
   postgres_db:
     image: postgres:16.2-alpine
     restart: always
     environment:
-      - POSTGRES_PASSWORD = ${POSTGRES_PASSWORD}
-      - POSTGRES_USER = ${POSTGRES_USER}
+      - POSTGRES_PASSWORD = loabot_db
+      - POSTGRES_USER = loabotpassdb
     ports:
     - '5432:5432'
     volumes:
     - postgres_db:/var/lib/postgresql/data
-    env_file:
-      - .env
     networks:
       - loa_network
+    env_file:
+      - .env.prod
       
 volumes:
   postgres_db:
