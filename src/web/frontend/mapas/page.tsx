@@ -4,7 +4,6 @@ import { db } from '../../../utils/db'
 import { Mapas, mapas } from '../../../../drizzle/schemas/schema'
 import { MapComponent } from './components/map-component'
 import { Header } from '../components/header'
-import { desc } from 'drizzle-orm'
 import getOsuToken from '../../../utils/osu-token'
 import getOsuMap from '../../../utils/get-osu-map'
 import { Beatmap } from '../../../utils/osu-daily.config'
@@ -15,7 +14,7 @@ const body = css`
   flex-wrap: wrap;
   padding: 20px;
   gap: 20px;
-  height: 100%;
+  min-height: 100vh;
   align-content: flex-start;
 `
 
@@ -44,7 +43,7 @@ type TodayMap = {
 }
 
 const Mapas: FC = async ({ context }) => {
-  const mapList = await db.select().from(mapas).orderBy(desc(mapas))
+  const mapList = (await db.select().from(mapas)).reverse()
   const currentDate = new Date()
   const day = currentDate.getDate()
   const month = currentDate.getMonth() + 1
