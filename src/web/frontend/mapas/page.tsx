@@ -44,7 +44,7 @@ type TodayMap = {
 }
 
 const Mapas: FC = async ({ context }) => {
-  const mapList = await db.select().from(mapas).orderBy(desc(mapas.date))
+  const mapList = await db.select().from(mapas).orderBy(desc(mapas))
   const currentDate = new Date()
   const day = currentDate.getDate()
   const month = currentDate.getMonth() + 1
