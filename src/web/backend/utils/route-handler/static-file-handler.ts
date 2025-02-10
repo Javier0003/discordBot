@@ -4,7 +4,7 @@ import { Hono } from 'hono'
 import { join } from 'path'
 
 export default function staticFileHandler(honoApp: Hono) {
-  const path = join(__dirname, '../../static')
+  const path = join('src/web/backend/static')
   const files = readdirSync(path)
 
   for(const file of files){
