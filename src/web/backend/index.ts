@@ -3,8 +3,8 @@ import { UserData } from './utils/discord'
 import routeHandler from './utils/route-handler/route-handler'
 import pageHandler from './utils/frontend-router/router/page-handler'
 import { serve } from '@hono/node-server'
-import { serveStatic } from '@hono/node-server/serve-static'
 import env from '../../env'
+import staticFileHandler from './utils/route-handler/static-file-handler'
 
 declare module 'hono' {
   interface Context {
@@ -13,8 +13,7 @@ declare module 'hono' {
 }
 const honoApp = new Hono()
 
-honoApp.use('/static/*', serveStatic({ path: 'src/web/backend/static/logo.ico' }));
-
+staticFileHandler(honoApp)
 routeHandler(honoApp)
 pageHandler(honoApp)
 

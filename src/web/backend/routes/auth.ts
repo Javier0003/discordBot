@@ -18,6 +18,7 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
       const data = await createToken(code)
       if (!data) return c.redirect('/')
 
+
       const accessToken = data.access_token
 
       if (!await checkGuild(accessToken)) return c.redirect('/')

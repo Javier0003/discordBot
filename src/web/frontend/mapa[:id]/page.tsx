@@ -29,7 +29,7 @@ const playListStyle = css`
 const bodyStyle = css`
   padding: 20px;
   background-color: rgb(25, 25, 25);
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -75,9 +75,7 @@ const Mapa: FC<{ context: Context }> = async ({ context }) => {
     .select({ mods: mapas.oldMapMods, date: mapas.date })
     .from(mapas)
     .where(eq(mapas.oldMaps, Number(id)))
-
-  
-
+    
   return (
     <Fragment>
       <Header context={context} />

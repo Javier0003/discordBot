@@ -1,12 +1,13 @@
 import { FC, Fragment } from 'hono/jsx'
 import { css } from 'hono/css'
 import { db } from '../../../utils/db'
-import { Mapas, mapas } from '../../../../drizzle/schemas/schema'
+import { Mapas, mapas, plays } from '../../../../drizzle/schemas/schema'
 import { MapComponent } from './components/map-component'
 import { Header } from '../components/header'
 import getOsuToken from '../../../utils/osu-token'
 import getOsuMap from '../../../utils/get-osu-map'
 import { Beatmap } from '../../../utils/osu-daily.config'
+import { eq, sql } from 'drizzle-orm'
 
 const body = css`
   background-color: rgb(25, 25, 25);
@@ -43,7 +44,14 @@ type TodayMap = {
 }
 
 const Mapas: FC = async ({ context }) => {
-  const mapList = (await db.select().from(mapas)).reverse()
+  const mapList = (await db.select({
+    mapas,
+    playCount: sql<string>`COUNT(${plays.mapId})`
+  })
+  .from(mapas)
+  .leftJoin(plays, eq(mapas.oldMaps, plays.mapId))
+  .groupBy(mapas.oldMaps)).reverse()
+
   const currentDate = new Date()
   const day = currentDate.getDate()
   const month = currentDate.getMonth() + 1
@@ -51,14 +59,14 @@ const Mapas: FC = async ({ context }) => {
 
   let todayMap: TodayMap | undefined
   if (
-    mapList[0].date === `${day}/${month.toString().padStart(2, '0')}/${year}`
+    mapList[0].mapas.date === `${day}/${month.toString().padStart(2, '0')}/${year}`
   ) {
     const mapa = mapList.shift()!
     const token = await getOsuToken()
-    const mapData = await getOsuMap(Number(mapa.oldMaps), token)
+    const mapData = await getOsuMap(Number(mapa.mapas.oldMaps), token)
 
     todayMap = {
-      mapa: mapa,
+      mapa: mapa.mapas,
       mapData
     }
   }

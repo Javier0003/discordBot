@@ -38,6 +38,33 @@ const userStyles = css`
   }
 `
 
+const logInStyles = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  justify-content: flex-end;
+  padding: 10px;
+  font-size: 1.5rem;
+
+  button {
+    background-color:rgb(58, 58, 58);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+  }
+
+  button:hover {
+    background-color: rgb(80, 80, 80);
+    border: 1px solid white;
+    transition: 0.5s;
+  }
+`
+
 export const Header: FC<{ context?: Context }> = ({ context }) => {
   return (
     <header class={headerStyles}>
@@ -48,9 +75,11 @@ export const Header: FC<{ context?: Context }> = ({ context }) => {
       </h1>
 
       {!context?.userData ? (
-        <a href={env.discord.redirectUri}>
-          <button>LogIn</button>
-        </a>
+        <div class={logInStyles}>
+          <a href={env.discord.redirectUri}>
+            <button>LogIn</button>
+          </a>
+        </div>
       ) : (
         <div class={userStyles}>
           {context?.userData.username}
