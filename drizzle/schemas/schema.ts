@@ -1,5 +1,4 @@
-import { serial } from 'drizzle-orm/pg-core'
-import { integer, pgTable, varchar, } from 'drizzle-orm/pg-core'
+import { integer, pgTable, varchar, serial } from 'drizzle-orm/pg-core'
 
 export const devs = pgTable('devs', {
   id: varchar('id', { length: 256 }),
@@ -29,7 +28,7 @@ export const mapas = pgTable('mapas', {
   oldMapMinRank: varchar('oldMapMinRank').notNull(),
   mapName: varchar('mapName').notNull(),
   date: varchar('date').notNull(),
-  id: integer('id')
+  order: serial('order').notNull()
 })
 
 export const sessionTable = pgTable('session', {

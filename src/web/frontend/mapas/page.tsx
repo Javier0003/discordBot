@@ -50,7 +50,8 @@ const Mapas: FC = async ({ context }) => {
   })
   .from(mapas)
   .leftJoin(plays, eq(mapas.oldMaps, plays.mapId))
-  .groupBy(mapas.oldMaps)).reverse()
+  // .groupBy(mapas.oldMaps).orderBy(mapas.order)
+).reverse()
 
   const currentDate = new Date()
   const day = currentDate.getDate()
