@@ -1,0 +1,1 @@
+ALTER TABLE "mapas" ADD COLUMN "id" integer;

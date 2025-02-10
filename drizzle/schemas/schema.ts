@@ -29,6 +29,7 @@ export const mapas = pgTable('mapas', {
   oldMapMinRank: varchar('oldMapMinRank').notNull(),
   mapName: varchar('mapName').notNull(),
   date: varchar('date').notNull(),
+  id: integer('id')
 })
 
 export const sessionTable = pgTable('session', {
