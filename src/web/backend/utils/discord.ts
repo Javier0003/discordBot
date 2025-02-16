@@ -103,6 +103,18 @@ export async function createToken(code: string) {
   
 }
 
+export async function getSomeUserData(id: string) {
+  const res = await fetch(`https://discord.com/api/users/${id}`, {
+    headers: {
+      Authorization: `Bot ${env.token}`,
+    }
+  })
+  if (!res.ok) return null
+
+  return await res.json() as UserData
+}
+
+
 export async function refreshToken(refresh_token: string): Promise<DiscordTokenResponse | null> {
   const formData = new URLSearchParams({
     client_id: env.discord.clientId,

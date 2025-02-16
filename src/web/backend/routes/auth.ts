@@ -27,8 +27,8 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
       if (!userRes) return c.redirect('/')
 
       await insertSession(userRes, data)
-      
-      setCookie(c, 'token', accessToken)
+
+      setCookie(c, 'token', accessToken, { expires: new Date(Date.now() + data.expires_in * 1000) })
     } catch (error) {
       console.log(error)
     }
@@ -39,7 +39,7 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
 async function insertSession(userRes: UserData, data: DiscordTokenResponse) {
   try {
     await db.insert(sessionTable).values({ id: userRes.id, refreshToken: data.refresh_token })
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     console.log("session already exists")
   }

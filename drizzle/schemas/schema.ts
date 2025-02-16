@@ -22,6 +22,16 @@ export const plays = pgTable('plays', {
   combo: integer('combo').notNull().default(0),
 })
 
+export const comments = pgTable('comments', {
+  commentId: serial('commentId').primaryKey(),
+  mapId: integer('mapId').notNull().references(() => mapas.oldMaps),
+  uId: varchar('uId').notNull().references(() => users.id),
+  comment: varchar('comment').notNull(),
+  date: varchar('date').notNull()
+})
+
+export type Comments = typeof comments.$inferSelect
+
 export const mapas = pgTable('mapas', {
   oldMaps: integer('oldMaps').notNull().primaryKey(),
   oldMapMods: varchar('oldMapMods').notNull(),

@@ -44,14 +44,14 @@ type TodayMap = {
 }
 
 const Mapas: FC = async ({ context }) => {
-  const mapList = (await db.select({
-    mapas,
-    playCount: sql<string>`COUNT(${plays.mapId})`
-  })
-  .from(mapas)
-  .leftJoin(plays, eq(mapas.oldMaps, plays.mapId))
-  .groupBy(mapas.oldMaps).orderBy(mapas.order)
-).reverse()
+  const mapList = (
+    await db
+      .select({ mapas, playCount: sql<string>`COUNT(${plays.mapId})` })
+      .from(mapas)
+      .leftJoin(plays, eq(mapas.oldMaps, plays.mapId))
+      .groupBy(mapas.oldMaps)
+      .orderBy(mapas.order)
+  ).reverse()
 
   const currentDate = new Date()
   const day = currentDate.getDate()
@@ -60,7 +60,8 @@ const Mapas: FC = async ({ context }) => {
 
   let todayMap: TodayMap | undefined
   if (
-    mapList[0].mapas.date === `${day}/${month.toString().padStart(2, '0')}/${year}`
+    mapList[0].mapas.date ===
+    `${day}/${month.toString().padStart(2, '0')}/${year}`
   ) {
     const mapa = mapList.shift()!
     const token = await getOsuToken()
