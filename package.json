@@ -24,6 +24,7 @@
     "hono": "^4.6.16",
     "lucia": "^3.2.2",
     "minecraft-status": "1.1.0",
+    "osu-loa-wrapper": "^1.0.3",
     "postgres": "3.4.4"
   },
   "devDependencies": {

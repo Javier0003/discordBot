@@ -3,12 +3,13 @@ import env from '../env'
 import Event_Handler from './event-handler'
 import LoaClient from './loa-client'
 import { startServer } from '../web/backend'
+import { OsuClient } from 'osu-loa-wrapper'
+
 export default class LoaBot extends Client {
-  clientLoa = new LoaClient(this)
-
-  eventHandler = new Event_Handler()
-
-  api = startServer()
+  public readonly clientLoa = new LoaClient(this)
+  public readonly osuClient = new OsuClient(env.osu.clientId, env.osu.apiKey)
+  public readonly eventHandler = new Event_Handler()
+  public readonly api = startServer()
 
   constructor() {
     super({

@@ -41,7 +41,7 @@ export default async function getOsuToken (){
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: env.osuBody
+    body: env.osu.osuBody
   })
   if(!res.ok) throw new Error('Failed to get osu token')
 
