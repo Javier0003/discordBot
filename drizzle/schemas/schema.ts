@@ -1,8 +1,5 @@
+import { char } from 'drizzle-orm/pg-core'
 import { integer, pgTable, varchar, serial } from 'drizzle-orm/pg-core'
-
-export const devs = pgTable('devs', {
-  id: varchar('id', { length: 256 }),
-})
 
 export const users = pgTable('users', {
   id: varchar('id', { length: 256 }).primaryKey(),
@@ -45,6 +42,14 @@ export const sessionTable = pgTable('session', {
   id: varchar('id', { length: 256 }).primaryKey().references(() => users.id),
   refreshToken: varchar('refreshToken', { length: 256 }).notNull(),
 })
+
+export const serverUsers = pgTable('serverUsers', {
+  idServerUser: varchar('id', { length: 256 }).primaryKey(),
+  isDev: char('isDev', { length: 1 }).default('0'),
+  isVCBan: char('isVCBan', { length: 1 }).default('0'),
+})
+
+export type ServerUsers = typeof serverUsers.$inferSelect
 
 export type Users = typeof users.$inferSelect
 export type NewUser = typeof users.$inferInsert

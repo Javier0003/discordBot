@@ -1,12 +1,11 @@
 import { Interaction } from 'discord.js'
 import getLocalCommands from '../../utils/get-local-commands'
 import Event_Builder from '../../structures/event-builder'
-import { CommandConfig } from '../../structures/command-builder'
 import env from '../../env'
-
-interface CommandConfigWithCallback extends CommandConfig {
-  command?: (interaction: Interaction) => void
-}
+import { CommandConfig } from '../../structures/command-builder'
+import { db } from '../../utils/db'
+import { serverUsers } from '../../../drizzle/schemas/schema'
+import { and, eq } from 'drizzle-orm'
 
 export default class Command_Handler extends Event_Builder<'interactionCreate'> {
   constructor() {
@@ -20,10 +19,10 @@ export default class Command_Handler extends Event_Builder<'interactionCreate'> 
       const localCommands = await getLocalCommands()
       const commandObject = localCommands?.find(
         (cmd) => cmd.name === interaction.commandName
-      ) as CommandConfigWithCallback
+      ) as CommandConfig
 
       if (!commandObject) return
-      if (!commandObject.command) return
+      if (!commandObject.execute) return
 
       if (commandObject.testOnly) {
         if (!(interaction.guild?.id === env.guildId)) {
@@ -37,7 +36,17 @@ export default class Command_Handler extends Event_Builder<'interactionCreate'> 
 
 
       if (commandObject.devOnly) {
-        if (!env.dev.includes(interaction.member?.user.id || '')) {
+        const userId = interaction.member?.user.id;
+        if (!userId) {
+          interaction.reply({
+            content: 'User ID is not available.',
+            ephemeral: true,
+          });
+          return;
+        }
+
+        const dev = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, userId), eq(serverUsers.isDev, '1')));
+        if (dev.length === 0) {
           interaction.reply({
             content: 'Only developers are allowed to run this command.',
             ephemeral: true,
@@ -72,7 +81,7 @@ export default class Command_Handler extends Event_Builder<'interactionCreate'> 
       //     }
       //   }
 
-      await commandObject.command(interaction)
+      await commandObject.execute(interaction)
     } catch (error) {
       console.log(`There was an error running this command: ${error}`)
     }

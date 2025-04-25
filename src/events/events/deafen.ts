@@ -16,16 +16,10 @@ export default class Deafen extends Event_Builder<'voiceStateUpdate'> {
     }
   }
 
-  private static kick(newState: VoiceState) {
-    newState.member?.voice.setChannel(null)
-  }
 
   public event(oldState: VoiceState, newState: VoiceState) {
     try {
       if (oldState.member?.id === '411916947773587456') return
-
-      if (newState.member?.roles.cache.has('1033845854827708436'))
-        Deafen.kick(newState)
 
       if (
         oldState.channel === null &&

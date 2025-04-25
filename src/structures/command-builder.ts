@@ -1,7 +1,7 @@
-import { APIApplicationCommandOption, CacheType, CommandInteraction } from 'discord.js'
+import { APIApplicationCommandOption, CacheType, ChatInputCommandInteraction } from 'discord.js'
 import LoaClient from './loa-client'
 
-export type CommandConfig = {
+export type CommandConfiguration = {
   name: string
   description: string
   devOnly?: boolean
@@ -9,6 +9,11 @@ export type CommandConfig = {
   options?: APIApplicationCommandOption[]
   deleted?: boolean
   notUpdated?: boolean
+}
+
+export interface CommandConfig extends CommandConfiguration {
+  command?: (interaction: ChatInputCommandInteraction<CacheType>) => Promise<void>
+  execute?: (interaction: ChatInputCommandInteraction<CacheType>) => Promise<void>
 }
 
 export default abstract class Command_Builder extends LoaClient implements CommandConfig {
@@ -37,5 +42,9 @@ export default abstract class Command_Builder extends LoaClient implements Comma
     this.deleted = deleted
     this.notUpdated = notUpdated
   }
-  public abstract command(interaction: CommandInteraction<CacheType>): Promise<void>
+  public abstract command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void>
+
+  public async execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
+    this.command(interaction)
+  }
 }
