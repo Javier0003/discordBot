@@ -35,7 +35,7 @@ const status = [
 
 export default class Status extends Event_Builder<'ready'> {
   constructor() {
-    super({ eventType: 'ready', type: 'on' })
+    super({ eventType: 'ready', type: 'on', name: 'status' })
   }
 
   public event() {

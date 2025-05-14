@@ -1,50 +1,112 @@
-import { APIApplicationCommandOption, CacheType, ChatInputCommandInteraction } from 'discord.js'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CacheType, ChatInputCommandInteraction, Collection, User } from 'discord.js'
 import LoaClient from './loa-client'
+import { option } from './option-builder'
 
-export type CommandConfiguration = {
-  name: string
-  description: string
-  devOnly?: boolean
-  testOnly?: boolean
-  options?: APIApplicationCommandOption[]
-  deleted?: boolean
-  notUpdated?: boolean
+type TypeMap = {
+  string: string
+  user: User
+  boolean: boolean
+  int: number
 }
 
-export interface CommandConfig extends CommandConfiguration {
-  command?: (interaction: ChatInputCommandInteraction<CacheType>) => Promise<void>
-  execute?: (interaction: ChatInputCommandInteraction<CacheType>) => Promise<void>
+type OptionToValue<O extends readonly option[]> = {
+  [K in O[number]as K['name']]: K extends { type: keyof TypeMap }
+  ? TypeMap[K['type']]
+  : unknown
 }
 
-export default abstract class Command_Builder extends LoaClient implements CommandConfig {
+export type CommandConfiguration<O extends option[] | undefined = undefined> =
+  O extends undefined
+  ? {
+    name: string
+    description: string
+    devOnly?: boolean
+    testOnly?: boolean
+    deleted?: boolean
+    notUpdated?: boolean
+  }
+  : {
+    name: string
+    description: string
+    devOnly?: boolean
+    testOnly?: boolean
+    options: O
+    deleted?: boolean
+    notUpdated?: boolean
+  }
+
+export default abstract class Command<
+  O extends option[] | undefined = undefined,
+> extends LoaClient {
   readonly name
   readonly description
   readonly devOnly
   readonly testOnly
-  readonly options
+  readonly _optionList: O | null = null
   readonly deleted
   readonly notUpdated
-  constructor({
-    name,
-    description,
-    devOnly,
-    testOnly,
-    options,
-    deleted,
-    notUpdated
-  }: CommandConfig) {
+  private optionsList: O extends readonly option[]
+    ? Collection<keyof OptionToValue<O> & string, OptionToValue<O>[keyof OptionToValue<O> & string]>
+    : Collection<string, { data: string | User | boolean | number }> =
+    new Collection() as any;
+
+  protected getOption<K extends keyof (O extends readonly option[] ? OptionToValue<O> : Record<string, any>) & string>(
+    key: K
+  ): (O extends readonly option[] ? OptionToValue<O> : Record<string, any>)[K] {
+    return this.optionsList.get(key) as any
+  }
+
+  get options() {
+    return this.optionsList
+  }
+
+  constructor(readonly configs: CommandConfiguration<O>) {
     super()
-    this.name = name
-    this.description = description
-    this.devOnly = devOnly
-    this.testOnly = testOnly
-    this.options = options
-    this.deleted = deleted
-    this.notUpdated = notUpdated
+    this.name = configs.name
+    this.description = configs.description
+    this.devOnly = configs.devOnly
+    this.testOnly = configs.testOnly
+    //@ts-expect-error ts cryin 😔
+    this._optionList = configs.options
+    this.deleted = configs.deleted
+    this.notUpdated = configs.notUpdated
   }
   public abstract command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void>
 
   public async execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
+    this.fetchOptions(interaction)
     this.command(interaction)
+  }
+
+  private fetchOptions(interaction: ChatInputCommandInteraction<CacheType>): void {
+    if (!this._optionList) return
+    this._optionList.forEach((option) => {
+      switch (option.type) {
+        
+        case 'string':
+          this.optionsList.set(option.name as O extends readonly option[] ? O[number]['name'] : string, {
+            data: interaction.options.getString(option.name, option.required ?? false) as string,
+          })
+          break
+        case 'user':
+          this.optionsList.set(option.name as O extends readonly option[] ? O[number]['name'] : string, {
+            data: interaction.options.getUser(option.name, option.required ?? false) as User,
+          })
+          break
+        case 'bool':
+          this.optionsList.set(option.name as O extends readonly option[] ? O[number]['name'] : string, {
+            data: interaction.options.getBoolean(option.name, option.required ?? false) as boolean,
+          })
+          break
+        case 'int':
+          this.optionsList.set(option.name as O extends readonly option[] ? O[number]['name'] : string, {
+            data: interaction.options.getInteger(option.name, option.required ?? false) as number,
+          })
+          break
+        default:
+          break
+      }
+    })
   }
 }

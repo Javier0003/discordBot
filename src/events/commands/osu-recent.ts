@@ -8,7 +8,7 @@ import {
   InteractionResponse,
   Message
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
@@ -18,7 +18,7 @@ import osuConfig, { mods, Score } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
 import OsuDaily from './osu-daily'
 
-export default class osuRecent extends Command_Builder {
+export default class osuRecent extends Command {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Recent')
@@ -36,7 +36,7 @@ export default class osuRecent extends Command_Builder {
   ): Promise<void> {
     try {
       const token = await getOsuToken()
-      this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
+      this.reply = interaction.reply({ embeds: [this.embed] })
       const user = await db
         .select()
         .from(users)

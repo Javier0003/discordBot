@@ -1,20 +1,22 @@
-import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
+import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { serverUsers } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 import OptionBuilder from '../../structures/option-builder'
 
-export default class UnBan extends Command_Builder {
+const options = new OptionBuilder().addUserOption({
+  description: 'Usuario a desbanear',
+  name: 'user',
+  required: true,
+}).build()
+
+export default class UnBan extends Command<typeof options> {
   constructor() {
     super({
       name: 'unban',
       description: 'Desbaneando a un usuario',
-      options: new OptionBuilder().addUserOption({
-        description: 'Usuario a desbanear',
-        name: 'user',
-        required: true,
-      }).build(),
+      options: options,
       devOnly: true,
     })
   }
@@ -23,7 +25,7 @@ export default class UnBan extends Command_Builder {
     try {
       const userId = interaction.options.getUser('user')?.id
       if (!userId) {
-        await interaction.reply({ content: 'No se encontró el usuario', ephemeral: true })
+        await interaction.reply({ content: 'No se encontró el usuario', flags: MessageFlags.Ephemeral })
         return
       }
 
@@ -32,7 +34,7 @@ export default class UnBan extends Command_Builder {
     }
     catch (error) {
       console.error('Error al desbanear al usuario:', error)
-      await interaction.reply({ content: 'Hubo un error al desbanear al usuario', ephemeral: true })
+      await interaction.reply({ content: 'Hubo un error al desbanear al usuario', flags: MessageFlags.Ephemeral})
       return
     }
   }

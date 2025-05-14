@@ -1,4 +1,4 @@
-import { Message } from 'discord.js'
+import { Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../structures/event-builder'
 import SoTryhard from '../commands/so-tryhard'
 
@@ -58,10 +58,10 @@ const que = [
 
 export default class So extends Event_Builder<'messageCreate'> {
   constructor() {
-    super({ eventType: 'messageCreate', type: 'on' })
+    super({ eventType: 'messageCreate', type: 'on', name: 'so' })
   }
 
-  public event(message: Message): void {
+  public event(message: OmitPartialGroupDMChannel<Message<boolean>>): void {
     try {
       if (message.author.bot) return
       const mensaje = SoTryhard.soTryhard 

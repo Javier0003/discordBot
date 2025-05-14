@@ -1,10 +1,10 @@
 import { join } from 'path'
-import { CommandConfig } from '../structures/command-builder'
+import Command from '../structures/command-builder'
 import { readdirSync } from 'fs'
 
-export default function getLocalCommands(): CommandConfig[] | undefined {
+export default function getLocalCommands(): Command[] | undefined {
     const path = join(__dirname, '../events/commands')
-    const localCommands: CommandConfig[] = []
+    const localCommands: Command[] = []
     const commands = readdirSync(path)
 
     for (const command of commands) {

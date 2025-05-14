@@ -3,8 +3,9 @@ import {
   ChatInputCommandInteraction,
   InteractionResponse,
   Message,
+  MessageFlags,
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import getOsuToken from '../../utils/osu-token'
@@ -15,7 +16,7 @@ const options = new OptionBuilder()
   .addStringOption({ description: 'Pon tu nombre de osu!', name: 'name' })
   .build()
 
-export default class OsuRegister extends Command_Builder {
+export default class OsuRegister extends Command<typeof options> {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
 
   constructor() {
@@ -33,7 +34,7 @@ export default class OsuRegister extends Command_Builder {
     try {
       this.reply = interaction.reply({
         content: 'Espera un segundo',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral
       })
 
       if (interaction.options.data.length === 0)

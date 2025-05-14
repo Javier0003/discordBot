@@ -5,21 +5,21 @@ import {
   InteractionResponse,
   Message
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 import OptionBuilder from '../../structures/option-builder'
 import OsuDaily from './osu-daily'
 
-const opciones = new OptionBuilder()
+const options = new OptionBuilder()
   .addUserOption({
     description: 'Usuario de osu!',
     name: 'user',
   })
   .build()
 
-export default class InfoOsu extends Command_Builder {
+export default class InfoOsu extends Command<typeof options> {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Rank')
@@ -30,7 +30,7 @@ export default class InfoOsu extends Command_Builder {
       name: 'user-osu',
       description: 'información de osu!',
       notUpdated: true,
-      options: opciones,
+      options: options,
     })
   }
 
@@ -38,7 +38,7 @@ export default class InfoOsu extends Command_Builder {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
-      this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
+      this.reply = interaction.reply({ embeds: [this.embed]})
 
       await this.getOsuData(interaction)
 

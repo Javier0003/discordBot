@@ -1,4 +1,4 @@
-import { EmbedBuilder, Message } from 'discord.js'
+import { EmbedBuilder, Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../structures/event-builder'
 import getOsuToken from '../../utils/osu-token'
 import { db } from '../../utils/db'
@@ -8,10 +8,10 @@ import OsuDaily from '../commands/osu-daily'
 
 export default class OsuBest extends Event_Builder<'messageCreate'> {
   constructor() {
-    super({ eventType: 'messageCreate', type: 'on' })
+    super({ eventType: 'messageCreate', type: 'on', name: 'osu-best' })
   }
 
-  async event(message: Message<boolean>): Promise<void> {
+  async event(message: OmitPartialGroupDMChannel<Message<boolean>>): Promise<void> {
     try {
       if (message.author.bot) return
       if (!message.reference) return

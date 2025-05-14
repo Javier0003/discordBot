@@ -319,7 +319,7 @@ export default class MapasOsu extends Event_Builder<'ready'> {
   public static dailyMap: DailyMap
 
   constructor() {
-    super({ eventType: 'ready', type: 'on' })
+    super({ eventType: 'ready', type: 'on' , name: 'daily-map' })
   }
 
   public async event() {

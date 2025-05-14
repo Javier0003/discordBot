@@ -1,4 +1,4 @@
-import { EmbedBuilder, Message } from 'discord.js'
+import { EmbedBuilder, Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../structures/event-builder'
 
 export default class LaMejorPagina
@@ -6,11 +6,11 @@ export default class LaMejorPagina
 {
   constructor() {
     super({
-      eventType: 'messageCreate', type: 'on'
+      eventType: 'messageCreate', type: 'on' , name: 'La Mejor Pagina'
     })
   }
 
-  public event(message: Message) {
+  public event(message: OmitPartialGroupDMChannel<Message<boolean>>) {
     try {
       if (
         message.content.toLowerCase() === 'la mejor pagina' ||

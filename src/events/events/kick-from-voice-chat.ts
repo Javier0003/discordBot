@@ -6,7 +6,7 @@ import { serverUsers } from '../../../drizzle/schemas/schema'
 
 export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'> {
   constructor() {
-    super({ eventType: 'voiceStateUpdate', type: 'on' })
+    super({ eventType: 'voiceStateUpdate', type: 'on', name: 'kick-from-voice-chat' })
   }
 
   public async event(oldState: VoiceState, newState: VoiceState) {

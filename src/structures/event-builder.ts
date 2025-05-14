@@ -1,4 +1,5 @@
 import { Client, ClientEvents } from 'discord.js'
+import LoaClient from './loa-client'
 
 export type EventType = keyof ClientEvents
 export type EventConfiguration = {
@@ -6,10 +7,10 @@ export type EventConfiguration = {
   event?: () => void
   name?: string
   eventType: EventType
-  type: keyof Client
+  type?: keyof Client
 }
 
-export default abstract class Event_Builder<Event extends keyof ClientEvents> {
+export default abstract class Event_Builder<Event extends keyof ClientEvents> extends LoaClient{
   name = 'event-builder'
   description = 'event builder'
   eventType: Event
@@ -19,12 +20,14 @@ export default abstract class Event_Builder<Event extends keyof ClientEvents> {
     name = 'command',
     description = 'command',
     eventType,
-    type
+    type = 'on'
   }: Omit<EventConfiguration & {eventType: Event}, 'event'>) {
+    super()
     this.name = name
     this.description = description
     this.eventType = eventType
     this.type = type
   }
+
   abstract event(...args: ClientEvents[Event]): void
 }

@@ -7,7 +7,7 @@ import {
   AttachmentBuilder,
   ChatInputCommandInteraction
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { Socket } from 'node:net'
 
 //@ts-expect-error (no type declarations sadly)
@@ -23,7 +23,7 @@ const open = () => {
   })
 }
 
-export default class McStatus extends Command_Builder {
+export default class McStatus extends Command {
   private playerCount: string = ''
 
   constructor() {

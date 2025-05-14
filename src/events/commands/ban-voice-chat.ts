@@ -1,13 +1,15 @@
-import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
+import Command from '../../structures/command-builder'
 import OptionBuilder from '../../structures/option-builder'
 import { db } from '../../utils/db'
 import { serverUsers } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 
-const options = new OptionBuilder().addUserOption({ description: 'User to ban', name: 'user', required: true }).build()
+const options = new OptionBuilder()
+  .addUserOption({ description: 'User to ban', name: 'user', required: true })
+  .build()
 
-export default class BanVoiceChat extends Command_Builder {
+export default class BanVoiceChat extends Command<typeof options> {
   constructor() {
     super({
       name: 'ban-voice-chat',
@@ -22,7 +24,8 @@ export default class BanVoiceChat extends Command_Builder {
 
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
     try {
-      await interaction.deferReply({ ephemeral: true })
+      await interaction.deferReply({ flags: MessageFlags.Ephemeral })
+
       const user = interaction.options.getUser('user', true)
       const guild = interaction.guild
       if (!guild) return

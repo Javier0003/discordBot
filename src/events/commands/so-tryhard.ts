@@ -1,10 +1,7 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
-import OptionBuilder from '../../structures/option-builder'
+import Command from '../../structures/command-builder'
 
-const options = new OptionBuilder().build()
-
-export default class SoTryhard extends Command_Builder{
+export default class SoTryhard extends Command{
   public static soTryhard: boolean = false
   constructor(){
     super({
@@ -12,7 +9,6 @@ export default class SoTryhard extends Command_Builder{
       description: 'So tryhard',
       devOnly: false,
       testOnly: false,
-      options: options,
       deleted: false,
       notUpdated: false,
     })

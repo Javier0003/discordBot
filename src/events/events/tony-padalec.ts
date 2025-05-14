@@ -1,13 +1,13 @@
-import { Message } from 'discord.js'
+import { Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../structures/event-builder'
 
 export default class Tony_Padalec
   extends Event_Builder<'messageCreate'>
 {
   constructor() {
-    super({ eventType: 'messageCreate', type: 'on' })
+    super({ eventType: 'messageCreate', type: 'on', name: 'Tony_Padalec' })
   }
-  public event(message: Message) {
+  public event(message: OmitPartialGroupDMChannel<Message<boolean>>) {
     try {
       if (message.author.bot) return
       if (message.content.toLowerCase() === 'tony padalec') {

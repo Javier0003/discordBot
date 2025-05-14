@@ -1,14 +1,13 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 
-export default class Roll extends Command_Builder {
+export default class Roll extends Command {
   constructor() {
     super({
       name: 'roll',
       description: 'roll',
       devOnly: false,
       testOnly: false,
-      options: [],
       deleted: false,
       notUpdated: true
     })

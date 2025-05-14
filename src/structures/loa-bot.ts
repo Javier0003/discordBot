@@ -4,10 +4,12 @@ import Event_Handler from './event-handler'
 import LoaClient from './loa-client'
 import { startServer } from '../web/backend'
 import { OsuClient } from 'osu-loa-wrapper'
+import CommandHandler from './command-handler'
 
 export default class LoaBot extends Client {
   public readonly clientLoa = new LoaClient(this)
   public readonly osuClient = new OsuClient(env.osu.clientId, env.osu.apiKey)
+  public readonly commandHandler = new CommandHandler()
   public readonly eventHandler = new Event_Handler()
   public readonly api = startServer()
 
@@ -28,9 +30,6 @@ export default class LoaBot extends Client {
 
   private init() {
     this.eventHandler.init()
-    this.on('ready', () => {
-      console.log('Bot is ready')
-    })
     this.login(env.token)
   }
 }

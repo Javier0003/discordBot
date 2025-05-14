@@ -1,13 +1,14 @@
 import {
   CacheType,
-  ChatInputCommandInteraction
+  ChatInputCommandInteraction,
+  MessageFlags
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 import { db } from '../../utils/db'
 
-export default class RemoveOsuAccount extends Command_Builder {
+export default class RemoveOsuAccount extends Command {
   constructor() {
     super({
       name: 'osu-remove-account',
@@ -22,7 +23,7 @@ export default class RemoveOsuAccount extends Command_Builder {
     try {
       await db.delete(users).where(eq(users.id, interaction.user.id))
 
-      interaction.reply({content: 'Cuenta eliminada', ephemeral: true})
+      interaction.reply({content: 'Cuenta eliminada', flags: MessageFlags.Ephemeral})
     } catch (error) {
       console.log(error)
     }

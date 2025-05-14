@@ -8,10 +8,10 @@ import {
   InteractionResponse,
   Message,
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import MapasOsu from '../events/daily-map'
 
-export default class skipDaily extends Command_Builder {
+export default class skipDaily extends Command {
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('Skipping daily map')
     .setColor('Red')
@@ -24,7 +24,6 @@ export default class skipDaily extends Command_Builder {
       description: 'Skip the daily',
       devOnly: true,
       testOnly: false,
-      options: [],
       deleted: false,
       notUpdated: true,
     })
@@ -47,7 +46,6 @@ export default class skipDaily extends Command_Builder {
 
       this.interaction = interaction.reply({
         embeds: [this.embed],
-        ephemeral: false,
         //@ts-expect-error weird error, it works just fine
         components: [row],
       })

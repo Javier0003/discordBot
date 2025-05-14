@@ -49,6 +49,19 @@ export const serverUsers = pgTable('serverUsers', {
   isVCBan: char('isVCBan', { length: 1 }).default('0'),
 })
 
+export const messages = pgTable('messages', {
+  idMessage: serial('idMessage').primaryKey(),
+  message: varchar("message", {length: 256})
+})
+
+export const botStatus = pgTable('botStatus', {
+  idStatus: serial('idStatus').primaryKey(),
+  statusMessage: varchar('statusMessage', {length: 256}),
+  type: integer('type'),
+  url: varchar('url', {length: 256})
+})
+
+
 export type ServerUsers = typeof serverUsers.$inferSelect
 
 export type Users = typeof users.$inferSelect

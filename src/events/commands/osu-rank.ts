@@ -5,11 +5,11 @@ import {
   InteractionResponse,
   Message
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 
-export default class OsuRank extends Command_Builder {
+export default class OsuRank extends Command {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Rank')
@@ -22,11 +22,12 @@ export default class OsuRank extends Command_Builder {
       notUpdated: true,
     })
   }
+
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
-      this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
+      this.reply = interaction.reply({ embeds: [this.embed] })
 
       const usuarios = await db
         .select({ name: users.name, id: users.id })

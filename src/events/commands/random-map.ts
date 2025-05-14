@@ -5,10 +5,10 @@ import {
   InteractionResponse,
   Message
 } from 'discord.js'
-import Command_Builder from '../../structures/command-builder'
+import Command from '../../structures/command-builder'
 import { getMapaRandom } from '../events/daily-map'
 
-export default class randomMap extends Command_Builder {
+export default class randomMap extends Command {
   reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
     .setTitle('osu! Random Map')
@@ -25,7 +25,7 @@ export default class randomMap extends Command_Builder {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
-      this.reply = interaction.reply({ embeds: [this.embed], ephemeral: false })
+      this.reply = interaction.reply({ embeds: [this.embed]})
 
       const randomMap = await getMapaRandom()
 

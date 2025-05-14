@@ -1,7 +1,5 @@
-import { ApplicationCommandOptionType } from "discord.js"
-
 type StringOption = {
-  type: ApplicationCommandOptionType.String
+  type: 'string'
   name: string
   description: string
   required?: boolean
@@ -9,14 +7,14 @@ type StringOption = {
 }
 
 type BoolOption = {
-  type: ApplicationCommandOptionType.Boolean
+  type: 'bool'
   name: string
   description: string
   required?: boolean
 }
 
 type IntOption = {
-  type: ApplicationCommandOptionType.Integer
+  type: 'int'
   name: string
   description: string
   required?: boolean
@@ -25,43 +23,45 @@ type IntOption = {
 }
 
 type UserOption = {
-  type: ApplicationCommandOptionType.User
+  type: 'user'
   name: string
   description: string
   required?: boolean
 }
 
-type option = StringOption | BoolOption | IntOption | UserOption
+type Expand<T> = T extends infer O ? { readonly [K in keyof O]: O[K] } : never;
+
+export type option = StringOption | BoolOption | IntOption | UserOption
 
 export default class OptionBuilder<const T extends option[] = []> {
   private options: T = [] as unknown as T
 
   public addIntOption<const O extends Omit<IntOption, 'type'>>(
     config: O
-  ): OptionBuilder{
-    this.options.push({ ...config, type: ApplicationCommandOptionType.Integer })
+  ): OptionBuilder <[...T, Expand<O & { type: "int" }>]>{
+    this.options.push({ ...config, type: 'int' })
 
     return this as any
   }
 
   public addStringOption<const O extends Omit<StringOption, 'type'>>(
     config: O
-  ): OptionBuilder {
-    this.options.push({ ...config, type: ApplicationCommandOptionType.String })
+  ): OptionBuilder<[...T, Expand<O & { type: "string" }>]> {
+    this.options.push({ ...config, type: 'string' })
     return this as any
   }
 
   public addUserOption<const O extends Omit<UserOption, 'type'>>(
     config: O
-  ): OptionBuilder {
-    this.options.push({ ...config, type: ApplicationCommandOptionType.User })
+  ): OptionBuilder<[...T, Expand<O & { type: "user" }>]> {
+    this.options.push({ ...config, type: 'user' })
     return this as any
   }
 
   public addBooleanOption<const O extends Omit<BoolOption, 'type'>>(
     config: O
-  ): OptionBuilder {
-    this.options.push({ ...config, type: ApplicationCommandOptionType.Boolean })
+  ): OptionBuilder<[...T, Expand<O & { type: "bool" }>]> {
+    this.options.push({ ...config, type: 'bool' })
     return this as any
   }
 
