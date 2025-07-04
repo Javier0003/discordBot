@@ -6,8 +6,6 @@ import Command from '../../structures/command-builder'
 import { getMapaRandom } from '../events/daily-map'
 
 export default class randomMap extends Command {
-    
-
   constructor() {
     super({
       name: 'random-map',

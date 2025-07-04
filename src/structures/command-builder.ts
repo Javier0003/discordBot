@@ -81,6 +81,7 @@ export default abstract class Command<
     this.command(interaction)
 
     this.embed = new EmbedBuilder();
+    this.reply = undefined;
   }
 
   private fetchOptions(interaction: ChatInputCommandInteraction<CacheType>): void {

@@ -1,16 +1,12 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 
 export default class OsuRank extends Command {
-  embed: EmbedBuilder = new EmbedBuilder()
-    
-
   constructor() {
     super({
       name: 'osu-rank',

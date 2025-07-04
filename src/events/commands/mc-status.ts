@@ -24,7 +24,7 @@ const open = () => {
 }
 
 export default class McStatus extends Command {
-  private playerCount: string = ''
+  // private playerCount: string = ''
 
   constructor() {
     super({
@@ -36,6 +36,7 @@ export default class McStatus extends Command {
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
+    let playerCount = '';
     try {
       const embed = new EmbedBuilder()
         .setTitle('Minecraft Server Status')
@@ -56,7 +57,7 @@ export default class McStatus extends Command {
       if (serverStatus) {
         if (serverStatus.players.online > 0) {
           serverStatus.players.sample.map(({ name }: { name: string }) => {
-            this.playerCount = this.playerCount + `${name}\n`
+            playerCount = playerCount + `${name}\n`
           })
         }
       }
@@ -69,7 +70,7 @@ export default class McStatus extends Command {
           name: serverStatus
             ? `Players online: ${serverStatus.players.online}`
             : ' ',
-          value: serverStatus ? this.playerCount : ' ',
+          value: serverStatus ? playerCount : ' ',
           inline: true
         })
         .setTimestamp(new Date())

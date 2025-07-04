@@ -4,7 +4,7 @@ import {
   MessageFlags,
 } from 'discord.js'
 import Command from '../../structures/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
+import { serverUsers, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import getOsuToken from '../../utils/osu-token'
 import OptionBuilder from '../../structures/option-builder'
@@ -70,6 +70,8 @@ export default class OsuRegister extends Command<typeof options> {
           name: osuName.username,
           osuId: Number(osuName.id),
         })
+
+        await db.insert(serverUsers).values({ idServerUser: interaction.user.id })
       }
 
       this.reply = (await this.reply).edit({
