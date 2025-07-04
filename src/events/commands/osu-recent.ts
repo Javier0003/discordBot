@@ -4,9 +4,6 @@ import {
   ButtonStyle,
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
-  InteractionResponse,
-  Message
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
@@ -19,11 +16,6 @@ import getOsuToken from '../../utils/osu-token'
 import OsuDaily from './osu-daily'
 
 export default class osuRecent extends Command {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
-  embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('osu! Recent')
-    .setDescription('Espera un momento')
-
   constructor() {
     super({
       name: 'osu-recent',
@@ -36,6 +28,7 @@ export default class osuRecent extends Command {
   ): Promise<void> {
     try {
       const token = await getOsuToken()
+      this.embed = this.embed.setTitle('osu! Recent').setDescription('Espera un momento')
       this.reply = interaction.reply({ embeds: [this.embed] })
       const user = await db
         .select()

@@ -2,18 +2,14 @@ import {
   CacheType,
   ChatInputCommandInteraction,
   EmbedBuilder,
-  InteractionResponse,
-  Message
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 
 export default class OsuRank extends Command {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
   embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('osu! Rank')
-    .setDescription('Espera un momento')
+    
 
   constructor() {
     super({
@@ -27,6 +23,7 @@ export default class OsuRank extends Command {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
+      this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
       this.reply = interaction.reply({ embeds: [this.embed] })
 
       const usuarios = await db

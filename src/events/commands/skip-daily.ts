@@ -4,20 +4,11 @@ import {
   ButtonStyle,
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
-  InteractionResponse,
-  Message,
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import MapasOsu from '../events/daily-map'
 
 export default class skipDaily extends Command {
-  embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('Skipping daily map')
-    .setColor('Red')
-    .setDescription('Confirm?')
-
-  interaction: Promise<InteractionResponse<boolean> | Message> | undefined
   constructor() {
     super({
       name: 'skip-daily',
@@ -29,7 +20,10 @@ export default class skipDaily extends Command {
     })
   }
 
-  async command(interaction: ChatInputCommandInteraction<CacheType>) {
+  async command(reply: ChatInputCommandInteraction<CacheType>) {
+    this.embed = this.embed.setTitle('Skipping daily map')
+    .setColor('Red')
+    .setDescription('Confirm?')
     try {
       const buttons = [
         new ButtonBuilder()
@@ -44,7 +38,7 @@ export default class skipDaily extends Command {
 
       const row = new ActionRowBuilder().addComponents(buttons)
 
-      this.interaction = interaction.reply({
+      this.reply = reply.reply({
         embeds: [this.embed],
         //@ts-expect-error weird error, it works just fine
         components: [row],
@@ -53,7 +47,7 @@ export default class skipDaily extends Command {
       let loop = true
 
       while (loop) {
-        const reply = await this.interaction
+        const reply = await this.reply
         const button = await reply.awaitMessageComponent({
           time: 30_000,
         })

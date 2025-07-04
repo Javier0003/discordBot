@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CacheType, ChatInputCommandInteraction, Collection, User } from 'discord.js'
+import { CacheType, ChatInputCommandInteraction, Collection, EmbedBuilder, InteractionResponse, Message, User } from 'discord.js'
 import LoaClient from './loa-client'
 import { option } from './option-builder'
 
@@ -39,6 +39,8 @@ export type CommandConfiguration<O extends option[] | undefined = undefined> =
 export default abstract class Command<
   O extends option[] | undefined = undefined,
 > extends LoaClient {
+  protected reply: Promise<InteractionResponse<boolean> | Message> | undefined
+  protected embed: EmbedBuilder = new EmbedBuilder();
   readonly name
   readonly description
   readonly devOnly
@@ -77,6 +79,8 @@ export default abstract class Command<
   public async execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
     this.fetchOptions(interaction)
     this.command(interaction)
+
+    this.embed = new EmbedBuilder();
   }
 
   private fetchOptions(interaction: ChatInputCommandInteraction<CacheType>): void {

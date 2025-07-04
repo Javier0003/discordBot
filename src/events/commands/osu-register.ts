@@ -1,8 +1,6 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
-  InteractionResponse,
-  Message,
   MessageFlags,
 } from 'discord.js'
 import Command from '../../structures/command-builder'
@@ -17,7 +15,6 @@ const options = new OptionBuilder()
   .build()
 
 export default class OsuRegister extends Command<typeof options> {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
 
   constructor() {
     super({

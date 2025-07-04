@@ -40,6 +40,7 @@ export default class BanVoiceChat extends Command<typeof options> {
         await interaction.editReply({ content: `User ${user.username} has been banned from the voice chat` })
         return
       }
+      
       if (isUserRegistered[0].isVCBan === '1') {
         await interaction.editReply({ content: 'User is already banned from the voice chat' })
         return

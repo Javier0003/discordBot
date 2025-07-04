@@ -1,9 +1,6 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
-  InteractionResponse,
-  Message
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
@@ -20,11 +17,6 @@ const options = new OptionBuilder()
   .build()
 
 export default class InfoOsu extends Command<typeof options> {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
-  embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('osu! Rank')
-    .setDescription('Espera un momento')
-
   constructor() {
     super({
       name: 'user-osu',
@@ -37,6 +29,8 @@ export default class InfoOsu extends Command<typeof options> {
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
+    this.embed = this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
+
     try {
       this.reply = interaction.reply({ embeds: [this.embed]})
 

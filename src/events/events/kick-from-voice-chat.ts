@@ -1,7 +1,7 @@
 import { VoiceState } from 'discord.js'
 import Event_Builder from '../../structures/event-builder'
 import { db } from '../../utils/db'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { serverUsers } from '../../../drizzle/schemas/schema'
 
 export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'> {
@@ -20,19 +20,19 @@ export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'>
       // @ts-expect-error this works even tho it says it doesn't
       members?.forEach((member, id) => {
         if (id === '642690500276649985' && oldState.id === '262008667002503174') {
-          KickFromVoiceChat.kick(newState)
+          this.kick(newState)
         }
       })
 
-      const bannedUsers = await db.select().from(serverUsers).where(eq(serverUsers.idServerUser, newState.member?.id))
+      const bannedUsers = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, newState.member?.id), eq(serverUsers.isVCBan, '1')))
 
       if (bannedUsers.length > 0) {
         if (newState.channelId !== null) {
-          KickFromVoiceChat.kick(newState)
+          this.kick(newState)
         }
       } else {
         if (newState.channelId === null) {
-          KickFromVoiceChat.kick(newState)
+          this.kick(newState)
         }
       }
     } catch (error) {
@@ -40,7 +40,7 @@ export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'>
     }
   }
 
-  private static kick(newState: VoiceState) {
+  private kick(newState: VoiceState) {
     newState.member?.voice.setChannel(null)
   }
 }

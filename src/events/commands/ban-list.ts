@@ -1,11 +1,10 @@
-import { CacheType, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js'
+import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { db } from '../../utils/db'
 import { serverUsers } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 
 export default class BanList extends Command {
-  private embed: EmbedBuilder = new EmbedBuilder();
   constructor() {
     super({
       name: 'banlist',

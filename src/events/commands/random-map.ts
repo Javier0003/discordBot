@@ -1,18 +1,12 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
-  InteractionResponse,
-  Message
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { getMapaRandom } from '../events/daily-map'
 
 export default class randomMap extends Command {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
-  embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('osu! Random Map')
-    .setDescription('Espera un momento')
+    
 
   constructor() {
     super({
@@ -25,6 +19,7 @@ export default class randomMap extends Command {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
+      this.embed = this.embed.setTitle('osu! Random Map').setDescription('Espera un momento')
       this.reply = interaction.reply({ embeds: [this.embed]})
 
       const randomMap = await getMapaRandom()

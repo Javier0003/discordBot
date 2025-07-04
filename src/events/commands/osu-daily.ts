@@ -1,9 +1,6 @@
 import {
   CacheType,
   ChatInputCommandInteraction,
-  EmbedBuilder,
-  InteractionResponse,
-  Message
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { users } from '../../../drizzle/schemas/schema'
@@ -20,11 +17,6 @@ import osuConfig, {
 import getOsuToken from '../../utils/osu-token'
 
 export default class OsuDaily extends Command {
-  reply: Promise<InteractionResponse<boolean> | Message> | undefined
-  embed: EmbedBuilder = new EmbedBuilder()
-    .setTitle('osu! Daily map')
-    .setDescription('Espera un momento')
-
   constructor() {
     super({
       name: 'osu-daily',
@@ -35,6 +27,8 @@ export default class OsuDaily extends Command {
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
+    this.embed.setTitle('osu! Daily map').setDescription('Espera un momento')
+
     this.reply = interaction.reply({ embeds: [this.embed] })
     try {
       const token = await getOsuToken()
