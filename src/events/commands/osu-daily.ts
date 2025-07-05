@@ -27,7 +27,7 @@ export default class OsuDaily extends Command {
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
-    this.embed.setTitle('osu! Daily map').setDescription('Espera un momento')
+    this.embed = this.embed.setTitle('osu! Daily map').setDescription('Espera un momento')
 
     this.reply = interaction.reply({ embeds: [this.embed] })
     try {
@@ -50,7 +50,7 @@ export default class OsuDaily extends Command {
 
       const mods = dailyMap.mods.join(' ') || 'nomod'
 
-      this.embed = (await this.embed)
+      this.embed = this.embed
         .setThumbnail(daily.beatmapset.covers.list)
         .setURL(daily.url)
         .setTitle(daily.beatmapset.title)
@@ -66,7 +66,7 @@ export default class OsuDaily extends Command {
       this.reply = (await this.reply).edit({ embeds: [this.embed] })
 
       if (userPlay) {
-        this.embed = (await this.embed).addFields({
+        this.embed = this.embed.addFields({
           name: 'Tu ultima jugada',
           value: `Score: ${userPlay.score}\nCombo: ${
             userPlay?.max_combo
@@ -82,7 +82,7 @@ export default class OsuDaily extends Command {
             dailyMap.mods.length === 0)
         ) {
           const scoredPoints = this.getPoints(userPlay, dailyMap)
-          this.embed = (await this.embed).addFields({
+          this.embed = this.embed.addFields({
             name: 'GG',
             value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`
           })
