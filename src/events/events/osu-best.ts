@@ -59,7 +59,18 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
 
       sorted.forEach(([v]) => {
         const user = usersData.find((f) => f.osuId === v.user_id)
-        embed.addFields([{ name: user?.name || 'Unknown', value: `Score: ${v.score.toString()}\nAccuracy: ${OsuDaily.accuracy(v.accuracy)}%\nCombo: ${v.max_combo}x\nRank: ${v.rank}\nMods: ${v.mods.length === 0 ? "no mod" : v.mods}\n` }])
+        let num_300 = v.statistics.count_300
+        if (v.statistics.count_geki)
+          num_300 += v.statistics.count_geki
+
+        let num_100 = v.statistics.count_100
+        if (v.statistics.count_katu)
+          num_100 += v.statistics.count_katu
+
+        const date = new Date(v.created_at)
+        const formatted = date.toLocaleDateString("en-GB")
+
+        embed.addFields([{ name: user?.name || 'Unknown', value: `${v.rank} - ${v.score.toLocaleString('de-DE')} - [${num_300}/${num_100}/${v.statistics.count_50}/${v.statistics.count_miss}] ${OsuDaily.accuracy(v.accuracy)}% - ${v.max_combo}x - ${v.mods.length === 0 ? "No mod" : v.mods}\nSet on ${formatted}` }])
       })
 
       message.channel.send({ embeds: [embed] })
