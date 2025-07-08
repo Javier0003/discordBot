@@ -18,7 +18,7 @@ export default class randomMap extends Command {
   ): Promise<void> {
     try {
       this.embed = this.embed.setTitle('osu! Random Map').setDescription('Espera un momento')
-      this.reply = interaction.reply({ embeds: [this.embed]})
+      this.reply = await interaction.reply({ embeds: [this.embed]})
 
       const randomMap = await getMapaRandom()
 
@@ -31,7 +31,7 @@ export default class randomMap extends Command {
           `Difficulty: ${randomMap.difficulty_rating} ★\n${randomMap.beatmapset.artist} - ${randomMap.beatmapset.title} [${randomMap.version}] \n Max Combo: ${randomMap.max_combo}`
         )
 
-      this.reply = (await this.reply).edit({ embeds: [this.embed] })
+      this.reply = await this.reply.edit({ embeds: [this.embed] })
     } catch (error) {
       console.log(error)
     }

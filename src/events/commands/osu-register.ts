@@ -29,7 +29,7 @@ export default class OsuRegister extends Command<typeof options> {
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
-      this.reply = interaction.reply({
+      this.reply = await interaction.reply({
         content: 'Espera un segundo',
         flags: MessageFlags.Ephemeral
       })
@@ -74,20 +74,20 @@ export default class OsuRegister extends Command<typeof options> {
         await db.insert(serverUsers).values({ idServerUser: interaction.user.id })
       }
 
-      this.reply = (await this.reply).edit({
+      this.reply = await this.reply.edit({
         content: `Usuario registrado: ${interaction.user.globalName}`,
       })
     } catch (error: Error | unknown) {
       if (error instanceof Error && error.message === 'No data inserted') {
         if (this.reply) {
-          this.reply = (await this.reply).edit({
+          this.reply = await this.reply.edit({
             content: 'No has insertado ningun dato',
           })
         }
       }
 
       if (this.reply) {
-        this.reply = (await this.reply).edit({ content: 'ya estas registrado' })
+        this.reply = await this.reply.edit({ content: 'ya estas registrado' })
       }
     }
   }

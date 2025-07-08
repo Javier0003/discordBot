@@ -39,7 +39,7 @@ export type CommandConfiguration<O extends option[] | undefined = undefined> =
 export default abstract class Command<
   O extends option[] | undefined = undefined,
 > extends LoaClient {
-  protected reply: Promise<InteractionResponse<boolean> | Message> | undefined
+  protected reply: InteractionResponse<boolean> | Message | undefined
   protected embed: EmbedBuilder = new EmbedBuilder();
   readonly name
   readonly description

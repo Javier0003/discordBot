@@ -29,7 +29,7 @@ export default class OsuDaily extends Command {
   ): Promise<void> {
     this.embed = this.embed.setTitle('osu! Daily map').setDescription('Espera un momento')
 
-    this.reply = interaction.reply({ embeds: [this.embed] })
+    this.reply = await interaction.reply({ embeds: [this.embed] })
     try {
       const token = await getOsuToken()
 
@@ -63,7 +63,7 @@ export default class OsuDaily extends Command {
           { name: 'Min Rank', value: dailyMap.minRank }
         )
 
-      this.reply = (await this.reply).edit({ embeds: [this.embed] })
+      this.reply = await this.reply.edit({ embeds: [this.embed] })
 
       if (userPlay) {
         this.embed = this.embed.addFields({
@@ -97,11 +97,11 @@ export default class OsuDaily extends Command {
             combo: userPlay.max_combo
           })
         }
-        this.reply = (await this.reply).edit({ embeds: [this.embed] })
+        this.reply = await this.reply.edit({ embeds: [this.embed] })
       }
     } catch (error: Error | unknown) {
       if (error instanceof Error && error.message === 'No estas registrado') {
-        this.reply = (await this.reply).edit({
+        this.reply = await this.reply.edit({
           content: 'No estas registrado',
           embeds: []
         })

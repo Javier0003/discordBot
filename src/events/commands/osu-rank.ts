@@ -20,7 +20,7 @@ export default class OsuRank extends Command {
   ): Promise<void> {
     try {
       this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
-      this.reply = interaction.reply({ embeds: [this.embed] })
+      this.reply = await interaction.reply({ embeds: [this.embed] })
 
       const usuarios = await db
         .select({ name: users.name, id: users.id })
@@ -50,7 +50,7 @@ export default class OsuRank extends Command {
         this.embed.setDescription('No hay nadie 😭').setColor('Red')
       }
 
-      this.reply = (await this.reply).edit({ embeds: [this.embed] })
+      this.reply = await this.reply.edit({ embeds: [this.embed] })
     } catch (error) {
       console.log(error)
     }

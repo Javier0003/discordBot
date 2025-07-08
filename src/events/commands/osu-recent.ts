@@ -29,7 +29,7 @@ export default class osuRecent extends Command {
     try {
       const token = await getOsuToken()
       this.embed = this.embed.setTitle('osu! Recent').setDescription('Espera un momento')
-      this.reply = interaction.reply({ embeds: [this.embed] })
+      this.reply = await interaction.reply({ embeds: [this.embed] })
       const user = await db
         .select()
         .from(users)
@@ -40,7 +40,7 @@ export default class osuRecent extends Command {
       const userPlays = await getOsuRecent(user[0].osuId, token)
 
       if (userPlays.length === 0) {
-        this.reply = (await this.reply).edit({
+        this.reply = await this.reply.edit({
           content: 'No tienes plays recientes',
           embeds: []
         })
@@ -70,7 +70,7 @@ export default class osuRecent extends Command {
 
       await this.editEmbed(userPlays[0], token)
 
-      this.reply = (await this.reply).edit({
+      this.reply = await this.reply.edit({
         content: `**Recent osu! Play for ${userPlays[0].user.username}**`,
         //@ts-expect-error idk why this is angry but it works so we don't talk about it
         components: [row]
@@ -79,9 +79,8 @@ export default class osuRecent extends Command {
       let index = 0
       let loop = true
       while (loop) {
-        const userInteraction = await (
-          await this.reply
-        )
+        const userInteraction = await 
+          this.reply
           .awaitMessageComponent({
             time: osuConfig.recentWaitForInteractionTime
           })
@@ -104,19 +103,19 @@ export default class osuRecent extends Command {
       
     } catch (error: Error | unknown) {
       if(error instanceof Error && error.message === 'No estas registrado') {
-        this.reply = (await this.reply)?.edit({
+        this.reply = await this.reply?.edit({
           content: error.message,
         })
         return
       }
-      this.reply = (await this.reply)?.edit({
+      this.reply = await this.reply?.edit({
         content: 'No tienes plays recientes',
       })
     }
   }
 
   private async removeButtons(): Promise<void> {
-    this.reply = (await this.reply)?.edit({
+    this.reply = await this.reply?.edit({
       components: []
     })
   }
@@ -170,7 +169,7 @@ export default class osuRecent extends Command {
       .setFooter({ text: 'osu!' })
       .setTimestamp()
 
-    this.reply = (await this.reply)?.edit({
+    this.reply = await this.reply?.edit({
       embeds: [this.embed]
     })
   }

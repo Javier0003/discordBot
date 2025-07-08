@@ -38,7 +38,7 @@ export default class skipDaily extends Command {
 
       const row = new ActionRowBuilder().addComponents(buttons)
 
-      this.reply = reply.reply({
+      this.reply = await reply.reply({
         embeds: [this.embed],
         //@ts-expect-error weird error, it works just fine
         components: [row],
@@ -47,7 +47,7 @@ export default class skipDaily extends Command {
       let loop = true
 
       while (loop) {
-        const reply = await this.reply
+        const reply = this.reply
         const button = await reply.awaitMessageComponent({
           time: 30_000,
         })

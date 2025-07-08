@@ -32,7 +32,7 @@ export default class InfoOsu extends Command<typeof options> {
     this.embed = this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
 
     try {
-      this.reply = interaction.reply({ embeds: [this.embed]})
+      this.reply = await interaction.reply({ embeds: [this.embed]})
 
       await this.getOsuData(interaction)
 
@@ -61,7 +61,7 @@ export default class InfoOsu extends Command<typeof options> {
         )
         .setThumbnail(`https://a.ppy.sh/${this.userData[0].osuId}`)
 
-      this.reply = (await this.reply).edit({ embeds: [this.embed] })
+      this.reply = await this.reply.edit({ embeds: [this.embed] })
     } catch (error) {
       console.log(error)
     }
@@ -147,7 +147,7 @@ export default class InfoOsu extends Command<typeof options> {
       if (!this.userData.length) throw new Error('No se encontró el usuario')
     } catch (error) {
       if (!(error instanceof Error)) return
-      this.reply = (await this.reply)?.edit({
+      this.reply = await this.reply?.edit({
         content: error.message,
         embeds: []
       })
