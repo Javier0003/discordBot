@@ -138,6 +138,9 @@ export default class OsuDaily extends Command {
       case 'SSH':
         rankFixer = 'SS'
         break
+      case 'X':
+        rankFixer = 'SS'
+        break
       default:
         rankFixer = rank.rank
         break
