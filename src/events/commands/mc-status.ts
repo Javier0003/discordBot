@@ -9,9 +9,8 @@ import {
 } from 'discord.js'
 import Command from '../../structures/command-builder'
 import { Socket } from 'node:net'
+import { statusJava } from 'node-mcstatus'
 
-//@ts-expect-error (no type declarations sadly)
-import { MinecraftServerListPing } from 'minecraft-status'
 import env from '../../env'
 
 const open = () => {
@@ -24,8 +23,6 @@ const open = () => {
 }
 
 export default class McStatus extends Command {
-  // private playerCount: string = ''
-
   constructor() {
     super({
       name: 'mcserver',
@@ -36,7 +33,6 @@ export default class McStatus extends Command {
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
-    let playerCount = '';
     try {
       const embed = new EmbedBuilder()
         .setTitle('Minecraft Server Status')
@@ -47,30 +43,25 @@ export default class McStatus extends Command {
         embeds: [embed]
       })
 
-      const serverStatus = await MinecraftServerListPing.ping(
-        4, //protocol (idk, default 4 works (here might be the answer if error https://wiki.vg/Protocol_version_numbers))
-        process.env.MC_IP,
-        process.env.MC_PORT, //server port
-        2000 //timeout (discord limit is 3000, recomended to be lower than that)
-      ).catch(false)
-
+      let players = '';
+      const serverStatus = await statusJava(env.mcIp, env.mcPort);
       if (serverStatus) {
-        if (serverStatus.players.online > 0) {
-          serverStatus.players.sample.map(({ name }: { name: string }) => {
-            playerCount = playerCount + `${name}\n`
+        if (serverStatus.players!.online > 0) {
+          serverStatus.players?.list.map(({ name_raw }) => {
+            players = players + `${name_raw}\n`
           })
         }
       }
       embed
         .setTitle('Minecraft Server Status')
         .setDescription(
-          serverStatus ? serverStatus.description.text : 'Server is Offline'
+          serverStatus ? serverStatus.motd?.clean ?? 'No MOTD' : 'Server is Offline'
         )
         .addFields({
           name: serverStatus
-            ? `Players online: ${serverStatus.players.online}`
+            ? `Players online: ${serverStatus.players!.online}`
             : ' ',
-          value: serverStatus ? playerCount : ' ',
+          value: players,
           inline: true
         })
         .setTimestamp(new Date())
@@ -83,8 +74,8 @@ export default class McStatus extends Command {
 
       let newAttachment
 
-      if (serverStatus.favicon) {
-        const newString = serverStatus.favicon.split(',')[1]
+      if (serverStatus.icon) {
+        const newString = serverStatus.icon.split(',')[1]
         const buffer = Buffer.from(newString, 'base64')
         newAttachment = new AttachmentBuilder(buffer, {
           name: 'image.png'

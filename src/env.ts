@@ -35,7 +35,7 @@ export default {
   token: BOT_TOKEN,
   guildId: GUILD_ID,
   mcIp: MC_IP,
-  mcPort: MC_PORT,
+  mcPort: Number(MC_PORT),
   mcPortOpener: Number(OPENER_PORT),
   dbUrl: DATABASE_URL,
   osu: {
