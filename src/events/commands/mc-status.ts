@@ -10,17 +10,7 @@ import {
 import Command from '../../structures/command-builder'
 import { Socket } from 'node:net'
 import { statusJava } from 'node-mcstatus'
-
 import env from '../../env'
-
-const open = () => {
-  const client = new Socket()
-
-  client.connect(env.mcPortOpener, env.mcIp, () => {
-    client.write('Open the server')
-    client.destroy()
-  })
-}
 
 export default class McStatus extends Command {
   constructor() {
@@ -44,8 +34,10 @@ export default class McStatus extends Command {
       })
 
       let players = '';
-      const serverStatus = await statusJava(env.mcIp, env.mcPort);
-      if (serverStatus) {
+      const serverStatus = await statusJava(`${env.mcIp}`, env.mcPort);
+
+      console.log(serverStatus)
+      if (serverStatus.online) {
         if (serverStatus.players!.online > 0) {
           serverStatus.players?.list.map(({ name_raw }) => {
             players = players + `${name_raw}\n`
@@ -55,17 +47,17 @@ export default class McStatus extends Command {
       embed
         .setTitle('Minecraft Server Status')
         .setDescription(
-          serverStatus ? serverStatus.motd?.clean ?? 'No MOTD' : 'Server is Offline'
+          serverStatus.online ? serverStatus.motd?.clean ?? 'No MOTD' : 'Server is Offline'
         )
         .addFields({
-          name: serverStatus
+          name: serverStatus.online
             ? `Players online: ${serverStatus.players!.online}`
             : ' ',
           value: players,
           inline: true
         })
         .setTimestamp(new Date())
-        .setColor(serverStatus ? 'Green' : 'Red')
+        .setColor(serverStatus.online ? 'Green' : 'Red')
         .setThumbnail(
           'https://seeklogo.com/images/M/minecraft-youtube-logo-448E10AC2B-seeklogo.com.png'
         )
@@ -84,7 +76,7 @@ export default class McStatus extends Command {
         embed.setThumbnail('attachment://image.png')
       }
 
-      if (!serverStatus) {
+      if (!serverStatus.online) {
         buttonsEmbed.push(
           new ButtonBuilder()
             .setCustomId('1')
@@ -111,7 +103,14 @@ export default class McStatus extends Command {
           })
 
         if (!userRes) return
-        open()
+
+        const client = new Socket()
+
+        client.connect(env.mcPortOpener, env.mcIp, () => {
+          client.write('Open the server')
+        })
+        client.destroy()
+
         await reply.edit({ embeds: [embed], components: [] })
       } else {
         if (newAttachment) {
