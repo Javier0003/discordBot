@@ -15,7 +15,8 @@ const {
   CLIENT_ID_DISCORD,
   REDIRECT_URI,
   DOMAIN,
-  OSU_API_KEY
+  OSU_API_KEY,
+  MIGRATOR_URL
 } = process.env
 
 if (!REDIRECT_URI) throw new Error('No redirect uri provided')
@@ -38,6 +39,7 @@ export default {
   mcPort: Number(MC_PORT),
   mcPortOpener: Number(OPENER_PORT),
   dbUrl: DATABASE_URL,
+  migrateUrl: MIGRATOR_URL,
   osu: {
     osuBody: OSU_BODY,
     clientId: Number(OSU_CLIENT_ID),

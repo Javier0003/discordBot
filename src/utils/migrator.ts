@@ -7,7 +7,7 @@ import { join } from 'path'
 const path = join(__dirname, '../../drizzle/migrations')
 
 async function main() {
-  const migrationClient = postgres(env.dbUrl, {max: 1})
+  const migrationClient = postgres(env.migrateUrl ?? env.dbUrl, {max: 1})
 
   await migrate(drizzle(migrationClient),{ 
     migrationsFolder: path,
