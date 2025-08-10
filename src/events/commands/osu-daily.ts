@@ -132,10 +132,7 @@ export default class OsuDaily extends Command {
     let rankFixer = '' as OsuRanks
 
     switch (rank.rank) {
-      case 'SH':
-        rankFixer = 'S'
-        break
-      case 'SSH':
+      case 'XH':
         rankFixer = 'SS'
         break
       case 'X':
@@ -162,8 +159,15 @@ export default class OsuDaily extends Command {
   }
 
   public validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
+    let actualRank : OsuRanks;
+
+    if (rank === 'XH') actualRank = 'SS'
+    else if (rank === 'X') actualRank = 'SS'
+    else actualRank = rank
+
     const requiredIndex = osuConfig.ranks.indexOf(requiredRank)
-    const rankIndex = osuConfig.ranks.indexOf(rank)
+    const rankIndex = osuConfig.ranks.indexOf(actualRank)
+
 
     return requiredIndex <= rankIndex
   }
