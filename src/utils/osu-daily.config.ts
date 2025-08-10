@@ -289,7 +289,7 @@ export type mods =
   | 'SO'
   | 'nomod'
 
-export type OsuRanks = 'D' | 'C' | 'B' | 'A' | 'S' | 'SS' | 'SH' | 'SSH' | 'X'
+export type OsuRanks = 'D' | 'C' | 'B' | 'A' | 'S' | 'SS' | 'SH' | 'SSH' | 'X' | 'XH'
 
 export type DailyMap = {
   id: number

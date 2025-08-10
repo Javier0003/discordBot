@@ -19,6 +19,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
   },
-  "include": ["src", "src/types", "drizzle/schemas/schema.ts", "src/types"],
+  "include": ["src", "drizzle/schemas/schema.ts"],
   "exclude": ["node_modules", "dist"]
 }
