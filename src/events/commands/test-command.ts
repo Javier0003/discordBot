@@ -17,9 +17,12 @@ export default class TestCommand extends Command<typeof options> {
   }
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
     try {
+      interaction.deferReply()
+
       interaction.reply({ allowedMentions: { parse: ['everyone'] }, content: "test", tts: true })
     } catch (error) {
       console.log(error)
     }
   }
 }
+

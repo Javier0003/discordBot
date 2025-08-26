@@ -35,7 +35,8 @@ export const mapas = pgTable('mapas', {
   oldMapMinRank: varchar('oldMapMinRank').notNull(),
   mapName: varchar('mapName').notNull(),
   date: varchar('date').notNull(),
-  order: serial('order').notNull()
+  order: serial('order').notNull(),
+  picUrl: varchar('picUrl').notNull().default("/static/osu.svg")
 })
 
 export const sessionTable = pgTable('session', {
@@ -44,7 +45,7 @@ export const sessionTable = pgTable('session', {
 })
 
 export const serverUsers = pgTable('serverUsers', {
-  idServerUser: varchar('id', { length: 256 }).primaryKey(),
+  idServerUser: varchar('id', { length: 256 }).references(() => users.id),
   isDev: char('isDev', { length: 1 }).default('0'),
   isVCBan: char('isVCBan', { length: 1 }).default('0'),
 })

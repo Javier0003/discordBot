@@ -1,0 +1,1 @@
+ALTER TABLE "mapas" ADD COLUMN "picUrl" varchar DEFAULT '/static/osu.svg' NOT NULL;

@@ -10,18 +10,22 @@ const mapStyle = css`
   border-radius: 12px;
   padding: 20px;
   height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 20px
 `
 
 const buttonDateStyles = css`
   display: flex;
   flex-direction: row;
-  width: fit-content;
+  min-width: 250px;
+  width: 100%;
   align-items: center;
   gap: 20px;
+  justify-content: space-between;
 
   button {
     background-color: #f0f0f0;
-    border: 1px solid #000;
     border-radius: 8px;
     height: 30px;
     padding: 5px;
@@ -33,6 +37,12 @@ const buttonDateStyles = css`
   }
 `
 
+const mapDataStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
 type MapasWithPlays = {
   playCount: string
   mapas: Mapas
@@ -40,14 +50,17 @@ type MapasWithPlays = {
 
 export const MapComponent: FC<MapasWithPlays> = (map) => (
   <form action={`/mapa/${map.mapas.oldMaps}`} method="get" class={mapStyle}>
-    <h2>{map.mapas.mapName}</h2>
+    <img src={map.mapas.picUrl} alt={map.mapas.mapName} />
+    <div class={mapDataStyles}>
+      <h2>{map.mapas.mapName}</h2>
 
-    <p>Lo jugaron: {map.playCount}</p>
+      <p>Lo jugaron: {map.playCount}</p>
 
-    <div class={buttonDateStyles}>
-      <p>{map.mapas.date}</p>
+      <div class={buttonDateStyles}>
+        <p>{map.mapas.date}</p>
 
-      <button>Ir al mapa</button>
+        <button>Ir al mapa</button>
+      </div>
     </div>
   </form>
 )

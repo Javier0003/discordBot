@@ -32,6 +32,7 @@ const mapInfoStyle = css`
 
 const MapData: FC<{mapId: string, token: string}> = async ({mapId, token}) => {
   const mapData = await getOsuMap(Number(mapId), token)
+
   const [modData] = await db
     .select({ mods: mapas.oldMapMods, date: mapas.date })
     .from(mapas)

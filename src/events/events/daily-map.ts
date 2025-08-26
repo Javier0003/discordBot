@@ -82,6 +82,7 @@ export async function generateDailyRandomMap(): Promise<DailyMap> {
       mods: selectedMods,
       minRank: osuRanks,
       name: map.beatmapset.title,
+      picUrl: map.beatmapset.covers.list,
     } as DailyMap
 
     const mapInDb = await db
@@ -340,6 +341,7 @@ export default class MapasOsu extends Event_Builder<'ready'> {
             oldMapMinRank: mapaRandom.minRank,
             mapName: mapaRandom.name,
             date: `${day}/${month.toString().padStart(2, '0')}/${year}`,
+            picUrl: mapaRandom.picUrl
           })
           MapasOsu.dailyMap = mapaRandom
         } else {
@@ -351,6 +353,7 @@ export default class MapasOsu extends Event_Builder<'ready'> {
             minRank: restartBot[restartBot.length - 1]
               .oldMapMinRank as OsuRanks,
             name: restartBot[restartBot.length - 1].mapName,
+            picUrl: restartBot[restartBot.length - 1].picUrl,
           }
         }
       }
@@ -409,6 +412,7 @@ export default class MapasOsu extends Event_Builder<'ready'> {
       oldMapMinRank: mapaRandom.minRank,
       mapName: mapaRandom.name,
       date: `${day}/${month.toString().padStart(2, '0')}/${year}`,
+      picUrl: mapaRandom.picUrl
     })
     MapasOsu.dailyMap = mapaRandom
   }

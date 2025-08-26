@@ -83,7 +83,7 @@ export async function createToken(code: string) {
       client_secret: env.discord.clientSecret,
       grant_type: 'authorization_code',
       code: code.toString(),
-      redirect_uri: `${env.DOMAIN ?? "http://localhost:42069"}/api/auth/discord/redirect`,
+      redirect_uri: `${(env.DOMAIN || "http://localhost:42069").replace(/["'\s]+/g, '').replace(/\/$/, '')}/api/auth/discord/redirect`,
     })
   
     const res = await fetch('https://discord.com/api/v10/oauth2/token', {

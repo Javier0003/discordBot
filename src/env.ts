@@ -32,6 +32,7 @@ if (!GUILD_ID) throw new Error('No guild ID provided')
 if (!OSU_CLIENT_ID) throw new Error('No osu! client ID provided')
 if (!OSU_API_KEY) throw new Error('No osu! API key provided')
 
+
 export default {
   token: BOT_TOKEN,
   guildId: GUILD_ID,
