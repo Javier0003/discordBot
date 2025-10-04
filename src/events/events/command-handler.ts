@@ -1,5 +1,5 @@
 import { CacheType, Interaction } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 
 export default class Command_Handler extends Event_Builder<'interactionCreate'> {
   constructor() {

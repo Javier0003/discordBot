@@ -1,5 +1,5 @@
 import { VoiceState } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 import { db } from '../../utils/db'
 import { and, eq } from 'drizzle-orm'
 import { serverUsers } from '../../../drizzle/schemas/schema'

@@ -1,5 +1,5 @@
 import { Message, OmitPartialGroupDMChannel } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 
 export default class Troll extends Event_Builder<'messageCreate'> {
   private static howManyToTrigger = 0

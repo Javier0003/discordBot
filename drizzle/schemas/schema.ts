@@ -45,7 +45,7 @@ export const sessionTable = pgTable('session', {
 })
 
 export const serverUsers = pgTable('serverUsers', {
-  idServerUser: varchar('id', { length: 256 }).references(() => users.id),
+  idServerUser: varchar('id', { length: 256 }).references(() => users.id).primaryKey(),
   isDev: char('isDev', { length: 1 }).default('0'),
   isVCBan: char('isVCBan', { length: 1 }).default('0'),
 })
@@ -56,9 +56,9 @@ export const messages = pgTable('messages', {
 })
 
 export const botStatus = pgTable('botStatus', {
-  idStatus: serial('idStatus').primaryKey(),
-  statusMessage: varchar('statusMessage', {length: 256}),
-  type: integer('type'),
+  id: serial('id').primaryKey(),
+  statusMessage: varchar('statusMessage', {length: 256}).notNull(),
+  type: integer('type').notNull(),
   url: varchar('url', {length: 256})
 })
 

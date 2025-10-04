@@ -1,8 +1,8 @@
 import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
-import Command from '../../structures/command-builder'
-import OptionBuilder from '../../structures/option-builder'
+import Command from '../../builders/command-builder'
+import OptionBuilder from '../../builders/option-builder'
 import { db } from '../../utils/db'
-import { serverUsers } from '../../../drizzle/schemas/schema'
+import { serverUsers, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 
 const options = new OptionBuilder()
@@ -36,6 +36,11 @@ export default class BanVoiceChat extends Command<typeof options> {
       const isUserRegistered = await db.select().from(serverUsers).where(eq(serverUsers.idServerUser, user.id))
 
       if (isUserRegistered.length === 0) {
+        const isUserInActualUserDb = await db.select().from(users).where(eq(users.id, user.id))
+        if(isUserInActualUserDb.length === 0){
+          await db.insert(users).values({ id: user.id, name: user.username, osuId: 0 })
+        }
+
         await db.insert(serverUsers).values({ idServerUser: user.id, isVCBan: '1' })
         await interaction.editReply({ content: `User ${user.username} has been banned from the voice chat` })
         return
@@ -49,8 +54,8 @@ export default class BanVoiceChat extends Command<typeof options> {
       await db.update(serverUsers).set({ isVCBan: '1' }).where(eq(serverUsers.idServerUser, user.id))
       await interaction.editReply({ content: `User ${user.username} has been banned from the voice chat` })
     } catch (error) {
-      await interaction.editReply({ content: 'An error occurred while banning the user from the voice chat' })
       console.log(error)
+      await interaction.editReply({ content: 'An error occurred while banning the user from the voice chat' })
     }
   }
 }

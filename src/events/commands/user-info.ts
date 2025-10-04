@@ -2,11 +2,11 @@ import {
   CacheType,
   ChatInputCommandInteraction,
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { db } from '../../utils/db'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import OptionBuilder from '../../structures/option-builder'
+import OptionBuilder from '../../builders/option-builder'
 import OsuDaily from './osu-daily'
 
 const options = new OptionBuilder()

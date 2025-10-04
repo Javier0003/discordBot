@@ -5,7 +5,10 @@ import { getUserData } from '../utils/discord'
 
 export default class Validate extends RouteBuilder<Promise<Response | void>> {
   constructor() {
-    super('/', 'use')
+    super({
+      path: '/',
+      method: 'use'
+    })
   }
 
   public async event(c: Context, next: Next): Promise<Response | void> {

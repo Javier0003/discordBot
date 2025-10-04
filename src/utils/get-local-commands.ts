@@ -1,5 +1,5 @@
 import { join } from 'path'
-import Command from '../structures/command-builder'
+import Command from '../builders/command-builder'
 import { readdirSync } from 'fs'
 
 export default function getLocalCommands(): Command[] | undefined {

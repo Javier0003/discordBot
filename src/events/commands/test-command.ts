@@ -1,6 +1,6 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command from '../../structures/command-builder'
-import OptionBuilder from '../../structures/option-builder'
+import Command from '../../builders/command-builder'
+import OptionBuilder from '../../builders/option-builder'
 
 const options = new OptionBuilder().build()
 export default class TestCommand extends Command<typeof options> {

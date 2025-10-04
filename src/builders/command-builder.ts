@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CacheType, ChatInputCommandInteraction, Collection, EmbedBuilder, InteractionResponse, Message, User } from 'discord.js'
-import LoaClient from './loa-client'
 import { option } from './option-builder'
 
 type TypeMap = {
@@ -38,7 +36,7 @@ export type CommandConfiguration<O extends option[] | undefined = undefined> =
 
 export default abstract class Command<
   O extends option[] | undefined = undefined,
-> extends LoaClient {
+> {
   protected reply: InteractionResponse<boolean> | Message | undefined
   protected embed: EmbedBuilder = new EmbedBuilder();
   readonly name
@@ -64,7 +62,6 @@ export default abstract class Command<
   }
 
   constructor(readonly configs: CommandConfiguration<O>) {
-    super()
     this.name = configs.name
     this.description = configs.description
     this.devOnly = configs.devOnly

@@ -1,51 +1,41 @@
 import { FC, Fragment } from 'hono/jsx'
-import { css } from 'hono/css'
 import { Header } from './components/header'
 import { Context } from 'hono'
 import Link from './components/Link'
+import { db } from '../../utils/db'
+import { serverUsers } from '../../../drizzle/schemas/schema'
+import { and, eq } from 'drizzle-orm'
+import { container, linkStyles } from './constants/styles'
 
-const container = css`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  background-color: rgb(25, 25, 25);
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-`
-const linkStyles = css`
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid white;
-  border-radius: 0.5rem;
-  transition: 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  img {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  &:hover {
-    background-color: white;
-    color: black;
-  }
-`
 
 const Home: FC<{ context: Context }> = async ({ context }) => {
+  const authenticated = context.userData?.id !== undefined;
+
+  let dev;
+
+  if (authenticated) {
+    dev = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, context.userData.id), eq(serverUsers.isDev, '1'))).limit(1).then(r => r.length > 0);
+  }
+
   return (
     <Fragment>
       <Header context={context} />
       <div class={container}>
         <Link to="/mapas" className={linkStyles}>
           Mapas Diarios
-          <img src="/static/osu.svg"/>
+          <img src="/static/osu.svg" />
         </Link>
+
+        {dev && (
+          <Fragment>
+            <Link to="/user" className={linkStyles}>
+              Users
+            </Link>
+            <Link to="/bot" className={linkStyles}>
+              Bot
+            </Link>
+          </Fragment>
+        )}
       </div>
     </Fragment>
   )

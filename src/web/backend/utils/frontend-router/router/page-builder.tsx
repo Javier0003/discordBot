@@ -12,7 +12,11 @@ export default class Page extends RouteBuilder<Promise<Response> | Response> {
     path: string,
     LayoutCustom: FC = Page.LayoutDefault
   ) {
-    super(`/${path}`, 'get')
+    super({
+      path: `/${path}`,
+      method: 'get'
+    })
+
     this.Layout = LayoutCustom
     this.HomePage = HomePage
   }

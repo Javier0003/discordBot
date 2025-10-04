@@ -1,4 +1,4 @@
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 import { mapas, plays } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import { and, asc, desc, eq } from 'drizzle-orm'

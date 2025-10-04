@@ -1,5 +1,5 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 
 export default class SoTryhard extends Command{
   public static soTryhard: boolean = false

@@ -1,5 +1,5 @@
 import { EmbedBuilder, Message, OmitPartialGroupDMChannel } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 import getOsuToken from '../../utils/osu-token'
 import { db } from '../../utils/db'
 import { users } from '../../../drizzle/schemas/schema'

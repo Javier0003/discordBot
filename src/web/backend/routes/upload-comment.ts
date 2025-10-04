@@ -5,7 +5,10 @@ import { comments } from '../../../../drizzle/schemas/schema'
 
 export default class UploadComment extends RouteBuilder<Promise<Response> | Response> {
   constructor() {
-    super('/comment/upload/:id', 'post')
+    super({
+      path: '/comment/upload/:id',
+      method: 'post',
+    })
   }
 
   public async event(c: Context): Promise<Response> {

@@ -7,7 +7,10 @@ import { checkGuild, createToken, DiscordTokenResponse, getUserData, UserData } 
 
 export default class auth extends RouteBuilder<Promise<Response> | Response> {
   constructor() {
-    super('/auth/discord/redirect', 'get')
+    super({
+      path: '/auth/discord/redirect',
+      method: 'get'
+    })
   }
 
   public async event(c: Context): Promise<Response> {

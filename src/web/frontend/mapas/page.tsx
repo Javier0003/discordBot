@@ -26,25 +26,6 @@ const body = css`
   box-sizing: border-box;
 `
 
-const todayMapStyle = css`
-  background-color: rgb(0, 0, 0);
-  padding: 20px;
-  border-radius: 10px;
-  width: 50%;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  img {
-    border-radius: 8px;
-  }
-
-  @media (max-width: 1280px) {
-    width: 100%;
-  }
-`
-
 async function GetPaginatedMaps(page: number, pageSize: number) {
   const offset = (page - 1) * pageSize;
   return db

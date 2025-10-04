@@ -1,5 +1,5 @@
 import { Client, ClientEvents } from 'discord.js'
-import LoaClient from './loa-client'
+import LoaClient from '../structures/loa-client'
 
 export type EventType = keyof ClientEvents
 export type EventConfiguration = {

@@ -8,6 +8,8 @@ export default function pageHandler(honoApp: Hono) {
   const path = join(__dirname, '../../../../frontend')
   const pages = readdirSync(path)
 
+  
+
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const HomePage = require(`${path}/${pages.filter((page) =>
     page.startsWith('page')

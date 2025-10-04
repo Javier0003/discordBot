@@ -1,9 +1,9 @@
 import { CacheType, Collection, CommandInteraction, MessageFlags, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, Routes, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js'
-import Command from './command-builder'
+import Command from '../builders/command-builder'
 import LoaClient from './loa-client'
 import getLocalCommands from '../utils/get-local-commands'
 import env from '../env'
-import { option } from './option-builder'
+import { option } from '../builders/option-builder'
 import { db } from '../utils/db'
 import { serverUsers } from '../../drizzle/schemas/schema'
 import { and, eq } from 'drizzle-orm'
@@ -114,12 +114,6 @@ export default class CommandHandler extends LoaClient {
     } catch (error) {
       console.error(`[CommandHandler] [registerCommands] ${error}`)
     }
-    // const ids = guilds.map(guild => guild.id)
-
-    // const guildCommands = await Promise.all(ids.map(async (id) => {
-    //   const guild = await this.loa.guilds.fetch(id)
-    //   return guild.commands
-    // }))
   }
 
 

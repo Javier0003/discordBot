@@ -1,5 +1,5 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { db } from '../../utils/db'
 import { serverUsers } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'

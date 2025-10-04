@@ -3,11 +3,11 @@ import {
   ChatInputCommandInteraction,
   MessageFlags,
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { serverUsers, users } from '../../../drizzle/schemas/schema'
 import { db } from '../../utils/db'
 import getOsuToken from '../../utils/osu-token'
-import OptionBuilder from '../../structures/option-builder'
+import OptionBuilder from '../../builders/option-builder'
 
 const options = new OptionBuilder()
   .addStringOption({ description: 'Pon tu id de osu!', name: 'id' })

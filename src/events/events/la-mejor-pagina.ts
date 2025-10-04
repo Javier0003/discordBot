@@ -1,5 +1,5 @@
 import { EmbedBuilder, Message, OmitPartialGroupDMChannel } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 
 export default class LaMejorPagina
   extends Event_Builder<'messageCreate'>

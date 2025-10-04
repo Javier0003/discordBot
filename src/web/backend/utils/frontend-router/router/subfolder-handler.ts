@@ -6,8 +6,14 @@ import { readdirSync } from 'fs'
 export function subFolderPathHandler(path: string, honoApp: Hono) {
   try {
     if (path.endsWith('components')) return;
-    if(path.endsWith('.ico')) return;
-    
+    if (path.endsWith('constants')) return;
+    if (path.endsWith('styles')) return;
+    if (path.endsWith('assets')) return;
+    if (path.endsWith('hooks')) return;
+    if (path.endsWith('api')) return;
+    if (path.endsWith('utils')) return;
+    if (path.endsWith('.ico')) return;
+
     const pages = readdirSync(path)
 
     // eslint-disable-next-line @typescript-eslint/no-require-imports
