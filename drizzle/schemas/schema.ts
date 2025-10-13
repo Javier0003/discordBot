@@ -62,7 +62,6 @@ export const botStatus = pgTable('botStatus', {
   url: varchar('url', {length: 256})
 })
 
-
 export type ServerUsers = typeof serverUsers.$inferSelect
 
 export type Users = typeof users.$inferSelect

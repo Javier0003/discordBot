@@ -1,6 +1,7 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
+import MapasRepository from '../../repositories/mapas-repository'
 
 const options = new OptionBuilder().build()
 export default class TestCommand extends Command<typeof options> {
@@ -17,12 +18,18 @@ export default class TestCommand extends Command<typeof options> {
   }
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
     try {
-      interaction.deferReply()
+      const reply = await interaction.deferReply()
 
-      interaction.reply({ allowedMentions: { parse: ['everyone'] }, content: "test", tts: true })
+      const repo = new MapasRepository();
+
+
+      // const res = await repo.create({})
+      // console.log(res)
+
+      // interaction.reply({ allowedMentions: { parse: ['everyone'] }, content: "test", tts: true })
+      await reply.edit({ content: 'Test command executed' })
     } catch (error) {
       console.log(error)
     }
   }
 }
-

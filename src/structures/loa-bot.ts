@@ -5,6 +5,8 @@ import LoaClient from './loa-client'
 import { startServer } from '../web/backend'
 import { OsuClient } from 'osu-loa-wrapper'
 import CommandHandler from './command-handler'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 
 export default class LoaBot extends Client {
   public readonly clientLoa = new LoaClient(this)
@@ -12,6 +14,7 @@ export default class LoaBot extends Client {
   public readonly commandHandler = new CommandHandler()
   public readonly eventHandler = new Event_Handler()
   public readonly api = startServer()
+  public readonly db = drizzle(postgres(env.dbUrl));
 
   constructor() {
     super({

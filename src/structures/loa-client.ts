@@ -14,4 +14,8 @@ export default class LoaClient {
     if(!LoaClient.instance) throw new Error('No instance of LoaBot')
       return LoaClient.instance
   }
+
+  get db (){
+    return LoaClient.LoA.db
+  }
 }
