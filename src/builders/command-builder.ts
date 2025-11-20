@@ -1,4 +1,4 @@
-import { CacheType, ChatInputCommandInteraction, Collection, EmbedBuilder, InteractionResponse, Message, User } from 'discord.js'
+import { CacheType, ChatInputCommandInteraction, Collection, Embed, EmbedBuilder, InteractionResponse, Message, User } from 'discord.js'
 import { option } from './option-builder'
 
 type TypeMap = {
@@ -36,7 +36,7 @@ export type CommandConfiguration<O extends option[] | undefined = undefined> =
 
 export default abstract class Command<
   O extends option[] | undefined = undefined,
-> {
+>{
   protected reply: InteractionResponse<boolean> | Message | undefined
   protected embed: EmbedBuilder = new EmbedBuilder();
   readonly name
@@ -74,6 +74,9 @@ export default abstract class Command<
   public abstract command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void>
 
   public async execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
+    this.embed = new EmbedBuilder();
+    this.reply = undefined;
+
     this.fetchOptions(interaction)
     this.command(interaction)
 

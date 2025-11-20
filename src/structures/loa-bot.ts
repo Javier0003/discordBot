@@ -1,15 +1,15 @@
 import { Client, GatewayIntentBits } from 'discord.js'
 import env from '../env'
-import Event_Handler from './event-handler'
-import LoaClient from './loa-client'
-import { startServer } from '../web/backend'
+import LoaSingleton from './loa-client'
+import { startServer } from '../api/backend'
 import { OsuClient } from 'osu-loa-wrapper'
-import CommandHandler from './command-handler'
+import CommandHandler from '../handlers/command-handler'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
+import Event_Handler from '../handlers/event-handler'
 
 export default class LoaBot extends Client {
-  public readonly clientLoa = new LoaClient(this)
+  public readonly clientLoa = new LoaSingleton(this)
   public readonly osuClient = new OsuClient(env.osu.clientId, env.osu.apiKey)
   public readonly commandHandler = new CommandHandler()
   public readonly eventHandler = new Event_Handler()

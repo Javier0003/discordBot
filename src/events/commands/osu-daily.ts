@@ -56,7 +56,7 @@ export default class OsuDaily extends Command {
         .setTitle(daily.beatmapset.title)
         .setColor('Random')
         .setDescription(
-          `Difficulty: ${daily.difficulty_rating} ★\n${daily.beatmapset.artist} - ${daily.beatmapset.title} [${daily.version}] \n Max Combo: ${daily.max_combo}`
+          `Difficulty: ${daily.difficulty_rating.toFixed(2)} ★\n${daily.beatmapset.artist} - ${daily.beatmapset.title} [${daily.version}] \n Max Combo: ${daily.max_combo}`
         )
         .addFields(
           { name: 'Mods', value: mods },

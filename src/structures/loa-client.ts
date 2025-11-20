@@ -1,21 +1,21 @@
 import LoaBot from './loa-bot'
 
-export default class LoaClient {
+export default class LoaSingleton {
   loa: LoaBot;
 
   private static instance:  LoaBot
 
   constructor(clientStatic?: LoaBot) {
-    if(clientStatic) LoaClient.instance = clientStatic
-    this.loa = LoaClient.instance
+    if(clientStatic) LoaSingleton.instance = clientStatic
+    this.loa = LoaSingleton.instance
   }
 
   static get LoA(){
-    if(!LoaClient.instance) throw new Error('No instance of LoaBot')
-      return LoaClient.instance
+    if(!LoaSingleton.instance) throw new Error('No instance of LoaBot')
+      return LoaSingleton.instance
   }
 
   get db (){
-    return LoaClient.LoA.db
+    return LoaSingleton.LoA.db
   }
 }

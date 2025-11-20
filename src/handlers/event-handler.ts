@@ -1,10 +1,10 @@
-import LoaClient from './loa-client'
 import Event_Builder, { EventConfiguration, EventType } from '../builders/event-builder'
 import { join } from 'node:path'
 import { readdirSync } from 'node:fs'
 import { ClientEvents, Collection } from 'discord.js'
+import LoaSingleton from '../structures/loa-client'
 
-export default class Event_Handler extends LoaClient {
+export default class Event_Handler extends LoaSingleton {
   events: Collection<string, { type: EventType; event: Event_Builder<keyof ClientEvents> }>
   constructor() {
     super()

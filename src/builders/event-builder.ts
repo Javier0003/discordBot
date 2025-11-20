@@ -1,5 +1,5 @@
 import { Client, ClientEvents } from 'discord.js'
-import LoaClient from '../structures/loa-client'
+import LoaSingleton from '../structures/loa-client'
 
 export type EventType = keyof ClientEvents
 export type EventConfiguration = {
@@ -10,7 +10,7 @@ export type EventConfiguration = {
   type?: keyof Client
 }
 
-export default abstract class Event_Builder<Event extends keyof ClientEvents> extends LoaClient{
+export default abstract class Event_Builder<Event extends keyof ClientEvents> extends LoaSingleton{
   name = 'event-builder'
   description = 'event builder'
   eventType: Event

@@ -1,6 +1,6 @@
 import { CacheType, Collection, CommandInteraction, MessageFlags, REST, RESTPostAPIChatInputApplicationCommandsJSONBody, Routes, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js'
 import Command from '../builders/command-builder'
-import LoaClient from './loa-client'
+import LoaSingleton from '../structures/loa-client'
 import getLocalCommands from '../utils/get-local-commands'
 import env from '../env'
 import { option } from '../builders/option-builder'
@@ -8,7 +8,7 @@ import { db } from '../utils/db'
 import { serverUsers } from '../../drizzle/schemas/schema'
 import { and, eq } from 'drizzle-orm'
 
-export default class CommandHandler extends LoaClient {
+export default class CommandHandler extends LoaSingleton {
   private commands: Collection<string, { command: Command }>
 
   constructor() {

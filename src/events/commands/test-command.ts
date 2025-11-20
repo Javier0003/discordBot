@@ -1,7 +1,8 @@
-import { CacheType, ChatInputCommandInteraction } from 'discord.js'
+import { ActivityType, CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
-import MapasRepository from '../../repositories/mapas-repository'
+import BotStatusRepository from '../../repositories/bot-status-repository'
+import LoaSingleton from '../../structures/loa-client'
 
 const options = new OptionBuilder().build()
 export default class TestCommand extends Command<typeof options> {
@@ -20,11 +21,13 @@ export default class TestCommand extends Command<typeof options> {
     try {
       const reply = await interaction.deferReply()
 
-      const repo = new MapasRepository();
 
+      // const test = new BotStatusRepository();
+      // await test.create({statusMessage: "Bot is running smoothly", type: 2});
 
-      // const res = await repo.create({})
-      // console.log(res)
+      // LoaSingleton.LoA.user?.setBanner('')
+      // LoaSingleton.LoA.user.set
+
 
       // interaction.reply({ allowedMentions: { parse: ['everyone'] }, content: "test", tts: true })
       await reply.edit({ content: 'Test command executed' })
