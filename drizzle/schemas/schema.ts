@@ -50,11 +50,6 @@ export const serverUsers = pgTable('serverUsers', {
   isVCBan: char('isVCBan', { length: 1 }).default('0'),
 })
 
-export const messages = pgTable('messages', {
-  idMessage: serial('idMessage').primaryKey(),
-  message: varchar("message", {length: 256})
-})
-
 export const botStatus = pgTable('botStatus', {
   id: serial('id').primaryKey(),
   statusMessage: varchar('statusMessage', {length: 256}).notNull(),
