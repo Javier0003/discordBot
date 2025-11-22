@@ -7,7 +7,7 @@ import {
   AttachmentBuilder,
   ChatInputCommandInteraction
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { Socket } from 'node:net'
 import { statusJava } from 'node-mcstatus'
 import env from '../../env'

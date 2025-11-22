@@ -1,9 +1,8 @@
 import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
-import Command from '../../structures/command-builder'
-import { db } from '../../utils/db'
-import { serverUsers } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
-import OptionBuilder from '../../structures/option-builder'
+import Command from '../../builders/command-builder'
+import OptionBuilder from '../../builders/option-builder'
+import { RepositoryObj } from '../../repositories/services-registration'
+import ServerUserRepository from '../../repositories/server-user-repository'
 
 const options = new OptionBuilder().addUserOption({
   description: 'Usuario a desbanear',
@@ -12,13 +11,15 @@ const options = new OptionBuilder().addUserOption({
 }).build()
 
 export default class UnBan extends Command<typeof options> {
-  constructor() {
+  private readonly serverUserRepository: ServerUserRepository
+  constructor({ serverUsersRepository}: RepositoryObj) {
     super({
       name: 'unban',
       description: 'Desbaneando a un usuario',
       options: options,
       devOnly: true,
     })
+    this.serverUserRepository = serverUsersRepository
   }
 
   public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
@@ -29,7 +30,7 @@ export default class UnBan extends Command<typeof options> {
         return
       }
 
-      await db.update(serverUsers).set({ isVCBan: '0' }).where(eq(serverUsers.idServerUser, userId))
+      await this.serverUserRepository.update(userId, { isVCBan: '0' })
       await interaction.reply({ content: `<@${userId}> ha sido desbaneado`, allowedMentions: { parse: ['users'] } })
     }
     catch (error) {

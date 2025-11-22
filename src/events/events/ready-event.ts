@@ -1,4 +1,4 @@
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 
 export default class ReadyEvent extends Event_Builder<'ready'> {
   constructor() {

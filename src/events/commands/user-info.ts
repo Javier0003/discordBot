@@ -2,12 +2,14 @@ import {
   CacheType,
   ChatInputCommandInteraction,
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { db } from '../../utils/db'
 import { plays, users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
-import OptionBuilder from '../../structures/option-builder'
+import OptionBuilder from '../../builders/option-builder'
 import OsuDaily from './osu-daily'
+import { RepositoryObj } from '../../repositories/services-registration'
+import UserRepository from '../../repositories/user-repository'
 
 const options = new OptionBuilder()
   .addUserOption({
@@ -17,22 +19,22 @@ const options = new OptionBuilder()
   .build()
 
 export default class InfoOsu extends Command<typeof options> {
-  constructor() {
+  private _userRepository: UserRepository
+  constructor({userRepository}: RepositoryObj) {
     super({
       name: 'user-osu',
       description: 'información de osu!',
       notUpdated: true,
       options: options,
     })
+    this._userRepository = userRepository
   }
 
-  public async command(
-    interaction: ChatInputCommandInteraction<CacheType>
-  ): Promise<void> {
+  public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
     this.embed = this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
 
     try {
-      this.reply = await interaction.reply({ embeds: [this.embed]})
+      this.reply = await interaction.reply({ embeds: [this.embed] })
 
       await this.getOsuData(interaction)
 
@@ -69,7 +71,7 @@ export default class InfoOsu extends Command<typeof options> {
 
   private getAvgAccuracy(scores: scores[]): string {
     if (scores.length === 0) return '0%'
-    
+
     const total = scores.reduce((acc: number, score: scores) => acc + Number(score.accuracy), 0)
 
     return `${OsuDaily.accuracy(total / scores.length)}%`

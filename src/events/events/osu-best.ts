@@ -1,14 +1,15 @@
 import { EmbedBuilder, Message, OmitPartialGroupDMChannel } from 'discord.js'
-import Event_Builder from '../../structures/event-builder'
+import Event_Builder from '../../builders/event-builder'
 import getOsuToken from '../../utils/osu-token'
-import { db } from '../../utils/db'
-import { users } from '../../../drizzle/schemas/schema'
 import { Welcome } from '../../utils/osu-daily.config'
 import OsuDaily from '../commands/osu-daily'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class OsuBest extends Event_Builder<'messageCreate'> {
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  constructor({userRepository}: RepositoryObj) {
     super({ eventType: 'messageCreate', type: 'on', name: 'osu-best' })
+    this.userRepository = userRepository
   }
 
   async event(message: OmitPartialGroupDMChannel<Message<boolean>>): Promise<void> {
@@ -25,7 +26,7 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
       const mapId = content.embeds[0].author?.url?.split('/').at(-1)
 
       const token = await getOsuToken()
-      const usersData = await db.select().from(users)
+      const usersData = await this.userRepository.getAll()
 
       const data = await Promise.all(
         usersData.map(async (v) => {
@@ -77,6 +78,5 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
     } catch (error) {
       console.log(error)
     }
-
   }
 }

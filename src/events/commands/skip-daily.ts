@@ -5,7 +5,7 @@ import {
   CacheType,
   ChatInputCommandInteraction,
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import MapasOsu from '../events/daily-map'
 
 export default class skipDaily extends Command {

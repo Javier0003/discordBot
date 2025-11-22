@@ -2,17 +2,22 @@ import {
   CacheType,
   ChatInputCommandInteraction,
 } from 'discord.js'
-import Command from '../../structures/command-builder'
+import Command from '../../builders/command-builder'
 import { plays, users } from '../../../drizzle/schemas/schema'
-import { db } from '../../utils/db'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class OsuRank extends Command {
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  private readonly playRepository: RepositoryObj['playRepository']
+  constructor({userRepository, playRepository}: RepositoryObj) {
     super({
       name: 'osu-rank',
       description: 'osu!',
       notUpdated: true,
     })
+
+    this.userRepository = userRepository
+    this.playRepository = playRepository
   }
 
   public async command(
@@ -22,11 +27,9 @@ export default class OsuRank extends Command {
       this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
       this.reply = await interaction.reply({ embeds: [this.embed] })
 
-      const usuarios = await db
-        .select({ name: users.name, id: users.id })
-        .from(users)
+      const usuarios = await this.userRepository.getAll()
 
-      const usersAndScores = await db.select({ puntos: plays.puntos, uId: plays.uId }).from(plays)
+      const usersAndScores = await this.playRepository.getAll()
       
       const playersWithPoints = usuarios.map((val) => {
         let score = 0

@@ -1,16 +1,19 @@
 import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
-import Command from '../../structures/command-builder'
-import OptionBuilder from '../../structures/option-builder'
-import { db } from '../../utils/db'
-import { serverUsers } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
+import Command from '../../builders/command-builder'
+import OptionBuilder from '../../builders/option-builder'
+import { RepositoryObj } from '../../repositories/services-registration'
+import ServerUserRepository from '../../repositories/server-user-repository'
+import UserRepository from '../../repositories/user-repository'
 
 const options = new OptionBuilder()
   .addUserOption({ description: 'User to ban', name: 'user', required: true })
   .build()
 
 export default class BanVoiceChat extends Command<typeof options> {
-  constructor() {
+  private readonly userRepository: UserRepository
+  private readonly serverUsersRepository: ServerUserRepository
+
+  constructor({userRepository, serverUsersRepository}: RepositoryObj) {
     super({
       name: 'ban-voice-chat',
       description: 'Ban a user from the voice chat',
@@ -20,6 +23,8 @@ export default class BanVoiceChat extends Command<typeof options> {
       deleted: false,
       notUpdated: false
     })
+    this.userRepository = userRepository
+    this.serverUsersRepository = serverUsersRepository
   }
 
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
@@ -33,24 +38,29 @@ export default class BanVoiceChat extends Command<typeof options> {
       const member = await guild.members.fetch(user.id)
       if (!member) return
 
-      const isUserRegistered = await db.select().from(serverUsers).where(eq(serverUsers.idServerUser, user.id))
+      const isUserRegistered = await this.serverUsersRepository.getById(user.id)
 
-      if (isUserRegistered.length === 0) {
-        await db.insert(serverUsers).values({ idServerUser: user.id, isVCBan: '1' })
+      if (!isUserRegistered) {
+        const isUserInActualUserDb = await this.userRepository.getById(user.id)
+        if(!isUserInActualUserDb){
+          await this.userRepository.create({ id: user.id, name: user.username, osuId: 0 })
+        }
+
+        await this.serverUsersRepository.create({ idServerUser: user.id, isVCBan: '1' })
         await interaction.editReply({ content: `User ${user.username} has been banned from the voice chat` })
         return
       }
       
-      if (isUserRegistered[0].isVCBan === '1') {
+      if (isUserRegistered.isVCBan === '1') {
         await interaction.editReply({ content: 'User is already banned from the voice chat' })
         return
       }
 
-      await db.update(serverUsers).set({ isVCBan: '1' }).where(eq(serverUsers.idServerUser, user.id))
+      await this.serverUsersRepository.update(user.id, { isVCBan: '1' })
       await interaction.editReply({ content: `User ${user.username} has been banned from the voice chat` })
     } catch (error) {
-      await interaction.editReply({ content: 'An error occurred while banning the user from the voice chat' })
       console.log(error)
+      await interaction.editReply({ content: 'An error occurred while banning the user from the voice chat' })
     }
   }
 }
