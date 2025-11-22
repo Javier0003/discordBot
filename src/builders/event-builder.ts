@@ -11,10 +11,10 @@ export type EventConfiguration = {
 }
 
 export default abstract class Event_Builder<Event extends keyof ClientEvents> extends LoaSingleton{
-  name = 'event-builder'
-  description = 'event builder'
-  eventType: Event
-  type: keyof Client
+  public name = 'event-builder'
+  public description = 'event builder'
+  public eventType: Event
+  public type: keyof Client
 
   constructor({
     name = 'command',
@@ -27,6 +27,7 @@ export default abstract class Event_Builder<Event extends keyof ClientEvents> ex
     this.description = description
     this.eventType = eventType
     this.type = type
+
   }
 
   abstract event(...args: ClientEvents[Event]): void

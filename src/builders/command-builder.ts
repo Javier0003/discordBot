@@ -1,5 +1,7 @@
 import { CacheType, ChatInputCommandInteraction, Collection, Embed, EmbedBuilder, InteractionResponse, Message, User } from 'discord.js'
 import { option } from './option-builder'
+import LoaSingleton from '../structures/loa-client'
+import { RepositoryObj } from '../repositories/services-registration'
 
 type TypeMap = {
   string: string

@@ -1,28 +1,29 @@
 import Event_Builder from '../../builders/event-builder'
 import LoaSingleton from '../../structures/loa-client'
-import { db } from '../../utils/db'
-import { botStatus } from '../../../drizzle/schemas/schema'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class Status extends Event_Builder<'ready'> {
-  constructor() {
+  private readonly botStatusRepository: RepositoryObj['botStatusRepository']
+  constructor({botStatusRepository}: RepositoryObj) {
     super({ eventType: 'ready', type: 'on', name: 'status' })
+    this.botStatusRepository = botStatusRepository
   }
 
   public event() {
     try {
-      // setInterval(async () => {
-      //   const statusdb = await db.select().from(botStatus)
+      setInterval(async () => {
+        const statusdb = await this.botStatusRepository.getAll()
 
-      //   const random = Math.floor(Math.random() * statusdb.length)
+        const random = Math.floor(Math.random() * statusdb.length)
 
-      //   const selected = statusdb[random]
+        const selected = statusdb[random]
 
-      //   LoaSingleton.LoA.user?.setActivity({
-      //     name: selected?.statusMessage ?? "",
-      //     url: selected?.url ?? undefined,
-      //     type: selected?.type ?? 1,
-      //   })
-      // }, 10000)
+        LoaSingleton.LoA.user?.setActivity({
+          name: selected?.statusMessage ?? "",
+          url: selected?.url ?? undefined,
+          type: selected?.type ?? 1,
+        })
+      }, 10000)
     } catch (error) {
       console.log(error)
     }

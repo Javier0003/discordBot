@@ -1,12 +1,13 @@
-import { ActivityType, CacheType, ChatInputCommandInteraction } from 'discord.js'
+import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
-import BotStatusRepository from '../../repositories/bot-status-repository'
-import LoaSingleton from '../../structures/loa-client'
+import { RepositoryObj } from '../../repositories/services-registration'
+import UserRepository from '../../repositories/user-repository'
 
 const options = new OptionBuilder().build()
 export default class TestCommand extends Command<typeof options> {
-  constructor() {
+  private readonly _userRepository: UserRepository
+  constructor({userRepository}: RepositoryObj) {
     super({
       name: 'test-command',
       description: 'command for testing stuff 👍',
@@ -16,18 +17,18 @@ export default class TestCommand extends Command<typeof options> {
       deleted: false,
       notUpdated: true
     })
+
+    this._userRepository = userRepository
   }
   public async command(interaction: ChatInputCommandInteraction<CacheType>) {
     try {
       const reply = await interaction.deferReply()
 
 
-      // const test = new BotStatusRepository();
-      // await test.create({statusMessage: "Bot is running smoothly", type: 2});
+      const test = await this._userRepository.getAll();
 
-      // LoaSingleton.LoA.user?.setBanner('')
-      // LoaSingleton.LoA.user.set
 
+      console.log(test)
 
       // interaction.reply({ allowedMentions: { parse: ['everyone'] }, content: "test", tts: true })
       await reply.edit({ content: 'Test command executed' })

@@ -1,20 +1,20 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { db } from '../../utils/db'
-import { serverUsers } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class BanList extends Command {
-  constructor() {
+  private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']
+  constructor({serverUsersRepository}: RepositoryObj) {
     super({
       name: 'banlist',
       description: 'Lista de usuarios baneados',
     })
+    this.serverUsersRepository = serverUsersRepository
   }
 
   public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
     try{
-      const banList = await db.select().from(serverUsers).where(eq(serverUsers.isVCBan, '1'))
+      const banList = await this.serverUsersRepository.getBannedUsers()
       if (banList.length === 0) {
         this.embed.setDescription('No hay usuarios baneados')
         await interaction.reply({ embeds: [this.embed] })

@@ -7,6 +7,7 @@ import CommandHandler from '../handlers/command-handler'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 import Event_Handler from '../handlers/event-handler'
+import { registerRepositories } from '../repositories/services-registration'
 
 export default class LoaBot extends Client {
   public readonly clientLoa = new LoaSingleton(this)
@@ -15,6 +16,7 @@ export default class LoaBot extends Client {
   public readonly eventHandler = new Event_Handler()
   public readonly api = startServer()
   public readonly db = drizzle(postgres(env.dbUrl));
+  public readonly repositories = registerRepositories();
 
   constructor() {
     super({
@@ -30,7 +32,7 @@ export default class LoaBot extends Client {
     })
     this.init()
   }
-
+  
   private init() {
     this.eventHandler.init()
     this.login(env.token)

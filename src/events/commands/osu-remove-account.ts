@@ -4,24 +4,24 @@ import {
   MessageFlags
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
-import { db } from '../../utils/db'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class RemoveOsuAccount extends Command {
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  constructor({userRepository}: RepositoryObj) {
     super({
       name: 'osu-remove-account',
       description: 'Elimina tu cuenta de osu!',
       notUpdated: true,
     })
+    this.userRepository = userRepository
   }
 
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
   ): Promise<void> {
     try {
-      await db.delete(users).where(eq(users.id, interaction.user.id))
+      await this.userRepository.update(interaction.user.id, { osuId: undefined })
 
       interaction.reply({content: 'Cuenta eliminada', flags: MessageFlags.Ephemeral})
     } catch (error) {

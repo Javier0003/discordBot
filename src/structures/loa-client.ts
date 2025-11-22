@@ -15,7 +15,11 @@ export default class LoaSingleton {
       return LoaSingleton.instance
   }
 
-  get db (){
+  get repo (){
+    return LoaSingleton.LoA.repositories
+  }
+
+  protected get db (){
     return LoaSingleton.LoA.db
   }
 }

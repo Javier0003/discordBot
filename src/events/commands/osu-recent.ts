@@ -6,7 +6,6 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { db } from '../../utils/db'
 import { users } from '../../../drizzle/schemas/schema'
 import { eq } from 'drizzle-orm'
 import getOsuMap from '../../utils/get-osu-map'
@@ -14,14 +13,19 @@ import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, { mods, Score } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
 import OsuDaily from './osu-daily'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class osuRecent extends Command {
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  
+  constructor({userRepository}: RepositoryObj) {
     super({
       name: 'osu-recent',
       description: 'osu!',
       notUpdated: true
     })
+
+    this.userRepository = userRepository
   }
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
@@ -30,14 +34,11 @@ export default class osuRecent extends Command {
       const token = await getOsuToken()
       this.embed = this.embed.setTitle('osu! Recent').setDescription('Espera un momento')
       this.reply = await interaction.reply({ embeds: [this.embed] })
-      const user = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, interaction.user.id))
+      const user = await this.userRepository.getById(interaction.user.id)
 
-      if (user.length === 0) throw new Error('No estas registrado')
+      if (!user) throw new Error('No estas registrado')
 
-      const userPlays = await getOsuRecent(user[0].osuId, token)
+      const userPlays = await getOsuRecent(user.osuId, token)
 
       if (userPlays.length === 0) {
         this.reply = await this.reply.edit({

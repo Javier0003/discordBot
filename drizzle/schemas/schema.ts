@@ -62,6 +62,11 @@ export const botStatus = pgTable('botStatus', {
   url: varchar('url', {length: 256})
 })
 
+export const randomReplies = pgTable('randomReplies', {
+  idReply: serial('idReply').primaryKey(),
+  reply: varchar('reply', {length: 256}).notNull(),
+})
+
 export type ServerUsers = typeof serverUsers.$inferSelect
 
 export type Users = typeof users.$inferSelect

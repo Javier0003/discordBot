@@ -1,12 +1,12 @@
 import { VoiceState } from 'discord.js'
 import Event_Builder from '../../builders/event-builder'
-import { db } from '../../utils/db'
-import { and, eq } from 'drizzle-orm'
-import { serverUsers } from '../../../drizzle/schemas/schema'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'> {
-  constructor() {
+  private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']
+  constructor({ serverUsersRepository }: RepositoryObj) {
     super({ eventType: 'voiceStateUpdate', type: 'on', name: 'kick-from-voice-chat' })
+    this.serverUsersRepository = serverUsersRepository
   }
 
   public async event(oldState: VoiceState, newState: VoiceState) {
@@ -24,9 +24,9 @@ export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'>
         }
       })
 
-      const bannedUsers = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, newState.member?.id), eq(serverUsers.isVCBan, '1')))
+      const bannedUsers = await this.serverUsersRepository.isUserBanned(newState.member.id)
 
-      if (bannedUsers.length > 0) {
+      if (bannedUsers) {
         if (newState.channelId !== null) {
           this.kick(newState)
         }

@@ -4,10 +4,9 @@ import {
   MessageFlags,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { serverUsers, users } from '../../../drizzle/schemas/schema'
-import { db } from '../../utils/db'
 import getOsuToken from '../../utils/osu-token'
 import OptionBuilder from '../../builders/option-builder'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 const options = new OptionBuilder()
   .addStringOption({ description: 'Pon tu id de osu!', name: 'id' })
@@ -15,14 +14,19 @@ const options = new OptionBuilder()
   .build()
 
 export default class OsuRegister extends Command<typeof options> {
-
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']
+  
+  constructor({userRepository, serverUsersRepository}: RepositoryObj) {
     super({
       name: 'osu-register',
       description: 'osu!',
       options: options,
       notUpdated: true,
     })
+    
+    this.userRepository = userRepository
+    this.serverUsersRepository = serverUsersRepository
   }
 
   public async command(
@@ -44,7 +48,7 @@ export default class OsuRegister extends Command<typeof options> {
       if (insertedData.name === 'id') {
         if(!interaction.user.globalName) return
 
-        await db.insert(users).values({
+        await this.userRepository.create({
           id: interaction.user.id,
           name: interaction.user.globalName,
           osuId: Number(interaction.options.data[0].value),
@@ -65,13 +69,13 @@ export default class OsuRegister extends Command<typeof options> {
         )
         const osuName = (await res.json()) as { username: string; id: string }
 
-        await db.insert(users).values({
+        await this.userRepository.create({
           id: interaction.user.id,
           name: osuName.username,
           osuId: Number(osuName.id),
         })
 
-        await db.insert(serverUsers).values({ idServerUser: interaction.user.id })
+        await this.serverUsersRepository.create({ idServerUser: interaction.user.id })
       }
 
       this.reply = await this.reply.edit({

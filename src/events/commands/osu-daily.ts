@@ -3,10 +3,7 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
 import MapasOsu from '../events/daily-map'
-import { db } from '../../utils/db'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, {
@@ -15,14 +12,18 @@ import osuConfig, {
   Score
 } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class OsuDaily extends Command {
-  constructor() {
+  private readonly userRepository: RepositoryObj['userRepository']
+  constructor({userRepository}: RepositoryObj) {
     super({
       name: 'osu-daily',
       description: 'osu!',
       notUpdated: true
     })
+
+    this.userRepository = userRepository
   }
   public async command(
     interaction: ChatInputCommandInteraction<CacheType>
@@ -33,17 +34,14 @@ export default class OsuDaily extends Command {
     try {
       const token = await getOsuToken()
 
-      const user = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, interaction.user.id))
+      const user = await this.userRepository.getById(interaction.user.id)
 
-      if (user.length === 0) throw new Error('No estas registrado')
+
+      if (!user) throw new Error('No estas registrado')
 
       const dailyMap = MapasOsu.dailyMap
       const daily = await getOsuMap(dailyMap.id, token)
-      const userPlays = await getOsuRecent(user[0].osuId, token)
-
+      const userPlays = await getOsuRecent(user.osuId, token)
       const userPlay = userPlays.find(
         (play: { beatmap: { id: number } }) => play.beatmap.id === dailyMap.id
       )
@@ -88,7 +86,7 @@ export default class OsuDaily extends Command {
           })
           await MapasOsu.addPlay({
             mapId: dailyMap.id,
-            uid: user[0].id,
+            uid: user.id,
             rank: userPlay.rank,
             score: userPlay.score,
             accuracy: userPlay.accuracy,

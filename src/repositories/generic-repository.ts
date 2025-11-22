@@ -64,6 +64,6 @@ export default abstract class GenericRepository<T extends PgTable> extends LoaSi
     }
 
     public getQueryable() {
-        return this.db;
+        return this.db.select().from(this.entity);
     }
 }

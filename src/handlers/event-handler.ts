@@ -24,7 +24,7 @@ export default class Event_Handler extends LoaSingleton {
       for (const event of events) {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const Event = require(`${path}/${event}`).default
-        const eventInstance: EventConfiguration = new Event()
+        const eventInstance: EventConfiguration = new Event(this.loa.repositories)
         if (!eventInstance.event) return
         this.events.set(eventInstance.name!, {
           event: eventInstance as Event_Builder<typeof eventInstance.eventType>,
