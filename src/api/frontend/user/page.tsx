@@ -12,6 +12,7 @@ const cardStyles = css`
     padding: 12px;
     width: fit-content;
     color: #ccc;
+    flex-grow: 1;
 
     display: flex;
     flex-direction: row;
@@ -66,6 +67,32 @@ const container = css`
   gap: 20px;
   align-content: flex-start;
   box-sizing: border-box;
+  position: relative;
+`
+
+const fetchAllUsersContainer = css`
+    position: absolute;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: rgb(35, 35, 35);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    bottom: 16px;
+    right: 16px;
+
+    button {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #666;
+        background-color: #222;
+        color: #ccc;
+        width: 200px;
+        box-sizing: border-box;
+    }
+
+    button:hover {
+        background-color: #333;
+    }
 `
 
 const pageContainer = css`
@@ -75,6 +102,8 @@ const pageContainer = css`
   flex-direction: column;
 `
 
+
+
 const User: FC<{ context: Context }> = async ({ context }) => {
     const {serverUsersRepository, userRepository} = context.repositories
     const isUserDev = await serverUsersRepository.isDev(context.userData.id)
@@ -83,7 +112,12 @@ const User: FC<{ context: Context }> = async ({ context }) => {
     }
     const page = Number((context.req.query() as { page?: number }).page) || 1
 
-    const users = await userRepository.getPaged(page, 10)   
+    const users = await userRepository.getPaged(page, 9)
+
+    if(users.length === 0 && page !== 1) {
+        return <Redirect to={`/user?page=${page - 1}`} />
+    }
+
     const usersWithData = await userRepository.getUsersWithDiscordData(users)
 
     return (
@@ -112,6 +146,12 @@ const User: FC<{ context: Context }> = async ({ context }) => {
                         </div>
                     )
                 })}
+
+                <div className={fetchAllUsersContainer}>
+                    <button id="fetch-discord-users-button">
+                        Fetch All Users
+                    </button>
+                </div>
             </div>
 
             <div

@@ -24,4 +24,9 @@ export default class UserRepository extends GenericRepository<typeof users> {
         if(idList.length === 0) return [];
         return await this.getQueryable().where(inArray(this.entity.id, idList));
     }
+
+    public async insertMany(userList: { id: string; name: string; osuId: number }[]) {
+        if(userList.length === 0) return;
+        await this.db.insert(this.entity).values(userList).onConflictDoNothing({target: this.entity.id});
+    }
 }

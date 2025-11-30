@@ -27,7 +27,7 @@ export default class LoaBot extends Client {
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageReactions
+        GatewayIntentBits.GuildMembers
       ]
     })
     this.api = new CustomHonoApp(this.repositories);

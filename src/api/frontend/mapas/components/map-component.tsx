@@ -5,6 +5,7 @@ import { Mapas } from '../../../../../drizzle/schemas/schema'
 const mapStyle = css`
   width: fit-content;
   min-width: 200px;
+  max-width: 33%;
   flex-grow: 1;
   background-color: rgb(233, 233, 233);
   border-radius: 12px;

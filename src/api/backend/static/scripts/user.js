@@ -17,7 +17,7 @@ container.addEventListener('click', async (e) => {
 
         if (element.classList.contains('toggle-role-button')) {
             const parentDiv = document.getElementById(`${userId}-user-card`);
-            
+
             if (parentDiv) {
                 const roleHeader = parentDiv.querySelector('h3:nth-child(2)');
                 if (roleHeader) {
@@ -77,3 +77,17 @@ async function toggleBan(userId, isVCBan) {
 
     return await res.json()
 }
+
+const fetchUsersButton = document.getElementById('fetch-discord-users-button');
+fetchUsersButton.addEventListener('click', async () => {
+    const response = await fetch('/api/users/fetch-discord-users');
+    const data = await response.json();
+
+    if (data.success) {
+        alert(`Successfully fetched all Discord users! Fetched: ${data.fetchedUsers}`);
+        window.location.reload();
+    }
+    else {
+        alert('Error fetching Discord users.');
+    }
+});

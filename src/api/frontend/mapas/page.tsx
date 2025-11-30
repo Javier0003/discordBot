@@ -31,7 +31,7 @@ const Mapas: FC<{ context: Context }> = async ({ context }) => {
 
   console.log('Page:', page)
   
-  const mapList = await mapasRepository.getPagedMapsWithPlays((page - 1) * 10, 10)
+  const mapList = await mapasRepository.getPagedMapsWithPlays((page - 1) * 10, 9)
 
   return (
       <div class={pageContainer}>
