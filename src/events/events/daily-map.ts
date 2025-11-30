@@ -8,7 +8,7 @@ import osuConfig, {
 } from '../../utils/osu-daily.config'
 import { RepositoryObj } from '../../repositories/services-registration'
 
-function generateDifficulty() {
+export function generateDifficulty() {
   const mods: mods[] = []
 
   const speedRoll = Math.random() * 100
@@ -48,7 +48,7 @@ function generateDifficulty() {
   return mods
 }
 
-function getRandomDifficulty(): OsuRanks {
+export function getRandomDifficulty(): OsuRanks {
   const totalWeight = osuConfig.difficultyWeights.reduce(
     (sum, weight) => sum + weight,
     0
@@ -67,7 +67,7 @@ function getRandomDifficulty(): OsuRanks {
 }
 
 
-async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
+export async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
   try {
     const mapaRandomXd = Math.floor(
       Math.random() * osuConfig.mapGeneratorNumber

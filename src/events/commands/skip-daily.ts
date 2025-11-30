@@ -6,8 +6,9 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import MapasOsu from '../events/daily-map'
+import MapasOsu, { generateDifficulty, getMapaRandom, getRandomDifficulty } from '../events/daily-map'
 import { RepositoryObj } from '../../repositories/services-registration'
+import { DailyMap, mods } from '../../utils/osu-daily.config'
 
 export default class skipDaily extends Command {
   private readonly mapasRepository: RepositoryObj['mapasRepository']
@@ -59,7 +60,7 @@ export default class skipDaily extends Command {
           loop = false
           this.embed = this.embed.setDescription('Espera...')
           await reply.edit({ embeds: [this.embed], components: [] })
-          const mapa = await MapasOsu.generateDailyMap()
+          const mapa = await this.generateDailyRandomMap()
 
           const currentDate = new Date()
           const day = currentDate.getDate()
@@ -76,7 +77,7 @@ export default class skipDaily extends Command {
           })
           MapasOsu.dailyMap = mapa
 
-          
+
           await reply.edit({
             embeds: [this.embed.setDescription('Daily map skipped')],
             components: [],
@@ -89,6 +90,33 @@ export default class skipDaily extends Command {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async generateDailyRandomMap(): Promise<DailyMap> {
+    try {
+      const selectedMods: mods[] = generateDifficulty()
+
+      const map = await getMapaRandom(selectedMods)
+
+      const osuRanks = getRandomDifficulty()
+
+      const dailyMap: DailyMap = {
+        id: map.id,
+        mods: selectedMods,
+        minRank: osuRanks,
+        name: map.beatmapset.title,
+        picUrl: map.beatmapset.covers.list,
+      } as DailyMap
+
+      const mapInDb = await this.mapasRepository.getById(map.id)
+
+      if (mapInDb) return await this.generateDailyRandomMap()
+
+      return dailyMap
+    } catch (error) {
+      console.log(error)
+      return await this.generateDailyRandomMap()
     }
   }
 }
