@@ -1,9 +1,6 @@
 import { css } from 'hono/css'
 import { FC } from 'hono/jsx'
-import getOsuMap from '../../../../utils/get-osu-map'
-import { mapas } from '../../../../../drizzle/schemas/schema'
-import { db } from '../../../../utils/db'
-import { eq } from 'drizzle-orm'
+import getOsuMap from '../../../../../utils/get-osu-map'
 
 const mapStyle = css`
   display: flex;
@@ -30,24 +27,19 @@ const mapInfoStyle = css`
   }
 `
 
-const MapData: FC<{mapId: string, token: string}> = async ({mapId, token}) => {
+const MapData: FC<{mapId: string, token: string, mods: string, date: string}> = async ({mapId, token, mods, date}) => {
   const mapData = await getOsuMap(Number(mapId), token)
-
-  const [modData] = await db
-    .select({ mods: mapas.oldMapMods, date: mapas.date })
-    .from(mapas)
-    .where(eq(mapas.oldMaps, Number(mapId)))
     
   return (
     <section class={mapStyle}>
       <div class={mapInfoStyle}>
         <h1>{`${mapData.beatmapset.title}[${mapData.version}]`}</h1>
         <p>{`Difficulty: ${mapData.difficulty_rating}⭐`}</p>
-        <p>{`Mods: ${JSON.parse(modData.mods)}`}</p>
+        <p>{`Mods: ${JSON.parse(mods)}`}</p>
         <p>{`Combo: ${mapData.max_combo}x`}</p>
         <p>{`Ar: ${mapData.ar}`}</p>
         <p>{`CS: ${mapData.cs}`}</p>
-        <p>{`Dia: ${modData.date}`}</p>
+        <p>{`Dia: ${date}`}</p>
       </div>
       <img src={`${mapData.beatmapset.covers.list}`} alt="" />
     </section>

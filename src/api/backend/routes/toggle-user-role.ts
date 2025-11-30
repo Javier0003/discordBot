@@ -1,16 +1,18 @@
 import { Context } from 'hono'
-import RouteBuilder from '../utils/route-handler/route-builder'
-import { db } from '../../../utils/db'
-import { serverUsers } from '../../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
+import RouteBuilder from '../../builders/route-builder'
+import { RepositoryObj } from '../../../repositories/services-registration'
 
 export default class ToggleUserRole extends RouteBuilder<Promise<Response> | Response> {
-  constructor() {
+  private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']
+
+  constructor({ serverUsersRepository }: RepositoryObj) {
     super({
       path: '/user/:id/role',
       method: 'patch',
       devOnly: true
     })
+
+    this.serverUsersRepository = serverUsersRepository
   }
 
   public async event(c: Context): Promise<Response> {
@@ -18,12 +20,12 @@ export default class ToggleUserRole extends RouteBuilder<Promise<Response> | Res
       const userId = c.req.param('id')
       const body = await c.req.json<{ isDev: string }>()
 
-      const [user] = await db.select().from(serverUsers).where(eq(serverUsers.idServerUser, userId)).limit(1)
+      const user = await this.serverUsersRepository.getById(userId)
 
       if (!user) {
-        await db.insert(serverUsers).values({ idServerUser: userId, isDev: body.isDev, isVCBan: '0' })
+        await this.serverUsersRepository.create({ idServerUser: userId, isDev: body.isDev, isVCBan: '0' })
       } else {
-        await db.update(serverUsers).set({ isDev: body.isDev }).where(eq(serverUsers.idServerUser, userId))
+        await this.serverUsersRepository.update(userId,{ isDev: body.isDev })
       }
 
       return c.json({ success: true, user: { ...user, isDev: body.isDev } })

@@ -1,34 +1,10 @@
 import { Context } from "hono"
-import { FC, Fragment } from "hono/jsx"
-import { db } from "../../../utils/db"
-import { and, eq } from "drizzle-orm"
-import { serverUsers, Users, users } from "../../../../drizzle/schemas/schema"
+import { FC } from "hono/jsx"
 import { Header } from "../components/header"
 import Redirect from "../components/redirect"
 import Script from "../components/Script"
-import { getSomeUserData } from "../../backend/utils/discord"
 import { css } from "hono/css"
 import Link from "../components/Link"
-
-async function getPaginatedUsers(page: number, pageSize: number) {
-    const offset = (page - 1) * pageSize;
-    return db
-        .select()
-        .from(users)
-        .leftJoin(serverUsers, eq(users.id, serverUsers.idServerUser))
-        .offset(offset)
-        .limit(pageSize);
-}
-
-type PaginatedUsers = Awaited<ReturnType<typeof getPaginatedUsers>>
-
-async function getUsersWithData(users: PaginatedUsers) {
-    const userData = await Promise.all(users.map(user => getSomeUserData(user?.users.id ?? "")));
-    return users.map((user, index) => ({
-        ...user,
-        ...userData[index]
-    }));
-}
 
 const cardStyles = css`
     border: 1px solid #ccc;
@@ -100,34 +76,36 @@ const pageContainer = css`
 `
 
 const User: FC<{ context: Context }> = async ({ context }) => {
-    const [dev] = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, context.userData.id), eq(serverUsers.isDev, '1')))
-    if (!dev) {
+    const {serverUsersRepository, userRepository} = context.repositories
+    const isUserDev = await serverUsersRepository.isDev(context.userData.id)
+    if (!isUserDev) {
         return <Redirect to='/' />
     }
     const page = Number((context.req.query() as { page?: number }).page) || 1
-    const users = await getPaginatedUsers(page, 10)
-    const usersWithData = await getUsersWithData(users)
+
+    const users = await userRepository.getPaged(page, 10)   
+    const usersWithData = await userRepository.getUsersWithDiscordData(users)
 
     return (
         <div class={pageContainer}>
             <Header context={context} />
             <div id="container" className={container}>
-                {usersWithData.map(user => {
+                {usersWithData.map((user) => {
                     if (user.id === context.userData.id) return null;
 
                     return (
-                        <div key={user.users.id} id={`${user.users.id}-user-card`} className={cardStyles}>
-                            <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?`} alt={`${user.users.name}'s avatar`} />
+                        <div key={user.id} id={`${user.id}-user-card`} className={cardStyles}>
+                            <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?`} alt={`${user.name}'s avatar`} />
                             <section className="user-info">
-                                <h3>{user.users.name}</h3>
+                                <h3>{user.name}</h3>
                                 <h3>{user.serverUsers?.isDev == "1" ? 'Developer' : 'User'}</h3>
                                 <h3>{user.serverUsers?.isVCBan == "1" ? 'VC Banned' : 'Not VC Banned'}</h3>
                             </section>
                             <section id="toggle-container" className="user-actions">
-                                <button className="toggle-role-button" data-user-id={user.users.id} data-is-dev={user.serverUsers?.isDev}>
+                                <button className="toggle-role-button" data-user-id={user.id} data-is-dev={user.serverUsers?.isDev}>
                                     {user.serverUsers?.isDev == "1" ? 'Make User' : 'Make Developer'}
                                 </button>
-                                <button className="toggle-vcban-button" data-user-id={user.users.id} data-is-vcban={user.serverUsers?.isVCBan}>
+                                <button className="toggle-vcban-button" data-user-id={user.id} data-is-vcban={user.serverUsers?.isVCBan}>
                                     {user.serverUsers?.isVCBan == "1" ? 'Unban from VC' : 'Ban from VC'}
                                 </button>
                             </section>

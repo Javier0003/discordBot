@@ -10,7 +10,7 @@ type DataTypeToPrimitive<T extends string> =
     never;
 
 export default abstract class GenericRepository<T extends PgTable> extends LoaSingleton {
-    private readonly entity: T;
+    protected readonly entity: T;
     private readonly idColumn: Column;
     constructor(entity: T) {
         super();

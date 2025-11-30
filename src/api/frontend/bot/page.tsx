@@ -2,6 +2,7 @@ import { FC, Fragment } from "hono/jsx";
 import { Header } from "../components/header";
 import { container, linkStyles } from "../constants/styles";
 import Link from "../components/Link";
+
 const BotPage: FC = async ({ context }) => {
     return (
         <Fragment>

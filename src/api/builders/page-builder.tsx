@@ -1,6 +1,6 @@
 import { FC } from 'hono/jsx'
-import RouteBuilder from '../../route-handler/route-builder'
 import { Context } from 'hono'
+import RouteBuilder from './route-builder'
 
 export default class Page extends RouteBuilder<Promise<Response> | Response> {
   static LayoutDefault: FC

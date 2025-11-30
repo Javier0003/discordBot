@@ -3,13 +3,11 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { db } from '../../utils/db'
-import { plays, users } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
 import OptionBuilder from '../../builders/option-builder'
 import OsuDaily from './osu-daily'
 import { RepositoryObj } from '../../repositories/services-registration'
 import UserRepository from '../../repositories/user-repository'
+import PlayRepository from '../../repositories/play-repository'
 
 const options = new OptionBuilder()
   .addUserOption({
@@ -20,15 +18,18 @@ const options = new OptionBuilder()
 
 export default class InfoOsu extends Command<typeof options> {
   private _userRepository: UserRepository
-  constructor({userRepository}: RepositoryObj) {
+  private readonly playRepository: PlayRepository
+  constructor({ userRepository, playRepository }: RepositoryObj) {
     super({
       name: 'user-osu',
       description: 'información de osu!',
       notUpdated: true,
       options: options,
     })
+    this.playRepository = playRepository
     this._userRepository = userRepository
   }
+
 
   public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
     this.embed = this.embed.setTitle('osu! Rank').setDescription('Espera un momento')
@@ -36,34 +37,41 @@ export default class InfoOsu extends Command<typeof options> {
     try {
       this.reply = await interaction.reply({ embeds: [this.embed] })
 
-      await this.getOsuData(interaction)
+      const data = await this.getOsuData(interaction)
+
+      if (!data) {
+        this.reply = await this.reply.edit({ content: 'Error al obtener los datos del usuario.', embeds: [] })
+        return
+      }
 
       let description = 'No se encontraron scores'
-      if (this.userScores.length !== 0) {
-        description = `User: ${this.userData[0].name
-          }\nPuntos: ${this.userScores.reduce(
+      if (data.userScores.length <= 0) {
+        description = `User: ${data.userData!.name
+          }\nPuntos: ${data.userScores.reduce(
             (sum, add) => sum + add.puntos,
             0
-          )}\nPasados: ${this.userScores.length}`
+          )}\nPasados: ${data.userScores.length}`
       }
 
       this.embed = (await this.embed)
-        .setTitle(`osu! Profile of: ${this.userData[0].name}`)
+        .setTitle(`osu! Profile of: ${data.userData!.name}`)
         .setColor('Random')
         .setDescription(description)
         .addFields(
           {
             name: 'Accuracy',
-            value: this.getAvgAccuracy(this.userScores as scores[])
+            value: this.getAvgAccuracy(data.userScores as scores[])
           },
           {
             name: 'Ranks',
-            value: this.getRankString(this.userScores as scores[])
+            value: this.getRankString(data.userScores as scores[])
           }
         )
-        .setThumbnail(`https://a.ppy.sh/${this.userData[0].osuId}`)
+        .setThumbnail(`https://a.ppy.sh/${data.userData!.osuId}`)
 
       this.reply = await this.reply.edit({ embeds: [this.embed] })
+
+
     } catch (error) {
       console.log(error)
     }
@@ -118,52 +126,29 @@ export default class InfoOsu extends Command<typeof options> {
     return `SS: ${ranks.SS}\nS: ${ranks.S}\nA: ${ranks.A}\nB: ${ranks.B}\nC: ${ranks.C}\nD: ${ranks.D}`
   }
 
-  private userData: user[] = []
-  private userScores: scores[] = []
   private async getOsuData(
     interaction: ChatInputCommandInteraction<CacheType>
   ) {
-    try {
-      if (interaction.options.data.length !== 0) {
-        const user = interaction.options.get('user')?.value
-        this.userData = await db
-          .select()
-          .from(users)
-          .where(eq(users.id, user as string))
-        this.userScores = await db
-          .select()
-          .from(plays)
-          .where(eq(plays.uId, user as string))
-      } else {
-        this.userData = await db
-          .select()
-          .from(users)
-          .where(eq(users.id, interaction.user.id))
-        console.log(this.userData)
-        this.userScores = await db
-          .select()
-          .from(plays)
-          .where(eq(plays.uId, interaction.user.id))
-      }
+    const usuario = this.getOption('user')
 
-      if (!this.userData.length) throw new Error('No se encontró el usuario')
-    } catch (error) {
-      if (!(error instanceof Error)) return
-      this.reply = await this.reply?.edit({
-        content: error.message,
-        embeds: []
-      })
+    const selectedUser = usuario  ?? null
+
+    if (selectedUser && selectedUser.id) {
+      const userId = selectedUser.id
+      const userData = await this._userRepository.getById(userId)
+      const userScores = await this.playRepository.getByUserId(userId)
+
+      return { userData, userScores }
+    } else {
+      const userData = await this._userRepository.getById(interaction.user.id)
+      const userScores = await this.playRepository.getByUserId(interaction.user.id)
+
+      return { userData, userScores }
     }
   }
 }
 
-type user = {
-  id: string
-  name: string | null
-  osuId: number
-}
-
-export type scores = {
+type scores = {
   playId: number
   mapId: number
   uId: string

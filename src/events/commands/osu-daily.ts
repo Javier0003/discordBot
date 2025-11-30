@@ -8,6 +8,7 @@ import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, {
   DailyMap,
+  dailyPlays,
   OsuRanks,
   Score
 } from '../../utils/osu-daily.config'
@@ -16,13 +17,15 @@ import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class OsuDaily extends Command {
   private readonly userRepository: RepositoryObj['userRepository']
-  constructor({userRepository}: RepositoryObj) {
+  private readonly playRepository: RepositoryObj['playRepository']
+  constructor({ userRepository, playRepository }: RepositoryObj) {
     super({
       name: 'osu-daily',
       description: 'osu!',
       notUpdated: true
     })
 
+    this.playRepository = playRepository
     this.userRepository = userRepository
   }
   public async command(
@@ -66,11 +69,10 @@ export default class OsuDaily extends Command {
       if (userPlay) {
         this.embed = this.embed.addFields({
           name: 'Tu ultima jugada',
-          value: `Score: ${userPlay.score}\nCombo: ${
-            userPlay?.max_combo
-          }\nRank: ${userPlay?.rank} \n Accuracy: ${OsuDaily.accuracy(
-            userPlay.accuracy
-          )}\n Mods: ${userPlay.mods.join(' ')} `
+          value: `Score: ${userPlay.score}\nCombo: ${userPlay?.max_combo
+            }\nRank: ${userPlay?.rank} \n Accuracy: ${OsuDaily.accuracy(
+              userPlay.accuracy
+            )}\n Mods: ${userPlay.mods.join(' ')} `
         })
 
         if (
@@ -84,7 +86,7 @@ export default class OsuDaily extends Command {
             name: 'GG',
             value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`
           })
-          await MapasOsu.addPlay({
+          await this.addPlay({
             mapId: dailyMap.id,
             uid: user.id,
             rank: userPlay.rank,
@@ -157,7 +159,7 @@ export default class OsuDaily extends Command {
   }
 
   public validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
-    let actualRank : OsuRanks;
+    let actualRank: OsuRanks;
 
     if (rank === 'XH') actualRank = 'SS'
     else if (rank === 'X') actualRank = 'SS'
@@ -169,9 +171,38 @@ export default class OsuDaily extends Command {
 
     return requiredIndex <= rankIndex
   }
+  public async addPlay(play: dailyPlays) {
+    const playInDb = await this.playRepository.getUserPlay(play.uid, play.mapId)
+
+    if (playInDb) {
+      if (playInDb.score < play.score) {
+        await this.playRepository.updateUserPlay(play.uid, play.mapId, {
+          accuracy: play.accuracy.toString(),
+            rank: play.rank,
+            score: play.score,
+            puntos: play.points,
+            pp: play.pp,
+            combo: play.combo
+        })
+
+      }
+      return
+    } else {
+      await this.playRepository.create({
+        accuracy: play.accuracy.toString(),
+        mapId: play.mapId,
+        rank: play.rank,
+        score: play.score,
+        uId: play.uid,
+        puntos: play.points,
+        pp: play.pp,
+        combo: play.combo
+      })
+    }
+  }
 
   public static accuracy(input: number): string {
-    if(input === 1) return '100'
+    if (input === 1) return '100'
     const numberString = input.toString().split('.').pop()
 
     if (!numberString) return '0'

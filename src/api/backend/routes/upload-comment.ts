@@ -1,14 +1,15 @@
 import { Context } from 'hono'
-import RouteBuilder from '../utils/route-handler/route-builder'
-import { db } from '../../../utils/db'
-import { comments } from '../../../../drizzle/schemas/schema'
+import RouteBuilder from '../../builders/route-builder'
+import { RepositoryObj } from '../../../repositories/services-registration'
 
 export default class UploadComment extends RouteBuilder<Promise<Response> | Response> {
-  constructor() {
+  private readonly commentRepository: RepositoryObj['commentRepository']
+  constructor({commentRepository}: RepositoryObj) {
     super({
       path: '/comment/upload/:id',
       method: 'post',
     })
+    this.commentRepository = commentRepository
   }
 
   public async event(c: Context): Promise<Response> {
@@ -17,7 +18,7 @@ export default class UploadComment extends RouteBuilder<Promise<Response> | Resp
       const comment = data.get('comment') as string
       if (!comment) return c.json({ error: 'No comment provided' }, 400)
 
-      await db.insert(comments).values({  
+      await this.commentRepository.create({  
         mapId: Number(c.req.param('id')), 
         uId: c.userData.id, 
         comment: comment,

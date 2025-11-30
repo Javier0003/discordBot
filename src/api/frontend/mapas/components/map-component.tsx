@@ -49,7 +49,7 @@ type MapasWithPlays = {
 }
 
 export const MapComponent: FC<MapasWithPlays> = (map) => (
-  <form action={`/mapa/${map.mapas.oldMaps}`} method="get" class={mapStyle}>
+  <form action={`/mapas/${map.mapas.oldMaps}`} method="get" class={mapStyle}>
     <img src={map.mapas.picUrl} alt={map.mapas.mapName} />
     <div class={mapDataStyles}>
       <h2>{map.mapas.mapName}</h2>

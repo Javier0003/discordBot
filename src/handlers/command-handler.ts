@@ -4,9 +4,6 @@ import LoaSingleton from '../structures/loa-client'
 import getLocalCommands from '../utils/get-local-commands'
 import env from '../env'
 import { option } from '../builders/option-builder'
-import { db } from '../utils/db'
-import { serverUsers } from '../../drizzle/schemas/schema'
-import { and, eq } from 'drizzle-orm'
 
 export default class CommandHandler extends LoaSingleton {
   private commands: Collection<string, { command: Command }>
@@ -29,9 +26,10 @@ export default class CommandHandler extends LoaSingleton {
       const cmd = this.getCmd(interaction)
       if (cmd.command.devOnly) {
         const userId = interaction.user.id
-        const [isDev] = await db.select().from(serverUsers).where(and(eq(serverUsers.idServerUser, userId), eq(serverUsers.isDev, '1')))
+        
+        const dev = await this.loa.repositories.serverUsersRepository.isDev(userId)
 
-        if (!isDev) {
+        if (!dev) {
           interaction.reply({
             content: "This command is only available for developers.",
             flags: MessageFlags.Ephemeral

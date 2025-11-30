@@ -56,7 +56,8 @@ export default abstract class Command<
   protected getOption<K extends keyof (O extends readonly option[] ? OptionToValue<O> : Record<string, any>) & string>(
     key: K
   ): (O extends readonly option[] ? OptionToValue<O> : Record<string, any>)[K] {
-    return this.optionsList.get(key) as any
+    // @ts-expect-error data does exist
+    return this.optionsList.get(key).data as any
   }
 
   get options() {

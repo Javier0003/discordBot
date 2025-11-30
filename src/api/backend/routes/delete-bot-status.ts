@@ -1,21 +1,21 @@
 import { Context } from 'hono'
-import RouteBuilder from '../utils/route-handler/route-builder'
-import { db } from '../../../utils/db'
-import { botStatus } from '../../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
+import RouteBuilder from '../../builders/route-builder'
+import { RepositoryObj } from '../../../repositories/services-registration'
 
 export default class DeleteBotStatus extends RouteBuilder<Promise<Response> | Response> {
-    constructor() {
+    private readonly botStatusRepository: RepositoryObj['botStatusRepository']
+    constructor({ botStatusRepository }: RepositoryObj) {
         super({
             path: '/bot/status/:id',
             method: 'delete',
             devOnly: true
         })
+        this.botStatusRepository = botStatusRepository
     }
 
     public async event(c: Context): Promise<Response> {
         try {
-            await db.delete(botStatus).where(eq(botStatus.id, Number(c.req.param('id'))))
+            await this.botStatusRepository.delete(Number(c.req.param('id')))
             return c.json({ success: true })
         } catch (error) {
             console.log(error)

@@ -15,4 +15,9 @@ export default class ServerUserRepository extends GenericRepository<typeof serve
     public async getBannedUsers(){
         return await this.getQueryable().where(eq(serverUsers.isVCBan, '1'))
     }
+
+    public async isDev(userId: string){
+        const user = await this.getQueryable().where(and(eq(serverUsers.idServerUser, userId), eq(serverUsers.isDev, '1')))
+        return user.length === 0 ? false : true
+    }
 }

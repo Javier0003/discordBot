@@ -1,7 +1,7 @@
 import { FC } from 'hono/jsx'
-import { Comments } from '../../../../../../drizzle/schemas/schema'
-import { getSomeUserData } from '../../../../backend/utils/discord'
 import { css } from 'hono/css'
+import { getSomeUserData } from '../../../../../utils/discord'
+import { Comments } from '../../../../../../../drizzle/schemas/schema'
 
 const commentStyle = css`
   display: flex;

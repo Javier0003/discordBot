@@ -1,8 +1,10 @@
 import BotStatusRepository from "./bot-status-repository";
+import CommentRepository from "./comment-repository";
 import MapasRepository from "./mapas-repository";
 import PlayRepository from "./play-repository";
 import RandomReplyRepository from "./random-reply-repository";
 import ServerUserRepository from "./server-user-repository";
+import SessionRepository from "./session-repository";
 import UserRepository from "./user-repository";
 
 export type RepositoryObj = {
@@ -12,6 +14,8 @@ export type RepositoryObj = {
     serverUsersRepository: ServerUserRepository;
     randomReplyRepository: RandomReplyRepository;
     playRepository: PlayRepository;
+    sessionRepository: SessionRepository;
+    commentRepository: CommentRepository
 }
 
 export function registerRepositories(): RepositoryObj {
@@ -22,5 +26,7 @@ export function registerRepositories(): RepositoryObj {
     serverUsersRepository: new ServerUserRepository(),
     randomReplyRepository: new RandomReplyRepository(),
     playRepository: new PlayRepository(),
+    sessionRepository: new SessionRepository(),
+    commentRepository: new CommentRepository()
   } as const;
 }

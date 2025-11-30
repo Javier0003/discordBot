@@ -1,15 +1,12 @@
 import Event_Builder from '../../builders/event-builder'
-import { mapas, plays } from '../../../drizzle/schemas/schema'
-import { db } from '../../utils/db'
-import { and, asc, desc, eq } from 'drizzle-orm'
 import getOsuToken from '../../utils/osu-token'
 import osuConfig, {
   Beatmap,
   DailyMap,
-  dailyPlays,
   mods,
   OsuRanks,
 } from '../../utils/osu-daily.config'
+import { RepositoryObj } from '../../repositories/services-registration'
 
 function generateDifficulty() {
   const mods: mods[] = []
@@ -69,34 +66,6 @@ function getRandomDifficulty(): OsuRanks {
   return osuConfig.ranks[0]
 }
 
-export async function generateDailyRandomMap(): Promise<DailyMap> {
-  try {
-    const selectedMods: mods[] = generateDifficulty()
-
-    const map = await getMapaRandom(selectedMods)
-
-    const osuRanks = getRandomDifficulty()
-
-    const dailyMap: DailyMap = {
-      id: map.id,
-      mods: selectedMods,
-      minRank: osuRanks,
-      name: map.beatmapset.title,
-      picUrl: map.beatmapset.covers.list,
-    } as DailyMap
-
-    const mapInDb = await db
-      .select()
-      .from(mapas)
-      .where(eq(mapas.oldMaps, map.id))
-    if (mapInDb.length !== 0) return await generateDailyRandomMap()
-
-    return dailyMap
-  } catch (error) {
-    console.log(error)
-    return await generateDailyRandomMap()
-  }
-}
 
 async function mapa(token: string, selectedMods?: mods[]): Promise<Beatmap> {
   try {
@@ -204,44 +173,37 @@ function validateDifficultyLimits(
     console.log(`mods: ${selectedMods}`)
 
     console.log(
-      `validar DT and * > 7: ${
-        map.attributes.star_rating >= 7 && selectedMods.includes('DT')
+      `validar DT and * > 7: ${map.attributes.star_rating >= 7 && selectedMods.includes('DT')
       }`
     )
 
     console.log(`Validar NF: ${selectedMods.includes('NF')}`)
 
     console.log(
-      `validar NC and * > 7: : ${
-        map.attributes.star_rating >= 7 && selectedMods.includes('NC')
+      `validar NC and * > 7: : ${map.attributes.star_rating >= 7 && selectedMods.includes('NC')
       }`
     )
     console.log(
-      `validar EZ and * > 6: : ${
-        map.attributes.star_rating > 6 && selectedMods.includes('EZ')
-      }`
-    )
-
-    console.log(
-      `Validar HR/HDHR and * > 7: ${
-        map.attributes.star_rating >= 7 && selectedMods.includes('HR')
+      `validar EZ and * > 6: : ${map.attributes.star_rating > 6 && selectedMods.includes('EZ')
       }`
     )
 
     console.log(
-      `Validar FL: ${
-        map.attributes.star_rating >= 5 && selectedMods.includes('FL')
+      `Validar HR/HDHR and * > 7: ${map.attributes.star_rating >= 7 && selectedMods.includes('HR')
       }`
     )
 
     console.log(
-      `Validar FL and DT * > 3.7: ${
-        map.attributes.star_rating >= 3.7 && selectedMods.includes('DT')
+      `Validar FL: ${map.attributes.star_rating >= 5 && selectedMods.includes('FL')
+      }`
+    )
+
+    console.log(
+      `Validar FL and DT * > 3.7: ${map.attributes.star_rating >= 3.7 && selectedMods.includes('DT')
       }`
     )
     console.log(
-      `Validar: FL and NC * > 3.7: ${
-        map.attributes.star_rating >= 3.7 && selectedMods.includes('NC')
+      `Validar: FL and NC * > 3.7: ${map.attributes.star_rating >= 3.7 && selectedMods.includes('NC')
       }`
     )
     console.log(map.attributes.star_rating)
@@ -318,24 +280,31 @@ type BeatmapAttributes = {
 
 export default class MapasOsu extends Event_Builder<'ready'> {
   public static dailyMap: DailyMap
+  private readonly userRepository: RepositoryObj['userRepository']
+  private readonly mapasRepository: RepositoryObj['mapasRepository']
+  private readonly playRepository: RepositoryObj['playRepository']
 
-  constructor() {
-    super({ eventType: 'ready', type: 'on' , name: 'daily-map' })
+  constructor({ userRepository, mapasRepository, playRepository}: RepositoryObj) {
+    super({ eventType: 'ready', type: 'on', name: 'daily-map' })
+    this.userRepository = userRepository
+    this.mapasRepository = mapasRepository
+    this.playRepository = playRepository
   }
 
   public async event() {
     try {
       if (!MapasOsu.dailyMap) {
-        const restartBot = await db.select().from(mapas)
-        if (restartBot.length === 0) {
-          const mapaRandom = await generateDailyRandomMap()
+        const restartBot = await this.mapasRepository.getOldestMapId()
+          
+        if (!restartBot) {
+          const mapaRandom = await this.generateDailyRandomMap()
 
           const currentDate = new Date()
           const day = currentDate.getDate()
           const month = currentDate.getMonth() + 1
           const year = currentDate.getFullYear()
 
-          await db.insert(mapas).values({
+          await this.mapasRepository.create({
             oldMaps: mapaRandom.id,
             oldMapMods: JSON.stringify(mapaRandom.mods),
             oldMapMinRank: mapaRandom.minRank,
@@ -345,27 +314,55 @@ export default class MapasOsu extends Event_Builder<'ready'> {
           })
           MapasOsu.dailyMap = mapaRandom
         } else {
+          const mapa = await this.mapasRepository.getById(restartBot)
+
           MapasOsu.dailyMap = {
-            id: restartBot[restartBot.length - 1].oldMaps,
+            id: mapa!.oldMaps,
             mods: JSON.parse(
-              restartBot[restartBot.length - 1].oldMapMods
+              mapa!.oldMapMods
             ) as mods[],
-            minRank: restartBot[restartBot.length - 1]
-              .oldMapMinRank as OsuRanks,
-            name: restartBot[restartBot.length - 1].mapName,
-            picUrl: restartBot[restartBot.length - 1].picUrl,
+            minRank: mapa!.oldMapMinRank as OsuRanks,
+            name: mapa!.mapName,
+            picUrl: mapa!.picUrl,
           }
         }
       }
 
       MapasOsu.triggerAt5AM(async () => {
-        await MapasOsu.savePlays()
-        await MapasOsu.getDailyMap()
+        await this.savePlays()
+        await this.getDailyMap()
       })
     } catch (error) {
       console.log(error)
     }
   }
+
+  private async generateDailyRandomMap(): Promise<DailyMap> {
+  try {
+    const selectedMods: mods[] = generateDifficulty()
+
+    const map = await getMapaRandom(selectedMods)
+
+    const osuRanks = getRandomDifficulty()
+
+    const dailyMap: DailyMap = {
+      id: map.id,
+      mods: selectedMods,
+      minRank: osuRanks,
+      name: map.beatmapset.title,
+      picUrl: map.beatmapset.covers.list,
+    } as DailyMap
+
+    const mapInDb = await this.mapasRepository.getById(map.id)
+
+    if (mapInDb) return await this.generateDailyRandomMap()
+
+    return dailyMap
+  } catch (error) {
+    console.log(error)
+    return await this.generateDailyRandomMap()
+  }
+}
 
   public static triggerAt5AM(callback: () => Promise<void>) {
     try {
@@ -399,14 +396,14 @@ export default class MapasOsu extends Event_Builder<'ready'> {
     }
   }
 
-  public static async getDailyMap() {
-    const mapaRandom = await generateDailyRandomMap()
+  public async getDailyMap() {
+    const mapaRandom = await this.generateDailyMap()
     const currentDate = new Date()
     const day = currentDate.getDate()
     const month = currentDate.getMonth() + 1
     const year = currentDate.getFullYear()
 
-    await db.insert(mapas).values({
+    await this.mapasRepository.create({
       oldMaps: mapaRandom.id,
       oldMapMods: JSON.stringify(mapaRandom.mods),
       oldMapMinRank: mapaRandom.minRank,
@@ -417,56 +414,27 @@ export default class MapasOsu extends Event_Builder<'ready'> {
     MapasOsu.dailyMap = mapaRandom
   }
 
-  public static async savePlays() {
-    const map = await db.select().from(mapas).orderBy(desc(mapas.oldMaps)).limit(1)
-    const order = await db.select().from(plays).orderBy(asc(plays.puntos)).where(eq(plays.mapId, map[0].oldMaps))
+  public async generateDailyMap(): Promise<DailyMap> {
+    const mapaRandom = await this.generateDailyRandomMap()
+
+    return {
+      id:  mapaRandom.id,
+      mods: mapaRandom.mods,
+      minRank: mapaRandom.minRank,
+      name: mapaRandom.name,
+      picUrl: mapaRandom.picUrl,
+    }
+  }
+
+  public async savePlays() {
+    const map = await this.mapasRepository.getOldestMapId();
+    if (!map) return
+    const order = await this.playRepository.getPlayOrder(map)
 
     for (let i = 0; i < order.length; i++) {
       order[i].puntos += i
 
-      await db
-        .update(plays)
-        .set({
-          puntos: order[i].puntos,
-        })
-        .where(and(eq(plays.uId, order[i].uId), eq(plays.mapId, order[i].mapId)))
-    }
-  }
-
-  public static async addPlay(play: dailyPlays) {
-    const playInDb = await db
-      .select()
-      .from(plays)
-      .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
-
-    if (playInDb.length !== 0) {
-      if (playInDb[0].score < play.score) {
-        await db
-          .update(plays)
-          .set({
-            accuracy: play.accuracy.toString(),
-            mapId: play.mapId,
-            rank: play.rank,
-            score: play.score,
-            uId: play.uid,
-            puntos: play.points,
-            pp: play.pp,
-            combo: play.combo
-          })
-          .where(and(eq(plays.uId, play.uid), eq(plays.mapId, play.mapId)))
-      }
-      return
-    } else {
-      await db.insert(plays).values({
-        accuracy: play.accuracy.toString(),
-        mapId: play.mapId,
-        rank: play.rank,
-        score: play.score,
-        uId: play.uid,
-        puntos: play.points,
-        pp: play.pp,
-        combo: play.combo
-      })
+      await this.playRepository.addPointsToUserPlay(order[i].uId, order[i].puntos, order[i].mapId)
     }
   }
 }

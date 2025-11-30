@@ -1,20 +1,24 @@
 import { Context } from 'hono'
-import RouteBuilder from '../utils/route-handler/route-builder'
 import { setCookie } from 'hono/cookie'
-import { db } from '../../../utils/db'
-import { sessionTable } from '../../../../drizzle/schemas/schema'
-import { checkGuild, createToken, DiscordTokenResponse, getUserData, UserData } from '../utils/discord'
+import { checkGuild, createToken, getUserData } from '../../utils/discord'
+import RouteBuilder from '../../builders/route-builder'
+import { RepositoryObj } from '../../../repositories/services-registration'
+import SessionRepository from '../../../repositories/session-repository'
 
 export default class auth extends RouteBuilder<Promise<Response> | Response> {
-  constructor() {
+  private readonly sessionRepository: SessionRepository
+
+  constructor({sessionRepository}: RepositoryObj) {
     super({
       path: '/auth/discord/redirect',
       method: 'get'
     })
+    this.sessionRepository = sessionRepository
   }
 
   public async event(c: Context): Promise<Response> {
     try {
+
       const code = c.req.query('code')
       if (!code) return c.redirect('/')
 
@@ -28,8 +32,8 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
 
       const userRes = await getUserData(accessToken)
       if (!userRes) return c.redirect('/')
-
-      await insertSession(userRes, data)
+        
+      await this.sessionRepository.createSession(userRes.id, data.refresh_token)
 
       setCookie(c, 'token', accessToken, { expires: new Date(Date.now() + data.expires_in * 1000) })
     } catch (error) {
@@ -37,13 +41,5 @@ export default class auth extends RouteBuilder<Promise<Response> | Response> {
     }
     return c.redirect('/')
   }
-}
 
-async function insertSession(userRes: UserData, data: DiscordTokenResponse) {
-  try {
-    await db.insert(sessionTable).values({ id: userRes.id, refreshToken: data.refresh_token })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    console.log("session already exists")
-  }
 }

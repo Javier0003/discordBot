@@ -1,15 +1,16 @@
 import { Context } from 'hono'
-import RouteBuilder from '../utils/route-handler/route-builder'
-import { db } from '../../../utils/db'
-import { botStatus } from '../../../../drizzle/schemas/schema'
+import RouteBuilder from '../../builders/route-builder'
+import { RepositoryObj } from '../../../repositories/services-registration'
 
 export default class CreateBotStatus extends RouteBuilder<Promise<Response> | Response> {
-    constructor() {
+    private readonly botStatusRepository: RepositoryObj['botStatusRepository']
+    constructor({ botStatusRepository }: RepositoryObj) {
         super({
             path: '/bot/status',
             method: 'post',
             devOnly: true
         })
+        this.botStatusRepository = botStatusRepository
     }
 
     public async event(c: Context): Promise<Response> {
@@ -24,7 +25,7 @@ export default class CreateBotStatus extends RouteBuilder<Promise<Response> | Re
                 return c.json({ success: false, message: "Invalid body" }, 400)
             }
 
-            await db.insert(botStatus).values({
+            await this.botStatusRepository.create({
                 statusMessage: body.name,
                 type: body.type,
                 url: body.url ?? undefined,

@@ -1,4 +1,4 @@
-import env from '../../../env'
+import env from '../../env'
 
 export interface UserData {
   id: string

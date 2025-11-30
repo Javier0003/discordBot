@@ -1,11 +1,9 @@
 import { FC } from 'hono/jsx'
 import { css } from 'hono/css'
-import { db } from '../../../utils/db'
-import { Mapas, mapas, plays } from '../../../../drizzle/schemas/schema'
 import { MapComponent } from './components/map-component'
 import { Header } from '../components/header'
-import { desc, eq, sql } from 'drizzle-orm'
 import Link from '../components/Link'
+import { Context } from 'hono'
 
 const pageContainer = css`
   min-height: 100vh;
@@ -26,25 +24,14 @@ const body = css`
   box-sizing: border-box;
 `
 
-async function GetPaginatedMaps(page: number, pageSize: number) {
-  const offset = (page - 1) * pageSize;
-  return db
-    .select({ mapas, playCount: sql<string>`COUNT(${plays.mapId})` })
-    .from(mapas)
-    .leftJoin(plays, eq(mapas.oldMaps, plays.mapId))
-    .groupBy(mapas.oldMaps)
-    .orderBy(desc(mapas.order))
-    .offset(offset)
-    .limit(pageSize);
-}
 
-const Mapas: FC = async ({ context }) => {
+const Mapas: FC<{ context: Context }> = async ({ context }) => {
+  const { mapasRepository } = context.repositories
   const page = Number((context.req.query() as { page?: number }).page) || 1
 
   console.log('Page:', page)
   
-  const mapList = await GetPaginatedMaps(page, 10)
-
+  const mapList = await mapasRepository.getPagedMapsWithPlays((page - 1) * 10, 10)
 
   return (
       <div class={pageContainer}>
