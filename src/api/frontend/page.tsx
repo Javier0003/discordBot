@@ -24,6 +24,10 @@ const Home: FC<{ context: Context }> = async ({ context }) => {
           Mapas Diarios
           <img src="/static/osu.svg" />
         </Link>
+        <Link to="/dbd" className={linkStyles}>
+          Dead by Daylight
+          <img src="/static/imgs/dbd/dbd-logo.jpg" />
+        </Link>
 
         {dev && (
           <Fragment>

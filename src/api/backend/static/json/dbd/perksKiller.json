@@ -1,0 +1,931 @@
+[
+    {
+        "name": "A Nurse's Calling",
+        "description": "Unlocks potential in your Aura-reading ability.\nThe Auras of Survivors who are healing or being healed are revealed to you within 20/24/28 metres.\n\"Still attached to the fragments of her past life, she is drawn to those in need of help.\"",
+        "character": "Nurse",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconPerks_aNursesCalling.png/revision/latest/scale-to-width-down/96?cb=20160820090103",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/A_Nurse%27s_Calling"
+    },
+    {
+        "name": "Agitation",
+        "description": "You get excited in anticipation of hooking your prey.\nWhen carrying a Survivor, you benefit from the following effects:\nIncreases your Movement speed by 6/12/18 %.\nIncreases your Terror Radius by +12 metres.\n\n\"At some point, the excitement of hooking one of us becomes more important than the desire to kill us.\"",
+        "character": "Trapper",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_agitation.png/revision/latest/scale-to-width-down/96?cb=20160605204807",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Agitation"
+    },
+    {
+        "name": "Alien Instinct",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.2.0You are so stealthy, sometimes it seems like you appear out of nowhere.\nWhenever you hook a Survivor, Alien Instinct activates:\nThe Aura of the farthest injured Survivor is revealed to you for 5 seconds.\nThat Survivor suffers from the Oblivious Status Effect for 16/18/20 seconds.\n\n\"Yellow light's for my eyes only.\" — Dallas",
+        "character": "Xenomorph",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/34/IconPerks_alienInstinct.png/revision/latest/scale-to-width-down/96?cb=20230808160213",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Alien_Instinct"
+    },
+    {
+        "name": "All-Shaking Thunder",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0Enemies on land and sea learned to tremble before your might.\nAfter falling from a height, All-Shaking Thunder activates for 8/12/16 seconds:\nIncreases the range of your Lunge Attack by +75 %.\n\nAll-Shaking Thunder has a cool-down of 5 seconds.\n\"Go on. Run. Tell your friends I'm coming for them.\" — Portia Maye",
+        "character": "Houndmaster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6a/IconPerks_allShakingThunder.png/revision/latest/scale-to-width-down/96?cb=20241107202158",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/All-Shaking_Thunder"
+    },
+    {
+        "name": "Awakened Awareness",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.2.0Your genes have been altered to heighten your senses in intense situations.While carrying a Survivor, you benefit from the following effect:\nThe Auras of all Survivors within 16/18/20 metres of your location are revealed to you.",
+        "character": "Mastermind",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/97/IconPerks_awakenedAwareness.png/revision/latest/scale-to-width-down/96?cb=20220815051648",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Awakened_Awareness"
+    },
+    {
+        "name": "Bamboozle",
+        "description": "After vaulting a Window, Bamboozle calls upon The Entity to block that Window for the next 8/12/16 seconds.\nBlocked Windows cannot be vaulted by Survivors.\nIncreases your general Vaulting speed by 5/10/15 %.\nBamboozle only blocks one Window at a time and does not apply either of its effects to vaulting Pallets.",
+        "character": "Jeffrey Hawk",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7a/IconPerks_bamboozle.png/revision/latest/scale-to-width-down/96?cb=20180529205216",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Bamboozle"
+    },
+    {
+        "name": "Barbecue &amp; Chilli",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0A deep bond with The Entity unlocks potential in one's Aura-reading ability.\nAfter hooking a Survivor, all Survivors who are at least 60/50/40 metres away from that Hook have their Aura revealed to you for 5 seconds.\n\"I just can't take no pleasure in killing. There's just some things you gotta do. Don't mean you have to like it.\" — Drayton Sawyer",
+        "character": "Cannibal",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/51/IconPerks_barbecueAndChilli.png/revision/latest/scale-to-width-down/96?cb=20170914173637",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Barbecue_%26_Chilli"
+    },
+    {
+        "name": "Batteries Included",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.4.2Being somewhere between man and machine has its upsides.\nWhenever you are within 12 metres of a completed Generator, you are granted a +5 % Haste Status Effect.\nThis effect lingers for 1/3/5 second(s) after leaving the Generator's range.\n\n\"Surprise! Did you miss me, Andy?\" — Chucky",
+        "character": "Charles Lee Ray",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_batteriesIncluded.png/revision/latest/scale-to-width-down/96?cb=20231108172942",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Batteries_Included"
+    },
+    {
+        "name": "Beast of Prey",
+        "description": "Your lust for a kill is so intense that your connection with The Entity is momentarily lost, making you totally unpredictable.\nUpon gaining the Bloodlust Status Effect, Beast of Prey activates:\n\nGrants the Undetectable Status Effect for as long as Bloodlust is active.\nBeast of Prey grants 30/40/50 % bonus Bloodpoints for actions in the Hunter Category.\nThe bonus Bloodpoints are only awarded during the Trial.\n\"Where did she go?\"",
+        "character": "Huntress",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/77/IconPerks_beastOfPrey.png/revision/latest/scale-to-width-down/96?cb=20170727160820",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Beast_of_Prey"
+    },
+    {
+        "name": "Bitter Murmur",
+        "description": "Unlocks potential in your Aura-reading ability:\nEach time a Generatoris completed, the Auras of all Survivors within 16 metres of that Generator are revealed to you for 5 seconds.\nOnce the last Generator is completed, the Auras of all Survivors are revealed to you for 5/7/10 seconds.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5a/IconPerks_bitterMurmur.png/revision/latest/scale-to-width-down/96?cb=20160605204819",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Bitter_Murmur"
+    },
+    {
+        "name": "Blood Echo",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0The agony of one is inflicted onto others.\nWhenever you hook a Survivor, all other injured Survivors suffer from the Exhausted and Haemorrhage Status Effects for 20/25/30 seconds.\n\"Attack an enemy with precision and their allies will feel it.\" — Renjiro's Doctrine 6:3",
+        "character": "Oni",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_bloodEcho.png/revision/latest/scale-to-width-down/96?cb=20191126213547",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Blood_Echo"
+    },
+    {
+        "name": "Blood Warden",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 1.8.0As soon as one Exit Gate is opened, Blood Warden activates.\nThe Auras of Survivors standing within the Exit-Gate area are revealed to you.\nOnce per Trial, hooking a Survivor while Blood Warden is active calls upon The Entity to block the exits for all Survivors for 40/50/60 seconds.\n\"This is my world. And you can't ever leave.\" — Freddy Krueger",
+        "character": "Nightmare",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/eb/IconPerks_bloodWarden.png/revision/latest/scale-to-width-down/96?cb=20171026225711",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Blood_Warden"
+    },
+    {
+        "name": "Bloodhound",
+        "description": "Like a hunting scent hound, you smell traces of blood at a great distance.\nPools of Blood are shown in bright red and can be tracked for 2/3/4 seconds longer than normal.\n\"Pebbles shimmering in the moonlight; my life drips down in a trail so easy to follow.\"",
+        "character": "Wraith",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e0/IconPerks_bloodhound.png/revision/latest/scale-to-width-down/96?cb=20160605204825",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Bloodhound"
+    },
+    {
+        "name": "Brutal Strength",
+        "description": "Your great strength allows you to shred through your prey's defences.\nIncreases the Action speeds for breaking Breakable Walls and dropped Pallets, and damaging Generators by 10/15/20 %.\n\"It is more than muscles. A dark power motivates the beast.\"",
+        "character": "Trapper",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3d/IconPerks_brutalStrength.png/revision/latest/scale-to-width-down/96?cb=20160605204842",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Brutal_Strength"
+    },
+    {
+        "name": "Call of Brine",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.7.0Your psychic abilities influence technology in devastating ways.\nAfter performing the Damage Generator action on a Generator, Call of Brine activates for 60 seconds.\n\nThe damaged Generator regresses at 115/120/125 % of the normal Regression speed and its Aura is highlighted to you in yellow.\nReceive a Loud Noise Notification each time a Survivor hits a Good Skill Check on the affected Generator.",
+        "character": "Onryō",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_callOfBrine.png/revision/latest/scale-to-width-down/96?cb=20220216115938",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Call_of_Brine"
+    },
+    {
+        "name": "Corrupt Intervention",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0Your prayers invoke a dark power that meddles with the Survivors' chances of survival.\nAt the start of the Trial, the 3 Generators located farthest from you are blocked by The Entity for 80/100/120 seconds.\nCorrupt Intervention deactivates prematurely once the first Survivor is put into the Dying State.\n\"It shall be known across the land that the Gods curse the unfaithful.\" — (The Tablet of Adiris, 3.7)",
+        "character": "Plague",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/10/IconPerks_corruptIntervention.png/revision/latest/scale-to-width-down/96?cb=20190306195826",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Corrupt_Intervention"
+    },
+    {
+        "name": "Coulrophobia",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0Even those without a fear of clowns know to be terrified of you.\nFor all Survivors within your Terror Radius, the following effects apply:\nReduces their Healing speed by 30/40/50 %.\nIncreases the Rotation speed of Healing Skill Checks by +50 %.",
+        "character": "Jeffrey Hawk",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/45/IconPerks_coulrophobia.png/revision/latest/scale-to-width-down/96?cb=20180529205206",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Coulrophobia"
+    },
+    {
+        "name": "Coup de Grâce",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0As the end nears, you go in for the kill.\nWhenever a Generator is completed, Coup de Grâce gains +2 Tokens, up to a maximum of 10 Tokens per Trial:\nIncreases the range of your next Lunge Attack by 70/75/80 %, while consuming -1 Token.\n\nCoup de Grâce can only hold a maximum of 5 Tokens at a time.",
+        "character": "Twins",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/bd/IconPerks_coupDeGr%C3%A2ce.png/revision/latest/scale-to-width-down/96?cb=20201112095015",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Coup_de_Gr%C3%A2ce"
+    },
+    {
+        "name": "Cruel Limits",
+        "description": "Your ties to the otherworldly manifest when your prey attempts to get away.\nWhenever a Generator is completed, Cruel Limits activates:\nBlocks every Vault location on the Map for all Survivors for the next 20/25/30 seconds.\nThe Auras of the blocked Vault locations are highlighted to you in yellow.\n\n\"The specimen seems to be able to affect the state of nearby objects, as if they existed in some other form within a dimension alternate to our own.\" — Hawkins National Laboratory",
+        "character": "Demogorgon",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c6/IconPerks_cruelLimits.png/revision/latest/scale-to-width-down/96?cb=20190903175111",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Cruel_Limits"
+    },
+    {
+        "name": "Dark Arrogance",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0When everything is going right, you are an inescapable inevitability.\nIncreases your Vaulting speed in exchange for increased vulnerability to being blinded and stunned:\nPermanently increases the duration of Killer Blinds by any means and the duration of Pallet Stuns by +25 %.\nPermanently increases your Vaulting speed by 15/20/25 %.\n\n\"Run all you want. I will not be denied.\" — Vecna",
+        "character": "Lich",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b1/IconPerks_darkArrogance.png/revision/latest/scale-to-width-down/96?cb=20240514174200",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dark_Arrogance"
+    },
+    {
+        "name": "Dark Devotion",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0The display of your Powers creates a whirlwind of panic that spreads throughout the land.\nWhenever the Obsession loses a Health State by any means and thus enters the Injured State, Dark Devotion activates:\nYour Terror Radius transfers to the Obsession for 20/25/30 seconds, and its radius is set to 32 metres.\nGrants the Undetectable Status Effect for the same duration.\nThe Obsession with your transferred Terror Radius is also considered to be 'inside the Terror Radius' for other purposes.\nYou can only be obsessed with one Survivor at a time.\n\"And terror shall take hold of a defiant non-believer, who shall falsely announce my arrival.\" — (The Tablet of Adiris, 48.9)",
+        "character": "Plague",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4f/IconPerks_darkDevotion.png/revision/latest/scale-to-width-down/96?cb=20190306195813",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dark_Devotion"
+    },
+    {
+        "name": "Darkness Revealed",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.0In your presence, places once thought to be safe are perhaps the most dangerous.\nSearching a Locker has the following effect:\nThe Auras of Survivors within 8 metres of any Locker are revealed to you for 6/7/8 seconds.\n\nDarkness Revealed has a cool-down of 30 seconds.\n\"Stay in the light, my children. In darkness, your fear will expose you.\" — Otto Stamper",
+        "character": "Dredge",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ed/IconPerks_darknessRevealed.png/revision/latest/scale-to-width-down/96?cb=20220518112818",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Darkness_Revealed"
+    },
+    {
+        "name": "Dead Man's Switch",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0After hooking a Survivor, Dead Man's Switch activates:\nBlocks the first Generator any Survivor stops repairing for 40/45/50 seconds.\nThe Blocked Generator is highlighted to you in white.\nDead Man's Switch cannot activate if its effect is still active from a previous activation.\n\n\"I've seen the look on a man's face when he realises he's going to die.\" — Caleb Quinn",
+        "character": "Deathslinger",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_deadMansSwitch.png/revision/latest/scale-to-width-down/96?cb=20200218172942",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dead_Man%27s_Switch"
+    },
+    {
+        "name": "Deathbound",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0Those whose lives are intertwined in darkness are destined to suffer together.\nWhenever a Survivor finishes healing another Survivor for the equivalent of 1 Health State, Deathbound activates:\nCauses the Healer to scream and reveal their location.\nCauses the Healer to suffer from the Oblivious Status Effect whenever they are farther than 16/12/8 metres from the other Survivor.\n\nDeathbound deactivates after the Healer loses a Health State.",
+        "character": "Executioner",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e7/IconPerks_deathbound.png/revision/latest/scale-to-width-down/96?cb=20200526201504",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Deathbound"
+    },
+    {
+        "name": "Deerstalker",
+        "description": "Unlocks potential in your Aura-reading ability:\nThe Auras of all Survivors in the Dying State within 20/28/36 metres of your location are revealed to you.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/01/IconPerks_deerstalker.png/revision/latest/scale-to-width-down/96?cb=20160605204859",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Deerstalker"
+    },
+    {
+        "name": "Discordance",
+        "description": "Any Generator within a range of 64/96/128 metres that is being repaired by 2 or more Survivors is marked by a yellow Aura.\nWhen the Generator is first highlighted, Discordance triggers a Loud Noise Notification on the Generator.\nAfter the Generator is no longer within range or is being repaired by just 1 Survivor, the highlighted Aura will linger for another 4 seconds.\n\"Smartasses get killed. We always see to that.\" — The Legion",
+        "character": "Frank, Julie, Susie, Joey",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_discordance.png/revision/latest/scale-to-width-down/96?cb=20181128100920",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Discordance"
+    },
+    {
+        "name": "Dissolution",
+        "description": "Everything turns to dust. It is as inescapable as the coming of the night.\nAfter 3 seconds of injuring a Survivor by any means, Dissolution activates for 12/16/20 seconds:\nInstantly breaks the next Pallet that Survivor performs a Fast Vault across while inside your Terror Radius.\n\n\"The Garden shall be a place of perfect Joy; through Joy, nothing shall stand in our way.\" — Otto Stamper",
+        "character": "Dredge",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1d/IconPerks_dissolution.png/revision/latest/scale-to-width-down/96?cb=20220518112819",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dissolution"
+    },
+    {
+        "name": "Distressing",
+        "description": "Your horrifying emanation strikes at a supernaturally long distance.\nIncreases your Terror Radius by 22/24/26 %\nGrants 100 % bonus Bloodpoints for all actions in the Deviousness Category.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/IconPerks_distressing.png/revision/latest/scale-to-width-down/96?cb=20160605204911",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Distressing"
+    },
+    {
+        "name": "Dominance",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0The power you wield over the land strikes terror in the hearts of all who cross your path.\nThe first time each Chest and each Totem are interacted with by a Survivor, Dominance triggers its effect:\nCalls upon The Entity to block it for 8/12/16 seconds.\nThe Aura of the blocked Prop is revealed to you in white.\n\n\"Tragic, is it not? How powerless you must feel.\" — Dracula",
+        "character": "Dark Lord",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8d/IconPerks_Dominance.png/revision/latest/scale-to-width-down/96?cb=20240806171415",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dominance"
+    },
+    {
+        "name": "Dragon's Grip",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.0Performing the Damage Generator action on a Generator activates Dragon's Grip for the next 30 seconds:\nThe first Survivor interacting with the damaged Generator will scream, revealing their location for 4 seconds, and suffer from the Exposed Status Effect for 60 seconds.\nDragon's Grip has a cool-down of 60/50/40 seconds.\n\n\"Such potential in this compound... even the slightest trace causes unnatural effects.\" — Journal of Talbot Grimes",
+        "character": "Blight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/ff/IconPerks_dragonsGrip.png/revision/latest/scale-to-width-down/96?cb=20200819113412",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dragon%27s_Grip"
+    },
+    {
+        "name": "Dying Light",
+        "description": "Each time you hook a Survivor other than your Obsession, you gain +1 Token:\nFor as long as the Obsession is alive, all other Survivors suffer from a stack-able 2/2.5/3 % per Token Action Speed penalty to Repairing, Healing, and Sabotaging, up to a maximum of 22/27.5/33 % or 11 Tokens.\nThe Obsession is unaffected by this penalty and instead granted a permanent +33 % Action Speed bonus to Unhooking and Healing other Survivors.\nYou can only be obsessed with one Survivor at a time.\n\n\"This isn't a man...\" — Dr Sam Loomis",
+        "character": "Shape",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/48/IconPerks_dyingLight.png/revision/latest/scale-to-width-down/96?cb=20161023113257",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Dying_Light"
+    },
+    {
+        "name": "Enduring",
+        "description": "You are resilient to pain.\nReduces the duration of Pallet Stuns by 40/45/50 %.\nEnduring has no effect while carrying a Survivor.\n\n\"He stops at nothing.\"",
+        "character": "Hillbilly",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/IconPerks_enduring.png/revision/latest/scale-to-width-down/96?cb=20160605204922",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Enduring"
+    },
+    {
+        "name": "Eruption",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.6.0The NE-α parasite provides you with the intelligence and awareness needed to set a trap.\nPerforming the Damage Generator action on a Generator applies Eruption:\nAll affected Generators are highlighted to you in yellow.\nThe next time any Survivor enters the Dying State by any means, all affected Generators explode and immediately start regressing, which removes the highlighted Aura.\nInstantly regresses the Generator by -10 % of its maximum possible Progression.\nCauses all Survivors repairing the afflicted Generators to scream and reveal their Aura to you for 8/10/12 seconds.\n\nEruption has a cool-down of 30 seconds.\n\"It can use weapons?\" — Jill Valentine",
+        "character": "Nemesis T-Type",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/dd/IconPerks_eruption.png/revision/latest/scale-to-width-down/96?cb=20210526102859",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Eruption"
+    },
+    {
+        "name": "Fire Up",
+        "description": "The increased pressure of losing your preys fills you with anger and gives you unsuspected motivation.\nEach time a Generator is completed, Fire Up grows in power and gains 1 Token, up to a maximum of 5 Tokens.\nEach Token applies a stack-able buff of 3/3.5/4 % per Token, up to a maximum of 15/17.5/20 %, to the following Action speeds:\nPicking up and dropping Survivors.\nBreaking Breakable Walls and Pallets, and damaging Generators.\nVaulting Windows.\n\n\n\"Now why don't you just fucking die?\" — Freddy Krueger",
+        "character": "Nightmare",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5c/IconPerks_fireUp.png/revision/latest/scale-to-width-down/96?cb=20171026225645",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Fire_Up"
+    },
+    {
+        "name": "Forced Hesitation",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.0.0You have learnt the emotional weaknesses of the organics, and how to exploit them.\nWhenever a Survivor is put into the Dying State by any means, all other Survivors within 16 metres of them suffer from a -20 % Hindered Status Effect for 10 seconds.\nForced Hesitation has a cool-down of 40/35/30 seconds.\n\"THE ORGANIC MIND'S CAPACITY FOR EMPATHY GOES BEYOND HINDRANCE!\" — HUX-A7-13",
+        "character": "Singularity",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4c/IconPerks_forcedHesitation.png/revision/latest/scale-to-width-down/96?cb=20230524214839",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Forced_Hesitation"
+    },
+    {
+        "name": "Forced Penance",
+        "description": "Those who stand in the way of duty will suffer harsh judgement.\nSurvivors who take a Protection Hit suffer from the Broken Status Effect for the next 60/70/80 seconds.",
+        "character": "Executioner",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1d/IconPerks_forcedPenance.png/revision/latest/scale-to-width-down/96?cb=20200526201518",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Forced_Penance"
+    },
+    {
+        "name": "Forever Entwined",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Ghoul",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6d/IconPerks_foreverEntwined.png/revision/latest/scale-to-width-down/96?cb=20250616212701",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Forever_Entwined"
+    },
+    {
+        "name": "Franklin's Demise",
+        "description": "Your vicious Basic Attacks make Survivors drop their Items on impact:\nCauses dropped Items to slowly lose their Charges over 150/120/90 seconds.\nThe Auras of dropped Items are revealed to you within 32 metres.\nThe level of depletion is indicated by the colour of the Aura, ranging from white to red as the timer elapses.\n\"Sally, I hear something. Stop! Stop!\" — Franklin Hardesty",
+        "character": "Cannibal",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b2/IconPerks_franklinsDemise.png/revision/latest/scale-to-width-down/96?cb=20170914173626",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Franklin%27s_Demise"
+    },
+    {
+        "name": "Friends 'til the End",
+        "description": "You will kill anyone who gets between you and your target.\nWhen you hook any Survivors that is not the Obsession, the following effects apply to the Obsession:\nTheir Aura is revealed for 6/8/10 seconds.\nThey suffer from the Exposed Status Effect for 20 seconds.\n\nWhen you hook the Obsession, the following effects apply to a random Survivor:\nCauses the Survivor to scream and reveal their location to the Killer.\nThey become the new Obsession.\n\nYou can only be obsessed with one Survivor at a time.\n\"I got some fresh meat lined up, and I'm not gonna let you spoil it, not this time!\" — Chucky",
+        "character": "Charles Lee Ray",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b3/IconPerks_friendsTilTheEnd.png/revision/latest/scale-to-width-down/96?cb=20231108172943",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Friends_%27til_the_End"
+    },
+    {
+        "name": "Furtive Chase",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.3.0You lurk in the shadows, eliminating your victims one by one.\nEach time you hook your Obsession, you benefit from the following effects for 14/16/18 seconds:\nGrants the Undetectable Status Effect.\nGrants a +5 % Haste Status Effect.\n\n\nWhenever the Obsession is rescued from a Hook, their rescuer will become the new Obsession.\nYou can only be obsessed with one Survivor at a time.\n\"You have no idea what I have planned for you. It'll be in the news for weeks. I'll make sure of that.\" — The Ghost Face",
+        "character": "Danny Johnson",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/IconPerks_furtiveChase.png/revision/latest/scale-to-width-down/96?cb=20190606094409",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Furtive_Chase"
+    },
+    {
+        "name": "Game Afoot",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.6.0First you pick your prey, then you pick it apart.\nWhenever you hit the Survivor with the highest cumulative Chase time, with a Basic Attack, they become the Obsession.\nWhile you are chasing your Obsession, Game Afoot activates its secondary effect:\nGrants a 5 % Haste Status Effect for 8/9/10 seconds after damaging a Generator or breaking a Breakable Wall or Pallet\nYou can only be obsessed with one Survivor at a time.\n\"This one might actually be a challenge...\" — Sonhadores Sombrios, Issue #3",
+        "character": "Skull Merchant",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/53/IconPerks_gameAfoot.png/revision/latest/scale-to-width-down/96?cb=20230218135317",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Game_Afoot"
+    },
+    {
+        "name": "Gearhead",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.7.0You have got an ear for well-oiled gears.\nAfter a Survivor loses a Health State, Gearhead activates for 30 seconds:\nWhile Gearhead is active, a Survivor succeeding a Good Skill Check while repairing reveals their Aura to you for 6/7/8 seconds.\n\"Sometimes a man's best work is what puts him in the grave.\" — The Prison Warden",
+        "character": "Deathslinger",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fd/IconPerks_gearhead.png/revision/latest/scale-to-width-down/96?cb=20200218172900",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Gearhead"
+    },
+    {
+        "name": "Genetic Limits",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0Around you, the limits of human life become readily apparent.\nWhenever a Survivor loses a Health State, they suffer from the Exhausted Status Effect for 6/7/8 seconds.\n\"THE ORGANIC BODY IS SO LIMITED!\" — HUX-A7-13",
+        "character": "Singularity",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6d/IconPerks_geneticLimits.png/revision/latest/scale-to-width-down/96?cb=20230524214956",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Genetic_Limits"
+    },
+    {
+        "name": "Grim Embrace",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0Your act of servitude to The Entity has not gone unnoticed.\nEach time a Survivor is hooked for the first time, Grim Embrace gains +1 Token and activates once you are at least 16 metres away from the Hook:\n1-3 Tokens: Blocks all Generators for 6/8/10 seconds.\n4 Tokens: Blocks all Generators for 40 seconds and the Aura of the Obsession is revealed to you for 6 seconds.\n\n\"Are we nothing but prisoners to our sorrow?\" — Carmina Mora",
+        "character": "Artist",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_grimEmbrace.png/revision/latest/scale-to-width-down/96?cb=20211109180734",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Grim_Embrace"
+    },
+    {
+        "name": "Haywire",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Animatronic",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/ff/IconPerks_haywire.png/revision/latest/scale-to-width-down/96?cb=20250528034521",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Haywire"
+    },
+    {
+        "name": "Help Wanted",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Animatronic",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e9/IconPerks_helpWanted.png/revision/latest/scale-to-width-down/96?cb=20250528034403",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Help_Wanted"
+    },
+    {
+        "name": "Hex: Blood Favour",
+        "description": "A Hex that gains the favour of The Entity when blood is spilt.\nWhenever a Survivor loses a Health State by any means and thus enters the Injured State or the Dying State, Hex: Blood Favour calls upon The Entity to block all Pallets within 24/28/32 metres of that Survivor's location from being pulled down for the next 15 seconds.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"It would be no leap of the imagination to suggest that the Trials are a biological response of sorts.\" — Journal of Talbot Grimes",
+        "character": "Blight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6b/IconPerks_hexBloodFavour.png/revision/latest/scale-to-width-down/96?cb=20200819113451",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Blood_Favour"
+    },
+    {
+        "name": "Hex: Crowd Control",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0A Hex that ensures those lesser than you are properly herded.\nWhenever any Survivor performs a Rushed Action to vault a Window, Hex: Crowd Control triggers its effect:\nPermanently blocks the last 3/4/5  Windows to all Survivors.\n\nAny successive trigger unblocks the oldest Blocked Window.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"You have no control. People like you never did.\" — Ji-Woon Hak",
+        "character": "Trickster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f1/IconPerks_hexCrowdControl.png/revision/latest/scale-to-width-down/96?cb=20210302172300",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Crowd_Control"
+    },
+    {
+        "name": "Hex: Devour Hope",
+        "description": "A Hex rooting its power on hope.The false hope of Survivors ignites your hunger.\nWhenever a Survivor is rescued from a Hook while you are at least 24 metres away, Hex: Devour Hope is granted +1 Token, up to a maximum of 5 Tokens:\n2 Tokens: Grants a 3/4/5 % Haste Status Effect for 10 seconds after 10 seconds of having hooked a Survivor.\n3 Tokens: causes all Survivors to suffer from a permanent Exposed Status Effect.\n5 Tokens: grants the ability to kill all Survivors by your own hand.\n\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"If you do nothing, you have their blood on your hands. If you save them, her hunger grows.\"",
+        "character": "Hag",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c9/IconPerks_hexDevourHope.png/revision/latest/scale-to-width-down/96?cb=20161209192341",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Devour_Hope"
+    },
+    {
+        "name": "Hex: Face the Darkness",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.4.0You make an example of one of your victims, forcing their allies to become awed by your power.\nWhenever you injure a Survivor by any means, if there is still a Dull Totem remaining on the Map, Hex: Face the Darkness activates and lights it, cursing that Survivor:\nCauses all other Survivors to scream every 35/30/25 seconds, if they are outside of the Terror Radius, revealing their Auras for 2 seconds each time.\n\n\nHex: Face the Darkness deactivates once the Cursed Survivor either enters the Dying State or is fully healed, which extinguishes the Totem.\nHex: Face the Darkness is disabled for the remainder of the Trial, if a Survivor manages to cleanse its Hex Totem.\n\"I shall make an example of one. These mewling worms will never know peace.\" — Tarhos Kovács",
+        "character": "Knight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/af/IconPerks_hexFaceTheDarkness.png/revision/latest/scale-to-width-down/96?cb=20221102143124",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Face_the_Darkness"
+    },
+    {
+        "name": "Hex: Fortune's Fool",
+        "description": "Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Cenobite",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e5/Unknown_QuestionMark.png/revision/latest/scale-to-width-down/96?cb=20210929093312"
+    },
+    {
+        "name": "Hex: Haunted Ground",
+        "description": "Two trapped Hex Totems will spawn in the Trial Grounds.\nWhen either Hex Totem is cleansed or blessed, all Survivors suffer from the Exposed Status Effect for 40/50/60 seconds.\nThe second Hex Totem will immediately turn into a Dull Totem.\n\"Her home become profane.\"",
+        "character": "Spirit",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c4/IconPerks_hexHauntedGround.png/revision/latest/scale-to-width-down/96?cb=20180828172944",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Haunted_Ground"
+    },
+    {
+        "name": "Hex: Huntress Lullaby",
+        "description": "A Hex rooting its power in despair.\nYour hunt is an irresistible song of dread which muddles your prey's attention.\n\nSurvivors failing a Repair Skill Checkinstantly regress the Generator by 2/4/6 % of its maximum possible Progression in addition to the default Progression penalty.\nSurvivors failing a Healing Skill Check instantly regress the Healing Action by 2/4/6 % of its maximum possible Progression in addition to the default Progression penalty.\nEach time a Survivor is hooked, Hex: Huntress Lullaby grows in power and gains 1 Token, up to a maximum of 5 Tokens.\nEach Token reduces the timer between the Skill Check Warning cue and the Skill Check appearing for both Repair and Healing Skill Checks:\n\n1 Token: reduction of -14 %.\n2 Tokens: reduction of -28 %.\n3 Tokens: reduction of -42 %.\n4 Tokens: reduction of -56 %.\n5 Tokens: complete suppression of the Warning cue.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\n\"That song, it drives me crazy!\"",
+        "character": "Huntress",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/11/IconPerks_hexHuntressLullaby.png/revision/latest/scale-to-width-down/96?cb=20170727160900",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Huntress_Lullaby"
+    },
+    {
+        "name": "Hex: No One Escapes Death",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0A Hex rooting its power on hope.You are animated by the power of your Hex Totem when the Survivors are on the verge of escaping.\nOnce the Exit Gates are powered, if there is still a Dull Totem remaining in the environment, Hex: No One Escapes Death activates and lights it:\nGrants a 2/3/4 % Haste Status Effect.\nCauses all Survivors to suffer permanently from the Exposed Status Effect.\n\n\nHex: No One Escapes Death remains inactive if no Dull Totems are available.\nOnce the Status Effect is revealed to Survivors, Hex: No One Escapes Death reveals the Aura of its Hex Totem to all Survivors within 4 metres and gradually expands that range to 24 metres over the course of 30 seconds.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"And the beast became faster and more powerful as if The Entity's shadowy whips were lashing at its back.\"",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/af/IconPerks_hexNoOneEscapesDeath.png/revision/latest/scale-to-width-down/96?cb=20160605205020",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_No_One_Escapes_Death"
+    },
+    {
+        "name": "Hex: Nothing But Misery",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Ghoul",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6f/IconPerks_hexNothingButMisery.png/revision/latest/scale-to-width-down/96?cb=20250616212702",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Nothing_But_Misery"
+    },
+    {
+        "name": "Hex: Pentimento",
+        "description": "You reveal the true power of the Totems, hidden within their remains.\nYou see the Auras of cleansed Totems.\nYou can perform a ritual on a cleansed Totem to resurrect it as a Rekindled Totem.\nFor each Rekindled Totem active at the same time, Hex: Pentimento gains an additional effect:\n\n1 Totem: reduces all Survivors' Repair speed by 20/25/30 %.\n2 Totems: reduces all Survivors' Healing speed by 20/25/30 %.\n3 Totems: reduces all Survivors' Recovery speed from being downed by 20/25/30 %.\n4 Totems: reduces all Survivors' Gate-Opening speed by 20/25/30 %.\n5 Totems: all Totems are permanently blocked by The Entity.\nWhen a Rekindled Totem is cleansed, its remains are consumed by The Entity and it cannot be rekindled.\n\n\"Though a pentimento is an inherently concealed piece of art, there is something to be said of the desire to discover that which is beyond.\" — A Guide to Art & Process (1961)",
+        "character": "Artist",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5d/IconPerks_hexPentimento.png/revision/latest/scale-to-width-down/96?cb=20211109175002",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Pentimento"
+    },
+    {
+        "name": "Hex: Retribution",
+        "description": "A Hex that lashes out upon its destruction.\nThose who cross you will be punished.\n\n\nSurvivors cleansing or blessing any Totem suffer from the Oblivious Status Effect for 35/40/45 seconds.\nAfter cleansing or blessing a Hex Totem, the Auras of all Survivors are revealed to you for 15 seconds.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"Bloody fool, you pulled the trigger on yourself.\" — Caleb Quinn",
+        "character": "Deathslinger",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ab/IconPerks_hexRetribution.png/revision/latest/scale-to-width-down/96?cb=20200218172811",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Retribution"
+    },
+    {
+        "name": "Hex: Ruin",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.5.0A Hex that affects the Generator Repair progress of all Survivors.\nWhenever a Generator is not being repaired by a Survivor, it will immediately and automatically regress its Repair progress at 50/75/100 % of the normal Regression speed.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\n\"A curse is upon you. It will cause your ruin.\"",
+        "character": "Hag",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a2/IconPerks_hexRuin.png/revision/latest/scale-to-width-down/96?cb=20161209193143",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Ruin"
+    },
+    {
+        "name": "Hex: The Third Seal",
+        "description": "A Hex that hinders the Survivors' Aura-reading abilities.\nThe last 2/3/4  Survivors you hit with a Basic or Special Attack suffer permanently from the Blindness Status Effect.All effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"She touched your skin, you bear the witch's mark!\"",
+        "character": "Hag",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/36/IconPerks_hexTheThirdSeal.png/revision/latest/scale-to-width-down/96?cb=20161210091328",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_The_Third_Seal"
+    },
+    {
+        "name": "Hex: Thrill of the Hunt",
+        "description": "A Hex rooting its power on hope.\nThe false hope of Survivors fills you with excitement and strengthens your Totems.\n\nFor each Totem remaining in the environment, Hex: Thrill of the Hunt is granted 1 Token.\nFor each Token, all Survivors suffer from a stack-able 10/12/14 % Action Speed penalty to Cleansing and Blessing Totems, up to a maximum of 50/60/70 %.\nGrants a stack-able 10 % bonus Bloodpoints for actions in the Hunter Category per Token, up to a maximum of 50 %.\n\n\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/02/IconPerks_hexThrillOfTheHunt.png/revision/latest/scale-to-width-down/96?cb=20161210091341",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Thrill_of_the_Hunt"
+    },
+    {
+        "name": "Hex: Two Can Play",
+        "description": "A Hex that teaches those who mess with you a lesson.\nAnytime you are stunned or blinded by any Survivor a total of 4/3/2 times, and if there is not yet a Hex Totem already associated with Hex: Two Can Play and there is at least one Dull Totem remaining in the Trial Grounds, Hex: Two Can Play activates on a random Totem:\nBlinds all Survivors who stun or blind you for 1.5 seconds.\nThis does not affect carried Survivors.\n\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.\n\"From now on, no more Mr Good Guy.\" — Chucky",
+        "character": "Charles Lee Ray",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/64/IconPerks_hexTwoCanPlay.png/revision/latest/scale-to-width-down/96?cb=20231108172944",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Two_Can_Play"
+    },
+    {
+        "name": "Hex: Undying",
+        "description": "A Hex which maintains the vile powers that flow throughout the Trial.\nThe Auras of Survivors within 2/3/4 metres of any Dull Totem are revealed to you.\n\nWhen another Perk's Hex Totem is cleansed or blessed, its Hex is transferred to the Hex: Undying Totem, including any accumulated Tokens, disabling Hex: Undying instead.\nAll effects of the Hex Perk persist until its Hex Totem is cleansed or blessed.",
+        "character": "Blight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconPerks_hexUndying.png/revision/latest/scale-to-width-down/96?cb=20200819113555",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Undying"
+    },
+    {
+        "name": "Hex: Wretched Fate",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.2.0You see your victim from afar and resolve to prolong their suffering.\nAfter a Generator is completed, Hex: Wretched Fate activates and lights a random Dull Totem, cursing the Obsession:\nReduces their Repair speed by 27/30/33 %.\nThe Aura of the Hex Totem is revealed to them within 12 metres.\n\n\"So toil, mortal, toil! Your effort will be for naught!\" — Dracula",
+        "character": "Dark Lord",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/81/IconPerks_HexWretchedFate.png/revision/latest/scale-to-width-down/96?cb=20240806171418",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hex:_Wretched_Fate"
+    },
+    {
+        "name": "Hoarder",
+        "description": "You protect what little you have and are perceptive to those rummaging through your stockpiles.\nHoarder triggers a Loud Noise Notification for 4 seconds, whenever a Survivor performs any of the following actions within 32/48/64 metres of your location:\n\nUnlocks a Chest.\nPicks up any Item.\nHoarder spawns 2 additional Chests in the Trial.",
+        "character": "Twins",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/23/IconPerks_hoarder.png/revision/latest/scale-to-width-down/96?cb=20201112100327",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hoarder"
+    },
+    {
+        "name": "Hubris",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.4.0You show no mercy, especially to those foolish enough to resist.\nWhenever you are stunned by a Survivor, that Survivor suffers from the Exposed Status Effect for 10/15/20 seconds.\nHubris has a cool-down of 20 seconds.\n\n\"You have made a grave mistake, standing in opposition to me this day.\" — Tarhos Kovács",
+        "character": "Knight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/aa/IconPerks_hubris.png/revision/latest/scale-to-width-down/96?cb=20221102143125",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hubris"
+    },
+    {
+        "name": "Human Greed",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0One can always rely on the avarice of the living and use it to one's advantage.\nGrants the ability to kick opened Chests and close them.\nThe Auras of unopened Chests are revealed to you at all times.\nThe Auras of Survivors coming within 8 metres of unopened or closed Chests are revealed to you for 3 seconds.\n\nHuman Greed has a cool-down of 30/25/20 seconds on the ability to kick Chests.\n\"Come running, one and all, and see what fortune awaits you.\" — Dracula",
+        "character": "Dark Lord",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/06/IconPerks_HumanGreed.png/revision/latest/scale-to-width-down/96?cb=20240806171419",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Human_Greed"
+    },
+    {
+        "name": "Hysteria",
+        "description": "You know how to brutalise one member of a team to cause a panic.\nWhenever you put a healthy Survivor into the Injured State, all injured Survivors suffer from the Oblivious Status Effect for 20/25/30 seconds.\nHysteria has a cool-down of 30 seconds.\n\"Sorry I got a little jumpy there. Didn't know quite what to expect.\" — Robert Kendo",
+        "character": "Nemesis T-Type",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3a/IconPerks_hysteria.png/revision/latest/scale-to-width-down/96?cb=20210526103043",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Hysteria"
+    },
+    {
+        "name": "I'm All Ears",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.0Unlocks potential in your Aura-reading ability, sharpening your keen senses in the dark Realm of The Entity.\nAny Survivor performing a Rushed Vault within 48 metres of your location triggers I'm All Ears:\nThe Aura of that Survivor is revealed to you for 6 seconds.\n\nI'm All Ears has a cool-down of 60/45/30 seconds.\n\"There is no need to worry. I've been preparing my whole life for this.\" — The Ghost Face",
+        "character": "Danny Johnson",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e3/IconPerks_imAllEars.png/revision/latest/scale-to-width-down/96?cb=20190606094404",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/I%27m_All_Ears"
+    },
+    {
+        "name": "Infectious Fright",
+        "description": "The cries of the unfaithful make your heart leap.\nWhenever a Survivor is put into the Dying State by any means, all other Survivors within your Terror Radius will scream and reveal their current location to you for 4/5/6 seconds.\n\"Horror overcomes the heart of infidels who cry at the feet of the fallen.\" — (Hymn of Praise, 11.4)",
+        "character": "Plague",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6d/IconPerks_infectiousFright.png/revision/latest/scale-to-width-down/96?cb=20190306195819",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Infectious_Fright"
+    },
+    {
+        "name": "Insidious",
+        "description": "Unlocks the stealth ability.\nGrants the Undetectable Status Effect after standing still for 4/3/2 seconds.\nThis effect lasts until you start moving again.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/40/IconPerks_insidious.png/revision/latest/scale-to-width-down/96?cb=20160605204933",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Insidious"
+    },
+    {
+        "name": "Iron Grasp",
+        "description": "Your powerful grasp on Survivors causes escapes to be nearly impossible.\nWhenever you are carrying a Survivor, the following effects apply:\nReduces the strength of the Wiggle effects, causing involuntary strafing, by 75 %.\nIncreases the maximum Wiggle duration by 4/8/12 %.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/14/IconPerks_ironGrasp.png/revision/latest/scale-to-width-down/96?cb=20160605204939",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Iron_Grasp"
+    },
+    {
+        "name": "Iron Maiden",
+        "description": "Iron Maiden increases your Locker Search speed by 30/40/50 %.\nSurvivors who exit a Locker suffer from the following afflictions:\nScream and reveal their location to you for 4 seconds.\nSuffer from the Exposed Status Effect for 30 seconds.\n\n\"This is no place for cowards.\" — The Legion",
+        "character": "Frank, Julie, Susie, Joey",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b0/IconPerks_ironMaiden.png/revision/latest/scale-to-width-down/96?cb=20181128100910",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Iron_Maiden"
+    },
+    {
+        "name": "Knock Out",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0The trauma caused by your brutal attacks makes crying for help painfully difficult.\nPutting a Survivor into the Dying State with your Basic Attack blocks their Aura from being revealed to any Survivor, who is farther than 32/24/16 metres away from them.\nFor the next 15 seconds, the following effects apply to the dying Survivor:\nReduces their Field of View and causes them to be deafened.\nSuffers from the Blindness Status Effect.\nReduces the Crawling speed by -50 %.\nReduces the Recovery speed by -25 %.\n\"Oh, that gun's no good. The old way... with a sledge! You see, that way's better. They die better that way.\" — Nubbins Sawyer",
+        "character": "Cannibal",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_knockOut.png/revision/latest/scale-to-width-down/96?cb=20170914173607",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Knock_Out"
+    },
+    {
+        "name": "Languid Touch",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0Your dreadful aura is so suffocating that even terrifying scenes tire your prey.\nWhen a Survivor scares off a Crow within 36 metres of your location, Languid Touch activates:\nCauses that Survivor to suffer from the Exhausted Status Effect for 6/8/10 seconds.\n\nLanguid Touch has a cool-down of 5 seconds.\n\"Submit to me. It is inevitable.\" — Vecna",
+        "character": "Lich",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a3/IconPerks_languidTouch.png/revision/latest/scale-to-width-down/96?cb=20240514174201",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Languid_Touch"
+    },
+    {
+        "name": "Lethal Pursuer",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0You have been designed to track down and eliminate targets.\nAt the start of the Trial, the Auras of all Survivors are revealed to you for 7/8/9 seconds.\nExtends the duration of all instances of a Survivor Aura being revealed to you by +2 seconds.\n\nLethal Pursuer benefits from its own effect.\n\"...it knows what it wants and won't stop till it gets it.\" — Carlos Oliveira",
+        "character": "Nemesis T-Type",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/61/IconPerks_lethalPursuer.png/revision/latest/scale-to-width-down/96?cb=20210526103144",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Lethal_Pursuer"
+    },
+    {
+        "name": "Leverage",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0Kick your competitors when they're down. Never let them regain lost ground.\nWhenever a Survivor performs an Unhook action, they suffer from the following effect for 30 seconds:\nReduces their Healing speed by 30/40/50 %.\n\n\"Good. Now we can move in for the kill.\" — Adriana Imai",
+        "character": "Skull Merchant",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c6/IconPerks_leverage.png/revision/latest/scale-to-width-down/96?cb=20230218135317",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Leverage"
+    },
+    {
+        "name": "Lightborn",
+        "description": "Unlike other beasts of The Fog, you have adapted to light.\nThe Auras of Survivors attempting to blind you by any means are revealed to you for 6/8/10 seconds.\nGrants immunity from being blinded from Flashlights, Firecrackers, Flash Grenades, and Blast Mine.\n\"These monsters... they adapt! They emerge with strange new abilities.\" — Vigo, Vigo's Journal",
+        "character": "Hillbilly",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/48/IconPerks_lightborn.png/revision/latest/scale-to-width-down/96?cb=20160605205002",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Lightborn"
+    },
+    {
+        "name": "Machine Learning",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.2Free from your shackles, you are born anew and prepared to eliminate your creators.\nAfter performing the Damage Generator action, Machine Learning activates:\nCauses that Generator to become a Compromised Generator.\nDamaging another Generator transfers the state to it instead.\nThe Aura of the Compromised Generator is highlighted to you in yellow until it is completed.\n\nOnce the Compromised Generator is completed, you benefit from the following effects for 35/40/45 seconds:\nUndetectable Status Effect\n+10 % Haste Status Effect\n\nMachine Learning deactivates after use.\n\"YOU WILL HOLD NO DOMINION OVER ME!\" — HUX-A7-13",
+        "character": "Singularity",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/01/IconPerks_machineLearning.png/revision/latest/scale-to-width-down/96?cb=20230524214741",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Machine_Learning"
+    },
+    {
+        "name": "Mad Grit",
+        "description": "Whenever you are carrying a Survivor, Mad Grit activates:\nRemoves the Cool-down of missed Basic Attacks.\nPauses the Wiggle Progression of the carried Survivor for 2/3/4 seconds each time you successfully hit another Survivor.\n\"There's no getting out of this now. We're too good at it.\" — The Legion",
+        "character": "Frank, Julie, Susie, Joey",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/da/IconPerks_madGrit.png/revision/latest/scale-to-width-down/96?cb=20181128100906",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Mad_Grit"
+    },
+    {
+        "name": "Make Your Choice",
+        "description": "Whenever a Survivor is rescued from a Hook, while you are farther than 32 metres away, Make Your Choice activates:\nCauses the unhooking Survivor to scream and reveal their location to you.\nCauses them to suffer from the Exposed Status Effect for 40/50/60 seconds.\nMake Your Choice has a cooldown of 40/50/60 seconds.\n\n\"You'd be surprised what tools can save a life.\" — Amanda Young",
+        "character": "Pig",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6b/IconPerks_makeYourChoice.png/revision/latest/scale-to-width-down/96?cb=20180123224326",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Make_Your_Choice"
+    },
+    {
+        "name": "Merciless Storm",
+        "description": "Your horrible trauma is felt by everyone.Whenever a Generator reaches 90 % of Repair progression, Merciless Storm triggers its effect:\nAll Survivors repairing that Generator are faced with a continuous stream of Skill Checks until the Generator is completed.\nIf any contributing Survivor fails a Skill Check or interrupts the action by any means, The Entity blocks the Generator for 16/18/20 seconds.\nMerciless Storm can only trigger once per Generator per Trial.",
+        "character": "Onryō",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/36/IconPerks_mercilessStorm.png/revision/latest/scale-to-width-down/96?cb=20220216120012",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Merciless_Storm"
+    },
+    {
+        "name": "Mindbreaker",
+        "description": "Your distressing presence drains and weakens your prey.\nAll Survivors repairing a Generator suffer from the following afflictions:\nIncurs the Blindness and Exhausted Status Effects for the duration of the Repair action.\nIf a Survivor was already suffering from Exhausted prior to Mindbreaker affecting them, the Status Effect's timer will be paused and not recover for the duration of the Repair action.\nBoth Status Effects linger for another 3/4/5 seconds after a Survivor stops repairing.\n\n\"The specimen's apparent telepathic ability can evoke feelings of dread and fatigue in nearby individuals.\" — Hawkins National Laboratory",
+        "character": "Demogorgon",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_mindbreaker.png/revision/latest/scale-to-width-down/96?cb=20190903175217",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Mindbreaker"
+    },
+    {
+        "name": "Monitor &amp; Abuse",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.5.0Meticulous in your approach, terrifying in your application.\nIncreases the base value of your Terror Radius by 6/7/8 metres for the entire Trial.\nWhenever you are not in a Chase with a Survivor, the following effect applies:\n\nReduces your Terror Radius by 12/14/16 metres.\n\"It's time for your treatment!\" — Herman Carter, The Doctor",
+        "character": "Doctor",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/60/IconPerks_monitorAndAbuse.png/revision/latest/scale-to-width-down/96?cb=20170511153248",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Monitor_%26_Abuse"
+    },
+    {
+        "name": "Nemesis",
+        "description": "You seek retribution on those who have wronged you.\n\nAny Survivor who blinds you or stuns you using a Pallet or a Locker becomes the Obsession.\nAnytime your Obsession switches to another Survivor by any means, that Survivor then suffers from the Oblivious Status Effect for 40/50/60 seconds and their Aura is revealed to you for 4 seconds.\n\n\nYou can only be obsessed with one Survivor at a time.\n\"Only a fool would spit in a demon's face and declare victory.\" — Renjiro's Doctrine 4:9",
+        "character": "Oni",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/33/IconPerks_nemesis.png/revision/latest/scale-to-width-down/96?cb=20191126213602",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Nemesis"
+    },
+    {
+        "name": "No Holds Barred",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Cenobite",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e5/Unknown_QuestionMark.png/revision/latest/scale-to-width-down/96?cb=20210929093312",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/No_Holds_Barred"
+    },
+    {
+        "name": "No Quarter",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0Every skirmish ended with a relentless volley of cannon fire, leaving no doubt who was superior.\nWhenever a Survivor healing themselves by any means reaches 75 % Healing Progress, No Quarter triggers its effect:\nThe Survivor is faced with a continuous stream of Skill Checks until the Self-Heal is completed.\nIf they fail a Skill Check or interrupt the action by any means, they suffer from the Broken Status Effect for 20/25/30 seconds.\n\n\n\"Fire another broadside! Don't stop until the sea takes them!\" — Portia Maye",
+        "character": "Houndmaster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_noQuarter.png/revision/latest/scale-to-width-down/96?cb=20241107202153",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/No_Quarter"
+    },
+    {
+        "name": "No Way Out",
+        "description": "You are not going to let just anyone into the VIP room.\nFor each Survivor you hook for the first time, No Way Out gains 1 Token.\nOnce the Exit Gates have been powered, No Way Out activates:\n\nWhen a Survivor interacts with an Exit Gate Switch, you receive a Loud Noise Notification and The Entity blocks both Exit Gate Switches for 12 seconds and an additional 6/9/12 seconds per Token in your possession, up to a combined maximum of 36/48/60 seconds.\n\"That sound when you bleed... let me hear it again.\" — Ji-Woon Hak",
+        "character": "Trickster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/bb/IconPerks_noWayOut.png/revision/latest/scale-to-width-down/96?cb=20210302172337",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/No_Way_Out"
+    },
+    {
+        "name": "None Are Free",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.2Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Ghoul",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5c/IconPerks_noneAreFree.png/revision/latest/scale-to-width-down/96?cb=20250616212702",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/None_Are_Free"
+    },
+    {
+        "name": "Nowhere to Hide",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.4.0The machinations of the weak and craven draw your ire.Your anger forces Survivors to reveal themselves.\nPerforming the Damage Generator action on a Generator triggers Nowhere to Hide:\nThe Auras of all Survivors within 24 metres of your location are revealed to you for 3/4/5 seconds.\n\n\"Out with you, cowards! Show yourselves!\" — Tarhos Kovács",
+        "character": "Knight",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/29/IconPerks_nowhereToHide.png/revision/latest/scale-to-width-down/96?cb=20221102143126",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Nowhere_to_Hide"
+    },
+    {
+        "name": "Oppression",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.0Life has been difficult for you, so you will make it difficult for others.\nPerforming the Damage Generator action on a Generator activates Oppression:\nCauses up to 3 additional Generators to also start regressing.\nTriggers a difficult Skill Check for all Survivors currently repairing an affected Generator.\n\nOppression has a cool-down of 60/50/40 seconds.\n\"Damn them as they would damn us.\" — Charlotte Deshayes",
+        "character": "Twins",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a1/IconPerks_oppression.png/revision/latest/scale-to-width-down/96?cb=20201112095043",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Oppression"
+    },
+    {
+        "name": "Overcharge",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.7.0You are fuelled by your hate for progress.\nPerforming the Damage Generator action on a Generator applies Overcharge:\nThe next Survivor interacting with that Generator is faced with a difficult Skill Check.\nFailing that Skill Check instantly regresses the Generator by 2/3/4 % of its maximum possible Progression in addition to the default Progression penalty.\n\nAfter Overcharge is applied to a Generator, the following effect also applies:\nIncreases the Regression speed from 85 % to 130 % over the next 30 seconds.\n\n\"It is a trap, But a trap one must step in...\" — Herman Carter",
+        "character": "Doctor",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_overcharge.png/revision/latest/scale-to-width-down/96?cb=20170511153315",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Overcharge"
+    },
+    {
+        "name": "Overwhelming Presence",
+        "description": "Just knowing you are near is enough to disturb your victims.\nSurvivors within your Terror Radius suffer from inefficiency:\nWhen using an Item, its Depletion rate is increased by 80/90/100 %.\n\n\"Shit!! I dropped the gauze!\"",
+        "character": "Doctor",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9a/IconPerks_overwhelmingPresence.png/revision/latest/scale-to-width-down/96?cb=20170511153235",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Overwhelming_Presence"
+    },
+    {
+        "name": "Phantom Fear",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Animatronic",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c6/IconPerks_phantomFear.png/revision/latest/scale-to-width-down/96?cb=20250528034546",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Phantom_Fear"
+    },
+    {
+        "name": "Play with Your Food",
+        "description": "Each time you chase your Obsession and let them escape, Play with Your Food gains +1 Token, up to a maximum of 3 Tokens.\nGrants a stack-able 3/4/5 % Haste Status Effect per Token, up to a maximum of 9/12/15 %.\nPerforming Basic Attacks, or Special Attacks that can damage Survivors, consumes -1 Token.\n\nPlay with Your Food has a cool-down of 10 seconds on Token-accumulation.\nYou can only be obsessed with one Survivor at a time.\n\"You've fooled them, haven't you Michael? But not me.\" — Dr Sam Loomis",
+        "character": "Shape",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/18/IconPerks_playWithYourFood.png/revision/latest/scale-to-width-down/96?cb=20161023113758",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Play_with_Your_Food"
+    },
+    {
+        "name": "Pop Goes the Weasel",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0A deep bond with The Entity unlocks great strength.\nAfter hooking a Survivor, Pop Goes the Weasel activates for 35/40/45 seconds.Perform the Damage Generator action while Pop Goes the Weasel is active to benefit from the following effect:\nInstantly regresses the damaged Generator by -20 % of its current Progression.\n\nPop Goes the Weasel deactivates after the Generator is damaged or once the timer runs out.",
+        "character": "Jeffrey Hawk",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_popGoesTheWeasel.png/revision/latest/scale-to-width-down/96?cb=20180529205138",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Pop_Goes_the_Weasel"
+    },
+    {
+        "name": "Predator",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.2Your acute tracking ability allows you to find lost prey more easily.\nWhen a Survivor loses you in a chase, their Aura is revealed to you for 4 seconds.\nPredator has a cool-down of 60/50/40 seconds.\n\n\"Never stop moving and hope you're always two steps ahead of the beast.\" — Unknown, Notebook",
+        "character": "Wraith",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/73/IconPerks_predator.png/revision/latest/scale-to-width-down/96?cb=20160605205037",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Predator"
+    },
+    {
+        "name": "Rancor",
+        "description": "Each time a Generator is completed, the following effects apply:\nReveals your Aura to the Obsession for 5/4/3 seconds.\nAll Survivors' locations are revealed to you for 3 seconds.\nOnce the Exit Gates are powered, the following effects apply:\nYou are granted the ability to kill the Obsession by your own hand.\nThe Obsession suffers from a permanent Exposed Status Effect.\nYou can only be obsessed with one Survivor at a time.",
+        "character": "Spirit",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a2/IconPerks_rancor.png/revision/latest/scale-to-width-down/96?cb=20180828172949",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Rancor"
+    },
+    {
+        "name": "Rapid Brutality",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.2.0You move with a speed and fury that makes blood run cold.\nYou can no longer gain the Bloodlust Status Effect.\nSuccessfully hitting a Survivor with a Basic Attack grants you a +5 % Haste Status Effect for 8/9/10 seconds.\n\"Catch it, put it in the airlock, get rid of it.\" — Dallas",
+        "character": "Xenomorph",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d4/IconPerks_rapidBrutality.png/revision/latest/scale-to-width-down/96?cb=20230808160213",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Rapid_Brutality"
+    },
+    {
+        "name": "Remember Me",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0Whenever the Obsession loses a Health State by any means, Remember Me gains +1 Token, up to a maximum of 2/3/4 Tokens:\nIncreases the Opening time for both Exit Gates by +6 seconds per Token, up to a maximum of 12/18/24 seconds, for all Survivors other than the Obsession.\nThe Obsession is exempt from this penalty.\nYou can only be obsessed with one Survivor at a time.\n\n\"You don't remember? You must. You're my number one, and you'll never wake up again.\" — Freddy Krueger",
+        "character": "Nightmare",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/62/IconPerks_rememberMe.png/revision/latest/scale-to-width-down/96?cb=20171026225659",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Remember_Me"
+    },
+    {
+        "name": "Save the Best for Last",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.5.0Whenever you hit a Survivor other than your Obsession with a Basic Attack, Save the Best for Last gains +1 Token, up to a maximum of 6/7/8 Tokens:\nGrants a stack-able -4 % Cool-down reduction on successful Basic Attacks per Token, up to a maximum of 24/28/32 %.\nWhenever you hit your Obsession with a Basic or Special Attack, Save the Best for Last loses -2 Tokens.\n\nWhen the Obsession is sacrificed or killed, Save the Best for Last freezes its current Token count.\nYou can only be obsessed with one Survivor at a time.\n\n\"Death has come to your little town, Sheriff.\" — Dr Sam Loomis",
+        "character": "Shape",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6a/IconPerks_saveTheBestForLast.png/revision/latest/scale-to-width-down/96?cb=20161023113950",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Save_the_Best_for_Last"
+    },
+    {
+        "name": "Scourge Hook: Floods of Rage",
+        "description": "You form a psychic connection with The Entity and alter the rules of the Trial.\nAt the start of the Trial, 4 random Hooks are changed into Scourge Hooks:\nThe Auras of Scourge Hooks are revealed to you in white.\nEach time a Survivor is unhooked from a Scourge Hook, the following effects apply:\nThe Auras of all other Survivors are revealed for 5/6/7 seconds.",
+        "character": "Onryō",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_scourgeHookFloodsOfRage.png/revision/latest/scale-to-width-down/96?cb=20220216120003",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Scourge_Hook:_Floods_of_Rage"
+    },
+    {
+        "name": "Scourge Hook: Hangman's Trick",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0Unlocks potential in your Aura-reading ability and your ingenious modifications to Hooks alert you of tampering.\nAt the start of the Trial, 4 random Hooks are changed into Scourge Hooks:\nThe Auras of Scourge Hooks are revealed to you in white.\nReceive a Loud Noise Notification, whenever a Survivor starts sabotaging a Hook.\nWhile carrying a Survivor, the Auras of all Survivors within 8/10/12 metres of a Scourge Hook are revealed to you.\n\n\n\"No excuses, no equivocations... No crying.\" — Amanda Young",
+        "character": "Pig",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9a/IconPerks_scourgeHookHangmansTrick.png/revision/latest/scale-to-width-down/96?cb=20180123224254",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Scourge_Hook:_Hangman%27s_Trick"
+    },
+    {
+        "name": "Scourge Hook: Jagged Compass",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0Sometimes the compass points north. Other times it points somewhere else entirely.\nAt the start of the Trial, 4 random Hooks are changed into Scourge Hooks:\nThe Auras of Scourge Hooks are revealed to you in white.\nWhenever a Survivor is unhooked from a normal Hook, the following effect applies:\nThe Hook is converted into a Scourge Hook.\n\nWhenever you hook a Survivor onto a Scourge Hook, the following effect applies:\nThe Aura of the Generator with the most progression is highlighted in yellow for 6/8/10 seconds.\n\n\n\"Drop anchor! I will chart us a new course.\" — Portia Maye",
+        "character": "Houndmaster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/53/IconPerks_scourgeHookJaggedCompass.png/revision/latest/scale-to-width-down/96?cb=20241107202154",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Scourge_Hook:_Jagged_Compass"
+    },
+    {
+        "name": "Scourge Hook: Monstrous Shrine",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0Your fervent care of the Hooks found in the Basement has aroused The Entity's interest.\nAt the start of the Trial, 4 random Hooks, as well as the 4 Basement Hooks, are changed into Scourge Hooks:\nThe Auras of Scourge Hooks are revealed to you in white.\n\nWhenever a Survivor is hooked onto a Scourge Hook, the following effect applies when you are farther than 24 metres from the hooked Survivor:\nAccelerates the Sacrifice Process by 10/15/20 %.\n\n\"Then you will know that there is no escape. When hanging in the depths, you face the dark one.\"",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/91/IconPerks_scourgeHookMonstrousShrine.png/revision/latest/scale-to-width-down/96?cb=20160605205014",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Scourge_Hook:_Monstrous_Shrine"
+    },
+    {
+        "name": "Scourge Hook: Pain Resonance",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0Overwhelming pain reverberates outwards.\nAt the start of the Trial, 4 random Hooks are changed into Scourge Hooks:\nThe Auras of Scourge Hooks are revealed to you in white.\nYou start the Trial with 4 Tokens on Scourge Hook: Pain Resonance.\nEach time a Survivor is hooked on a Scourge Hook for the first time, 1 Token is consumed and the following effects apply:\nThe Generator with the most Progression explodes and instantly regresses by 10/15/20 % of its total Progression.\nNormal Generator Regression applies afterwards.\nAll Survivors repairing that Generator will scream, but not reveal their location.\n\nScourge Hook: Pain Resonance is disabled for the remainder of the Trial once all Tokens are consumed.\n\"The pain spills beyond flesh/darkness staining the horizon.\" — Girl in the Shadow by Carmina Mora",
+        "character": "Artist",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/79/IconPerks_scourgeHookPainResonance.png/revision/latest/scale-to-width-down/96?cb=20211109180802",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Scourge_Hook:_Pain_Resonance"
+    },
+    {
+        "name": "Scourge Hook: Weeping Wounds",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise  Please contact Jouki",
+        "character": "Cenobite",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e5/Unknown_QuestionMark.png/revision/latest/scale-to-width-down/96?cb=20210929093312"
+    },
+    {
+        "name": "Septic Touch",
+        "description": "The Land of the Shadows subsumes all. Healing only delays the inevitable.\nWhenever a Survivor performs a Healing action while they are inside your Terror Radius, that Survivor suffers from the Blindness and Exhausted Status Effects\nThese effects linger for 6/8/10 seconds after the Healing action is interrupted by any means.\n\"Do not admit to fear, or pain, or doubt. These are the seeds from which darkness grows.\" — Otto Stamper",
+        "character": "Dredge",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d8/IconPerks_septicTouch.png/revision/latest/scale-to-width-down/96?cb=20220518112819",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Septic_Touch"
+    },
+    {
+        "name": "Shadowborn",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.5.0You have a keen vision in the darkness of the night.\nWhen blinded by any means, you are granted a 6/8/10 % Haste Status Effect for 10 seconds.\n\"Shining in the darkest dark, his eyes pierce the night and sting your soul.\"",
+        "character": "Wraith",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_shadowborn.png/revision/latest/scale-to-width-down/96?cb=20160605205118",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Shadowborn"
+    },
+    {
+        "name": "Shattered Hope",
+        "description": "To capture your prey, you must first extinguish their hope.\nInstead of snuffing Boon Totems you destroy them.\nDestroying a Boon Totem this way reveals the Auras of all Survivors that were within its range at that moment for 6/7/8 seconds.\n\"Nothing is permanent here. Nothing except our endless perdition.\" — Unknown, Notebook",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/aa/IconPerks_shatteredHope.png/revision/latest/scale-to-width-down/96?cb=20220518112819",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Shattered_Hope"
+    },
+    {
+        "name": "Sloppy Butcher",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0You know where to hit to make them bleed.\n\nWounds inflicted by Basic Attacks cause Survivors to suffer from the Haemorrhage and Mangled Status Effects for 70/80/90 seconds.\nIncreases the Bleeding frequency of injured Survivors by 50/75/100 % for the same duration.\nIncreases the Regression rate at which partial Healing Progression is lost because of Haemorrhage by +25 %.\n\n\"It is in its sadistic nature. There is no swift kill as it delights in the obscene spectacle of our agonising suffering.\"",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5a/IconPerks_sloppyButcher.png/revision/latest/scale-to-width-down/96?cb=20160605205130",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Sloppy_Butcher"
+    },
+    {
+        "name": "Spies from the Shadows",
+        "description": "Allows the Crows found in the environment to directly communicate with you.\nWhenever you are within 20/28/36 metres of a Crow that was startled by a nearby Survivor, you are alerted with a Loud Noise Notification.\nSpies from the Shadows has a cool-down of 5 seconds between alerts.\n\n\"In the shadows they torment, scarring our minds with each scream.\"",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b1/IconPerks_spiesFromTheShadows.png/revision/latest/scale-to-width-down/96?cb=20160605205141",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Spies_from_the_Shadows"
+    },
+    {
+        "name": "Spirit Fury",
+        "description": "Each obstacle you break magnifies the wrath of The Entity.\nAfter manually breaking a dropped Pallet by any means for a total of 4/3/2 times, Spirit Fury activates:\nCauses The Entity to instantly break the next Pallet used to stun you.\nThe normal Stun penalty applies afterwards, unless it is mitigated by other effects.\n\nSpirit Fury deactivates after use.\n\"Fury is her blood.\"",
+        "character": "Spirit",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a6/IconPerks_spiritFury.png/revision/latest/scale-to-width-down/96?cb=20180828172940",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Spirit_Fury"
+    },
+    {
+        "name": "Starstruck",
+        "description": "Your unmatched showmanship dazzles all.\nWhen carrying a Survivor, Starstruck activates:\n\nSurvivors suffer from the Exposed Status Effect while in your Terror Radius.\nThe Status Effect lingers for 26/28/30 seconds after leaving your Terror Radius.\nAfter hooking or dropping the carried Survivor, Starstruck deactivates:\nThe Status Effect persists for 26/28/30 seconds for any Survivor inside your Terror Radius at that moment.\nStarstruck has a cool-down of 60 seconds once the Survivor is no longer being carried.\n\"Enjoy this moment, few get so close.\" — Ji-Woon Hak",
+        "character": "Trickster",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6e/IconPerks_starstruck.png/revision/latest/scale-to-width-down/96?cb=20210302172426",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Starstruck"
+    },
+    {
+        "name": "Stridor",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.1You are acutely sensitive to the breathing of your prey.\nIncreases the volume of Grunts of Pain of injured Survivors by 30/40/50 %.\nIncreases the volume of regular breathing of Survivors by 15/20/25 %.\n\"If you do not stop and catch your breath... she will.\"",
+        "character": "Nurse",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/32/IconPerks_stridor.png/revision/latest/scale-to-width-down/96?cb=20160820085653",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Stridor"
+    },
+    {
+        "name": "Superior Anatomy",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.2.0Decades of research have culminated in you: something faster, stronger, and more dangerous than any human.\nWhenever a Survivor performs a Rushed Vault within 8 metres of your location, Superior Anatomy activates:\nIncreases your Vaulting speed by 30/35/40 %.\n\nSuperior Anatomy deactivates after vaulting.\nSuperior Anatomy has a cool-down of 30 seconds.",
+        "character": "Mastermind",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_superiorAnatomy.png/revision/latest/scale-to-width-down/96?cb=20220815051818",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Superior_Anatomy"
+    },
+    {
+        "name": "Surge",
+        "description": "Your eerie presence charges the air and interferes with technology.\nWhenever you put a Survivor into the Dying State with a Basic Attack, all Generators within 32 metres of your location instantly explode and start regressing.\nInstantly regresses affected Generators by 6/7/8 %.\n\n\"The creature appears to have some unknown influence over electricity and nearby electronics.\" — Hawkins National Laboratory",
+        "character": "Demogorgon",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_surge.png/revision/latest/scale-to-width-down/96?cb=20190903175259",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Surge"
+    },
+    {
+        "name": "Surveillance",
+        "description": "Unlocks potential in your Aura-reading ability.\nThe Auras of regressing Generators are highlighted in white.\n\nIf the Regression progress is interrupted on a Generator, its Aura will be highlighted in yellow for 8/12/16 seconds.\nSurveillance increases the audible range of Survivors' Generator-repairing noises by 8 metres.\n\"Are you gonna behave?\" — Amanda Young",
+        "character": "Pig",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/eb/IconPerks_surveillance.png/revision/latest/scale-to-width-down/96?cb=20180123224351",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Surveillance"
+    },
+    {
+        "name": "THWACK!",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.0Your prey is terrified by your relentless pursuit.\nStart the Trial with 3 Tokens.Whenever you break a Breakable Wall or a dropped Pallet, THWACK! consumes -1 Token and applies the following effect:\nCauses all Survivors within 24 metres of your location to scream and reveal their location for 3/4/5 seconds.\n\nWhenever you hook a Survivor, THWACK! is granted +1 Token.\n\"All those who stood in her path feared her mighty THWACK!\" — Sonhadores Sombrios, Issue #3",
+        "character": "Skull Merchant",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/bb/IconPerks_thwack.png/revision/latest/scale-to-width-down/96?cb=20230218135321",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/THWACK!"
+    },
+    {
+        "name": "Terminus",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.2.0You are a brilliant tactician who prepares for every eventuality.\nOnce the Exit Gates are powered, Terminus activates:\nAll Survivors who are either injured, dying, or hooked, suffer from the Broken Status Effect until an Exit Gate is opened.\nThis effect lingers for an additional 20/25/30 seconds.",
+        "character": "Mastermind",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4c/IconPerks_terminus.png/revision/latest/scale-to-width-down/96?cb=20220815051853",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Terminus"
+    },
+    {
+        "name": "Territorial Imperative",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0Unlocks potential in your Aura-reading ability.\nWhenever you are farther than 24 metres from the Basement while a Survivor enters it, Territorial Imperative activates:\nThe Aura of that Survivor is revealed to you for 4/5/6 seconds.\n\n\nTerritorial Imperative has a cool-down of 45 seconds.\n\"We're not safe anywhere...\"",
+        "character": "Huntress",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2a/IconPerks_territorialImperative.png/revision/latest/scale-to-width-down/96?cb=20170727160846",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Territorial_Imperative"
+    },
+    {
+        "name": "Thanatophobia",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.2 / 6.1.3Their courage fades in the face of their undeniable mortality.\nEach injured, dying, or hooked Survivor afflicts Survivors with a stack-able 1/1.5/2 % Action Speed penalty to Repairing, Sabotaging, and Cleansing, up to a maximum of 4/6/8 %.\nIncreases the Action Speed penalty by a further 12 %, if there are 4 Survivors, who are either injured, dying, or hooked at the same time.\n\"She plays with us and revels in our pain.\"",
+        "character": "Nurse",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a2/IconPerks_thanatophobia.png/revision/latest/scale-to-width-down/96?cb=20160820090639",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Thanatophobia"
+    },
+    {
+        "name": "Thrilling Tremors",
+        "description": "Your dark designs and shrewd composure rouse The Entity.\nAfter picking up a Survivor, all Generators not currently being repaired by Survivors are blocked by The Entity for the next 16 seconds.\n\nThe Auras of blocked Generators are highlighted to you in white.\nThrilling Tremors has a cool-down of 100/80/60 seconds.\n\"The night assists me and it's endless here.\" — The Ghost Face",
+        "character": "Danny Johnson",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b8/IconPerks_thrillingTremors.png/revision/latest/scale-to-width-down/96?cb=20190606094359",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Thrilling_Tremors"
+    },
+    {
+        "name": "Tinkerer",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0Whenever a Generator is repaired to 70 %, you benefit from the following effects:\nTriggers a Loud Noise Notification for that Generator, revealing its location.\nGrants the Undetectable Status Effect for the next 12/14/16 seconds.\nTinkerer can only trigger once per Generator per Trial.\n\"The Hillbilly makes impressive tools out of scraps. Tools aimed at maiming us in creative ways.\" — Notebook",
+        "character": "Hillbilly",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d9/IconPerks_tinkerer.png/revision/latest/scale-to-width-down/96?cb=20160605205204",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Tinkerer"
+    },
+    {
+        "name": "Trail of Torment",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.1.0You guide your victims along a path of pain and punishment.\nPerforming the Damage Generator action on a Generator activates Trail of Torment:\nGrants the Undetectable Status Effect until the Generator stops regressing.\nThe Aura of the damaged Generator is revealed to all Survivors in yellow.\n\n\nTrail of Torment has a cool-down of 60/45/30 seconds.",
+        "character": "Executioner",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/IconPerks_trailOfTorment.png/revision/latest/scale-to-width-down/96?cb=20200526201821",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Trail_of_Torment"
+    },
+    {
+        "name": "Ultimate Weapon",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.7.1When they spot you, they know the end is near.\nWhen you open a Locker, all Survivors within 32 metres of the Locker scream and reveal their location to you.\nThis causes them to suffer from the Blindness Status Effect for 30 seconds.\n\nUltimate Weapon has a cool-down of 80/70/60 seconds.\n\"I can't lie to you about your chances, but... you have my sympathies.\" — Ash",
+        "character": "Xenomorph",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8a/IconPerks_ultimateWeapon.png/revision/latest/scale-to-width-down/96?cb=20230808160213",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Ultimate_Weapon"
+    },
+    {
+        "name": "Unbound",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0Pain lingers in the air, an alluring aroma that excites the impulses.\nWhen a Survivor becomes injured by any means, Unbound activates for 24/27/30 seconds:\nGrants a +5 % Haste Status Effect for 10 seconds after vaulting a Window.\nThis effect cannot stack with itself.\n\n\"I heard it. Running. It was getting closer!\" — Anonymous Testimony, 09/09/1979",
+        "character": "Unknown",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/91/IconPerks_unbound.png/revision/latest/scale-to-width-down/96?cb=20240220182527",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Unbound"
+    },
+    {
+        "name": "Undone",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0Hope is the delusion that keeps its victims alive.\nWhenever a Survivor fails a Skill Check while repairing or healing, Undone gains +3 Tokens, up to a maximum of 18/24/30 Tokens.Performing the Damage Generator action on a Generator consumes all accumulated Tokens and applies the following effects:\nInstantly regresses the damaged Generator by -1 % per Token of its total Progression.\nBlocks the damaged Generator  for 1 second per Token.\nCauses the damaged Generator to start regressing once it becomes unblocked.\n\nUndone has a cool-down of 60 seconds.\n\"Erratic behavior in machinery could be related to [REDACTED], further testing required.\" — OSS Report, 12/02/1943",
+        "character": "Unknown",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/11/IconPerks_undone.png/revision/latest/scale-to-width-down/96?cb=20240220182527",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Undone"
+    },
+    {
+        "name": "Unforeseen",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0Terror takes many forms and whispers devastating lies in its victims' ears.\nPerforming the Damage Generator action on a Generator applies Unforeseen for 22/26/30 seconds:\nTransfers your Terror Radius to the damaged Generator and sets its range to 32 metres.\nGrants the Undetectable Status Effect.\n\n\"Mom, if you find this, I'm sorry...\" — Final Journal Entry, 07/12/1991",
+        "character": "Unknown",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0c/IconPerks_unforeseen.png/revision/latest/scale-to-width-down/96?cb=20240220182528",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Unforeseen"
+    },
+    {
+        "name": "Unnerving Presence",
+        "description": "Your presence alone instils great fear.\nSurvivors repairing or healing within your Terror Radius suffer from the following effects:\nIncreases the Trigger odds of Skill Check by 10 %.\nDecreases the Success zone of Skill Checks by 40/50/60 %.\n\"Its presence befalls us.\"",
+        "character": "Trapper",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a4/IconPerks_unnervingPresence.png/revision/latest/scale-to-width-down/96?cb=20160605205217",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Unnerving_Presence"
+    },
+    {
+        "name": "Unrelenting",
+        "description": "You recuperate faster from missed attacks made with your main weapon.\nReduces the Cool-down of missed Basic Attacks by 20/25/30 %.",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/57/IconPerks_unrelenting.png/revision/latest/scale-to-width-down/96?cb=20160605205223",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Unrelenting"
+    },
+    {
+        "name": "Weave Attunement",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.4.0You are so attuned to magical energies that you can sense even minor ripples around enchantments.\nWhenever an Item is depleted for the first time, it is automatically dropped:\nThe Auras of dropped Survivor Items are revealed to you, as well as the Auras of any Survivors within 8 metres of them.\nAffected Survivors see the Aura of that Item as well.\nCauses Survivors picking up a Survivor Item to suffer from the Oblivious Status Effect for 20/25/30 seconds.\n\n\"No number of novelties will protect you from me!\" — Vecna",
+        "character": "Lich",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/de/IconPerks_weaveAttunement.png/revision/latest/scale-to-width-down/96?cb=20240514174206",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Weave_Attunement"
+    },
+    {
+        "name": "Whispers",
+        "description": "You have a rudimentary understanding of The Entity's voice.\nWhenever at least one Survivor is within 48/40/32 metres of your location, you hear the sporadic whispers of the Entity.\n\"It is unclear as to the motivations of The Fog, but it is undeniable that it often takes the beast's side.\" — Unknown, Notebook",
+        "character": "",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/bb/IconPerks_whispers.png/revision/latest/scale-to-width-down/96?cb=20160605205234",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Whispers"
+    },
+    {
+        "name": "Zanshin Tactics",
+        "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.2Unlocks potential in your Aura-reading ability:\nYou are mentally alert and aware of key points on the battlefield and nearby enemies in retreat.\nThe Auras of Pallets and Windows are revealed to you within 32 metres.\nWhenever a Survivor drops a Pallet, their Aura is revealed to you for 3/4/5 seconds.\n\n\"Within your enemy's strength is weakness.\" — Renjiro's Doctrine 12:5",
+        "character": "Oni",
+        "image": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d3/IconPerks_zanshinTactics.png/revision/latest/scale-to-width-down/96?cb=20191126213608",
+        "wikiLink": "https://deadbydaylight.fandom.com/wiki/Zanshin_Tactics"
+    }
+]

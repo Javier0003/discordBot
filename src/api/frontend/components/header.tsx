@@ -65,7 +65,7 @@ const logInStyles = css`
   }
 `
 
-export const Header: FC<{ context?: Context }> = ({ context }) => {
+export const Header: FC<{ context?: Context, children?: unknown }> = ({ context, children }) => {
   return (
     <header class={headerStyles}>
       <h1>
@@ -73,6 +73,8 @@ export const Header: FC<{ context?: Context }> = ({ context }) => {
           LoA
         </a>
       </h1>
+
+      {children}
 
       {!context?.userData ? (
         <div class={logInStyles}>
