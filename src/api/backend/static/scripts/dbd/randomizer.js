@@ -15,7 +15,6 @@ const roleTitle = document.getElementById("radomizerRole");
 let modo = modos.survivor
 
 killerButton.addEventListener("click", async () => {
-    roleTitle.innerText = "Selected role: Killer";
     modo = modos.killer
     if (killerPerks.length > 0) return;
 
@@ -24,10 +23,11 @@ killerButton.addEventListener("click", async () => {
     const perks = await response.json();
 
     killerPerks.push(...perks)
+
+    roleTitle.innerText = `Selected role: Killer, Perks: ${killerPerks.length}`;
 })
 
 survivorButton.addEventListener("click", async () => {
-    roleTitle.innerText = "Selected role: Survivor";
     modo = modos.survivor
     if (survivorPerks.length > 0) return;
 
@@ -36,6 +36,8 @@ survivorButton.addEventListener("click", async () => {
     const perks = await response.json();
 
     survivorPerks.push(...perks)
+
+    roleTitle.innerText = `Selected role: Survivor, Perks: ${survivorPerks.length}`;
 })
 
 const $randomBtn = document.getElementById("randomize");
