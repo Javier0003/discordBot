@@ -2,7 +2,7 @@ import { Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../builders/event-builder'
 import SoTryhard from '../commands/so-tryhard'
 
-const regex = /(\b[qQ]+[uU]*[eE][uUeEqQ]*\b)|(^[¿?]+)|(\b[hH]*[mM]+[hHmM]*[¿?]+\B)|(\b[kK]+[hH]*[eE]*\b)|(\b[wW]+[hH]*[aAoOuUtT]+\b)|(\b[pP]+[oO]+[rR]+[qQkK]+[uUhHeE]*[¿?]\B)+/g
+const regex = /(\b[qQ]+[uU]*[eE][uUeEqQ]*\b)|(^[¿?]+)|(\b[hH]*[mM]+[hHmM]*[¿?]+\B)|(\b[kK]+[hH]*[eE]*\b)|(\b[wW]+[hH]*[aAoOuUtT]+\b)|(\b[pP]+[oO]+[rR]+[qQkK]+[uUhHeE]*[¿?]\B|\b[qQ]+\b)+/g
 
 export default class So extends Event_Builder<'messageCreate'> {
   constructor() {
