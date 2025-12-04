@@ -97,7 +97,7 @@ function renderPerk(perk){
 function createAElement(perk) {
     const $a = document.createElement("a");
     $a.innerText = perk.name;
-    $a.href = perk.wikiLink;
+    $a.href = perk.link;
     $a.target = "_blank";
     $a.style.color = "white";
     const $p = document.createElement("p");
