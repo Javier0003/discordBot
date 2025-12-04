@@ -24,7 +24,8 @@ killerButton.addEventListener("click", async () => {
 
     killerPerks.push(...perks)
 
-    roleTitle.innerText = `Selected role: Killer, Perks: ${killerPerks.length}`;
+    const avaliablePerks = JSON.parse(localStorage.getItem(`${modo}CheckedPerks`)) || [];
+    roleTitle.innerText = `Selected role: Killer, Perks: ${avaliablePerks.length}`;
 })
 
 survivorButton.addEventListener("click", async () => {
@@ -37,7 +38,8 @@ survivorButton.addEventListener("click", async () => {
 
     survivorPerks.push(...perks)
 
-    roleTitle.innerText = `Selected role: Survivor, Perks: ${survivorPerks.length}`;
+    const avaliablePerks = JSON.parse(localStorage.getItem(`${modo}CheckedPerks`)) || [];
+    roleTitle.innerText = `Selected role: Survivor, Perks: ${avaliablePerks.length}`;
 })
 
 const $randomBtn = document.getElementById("randomize");
