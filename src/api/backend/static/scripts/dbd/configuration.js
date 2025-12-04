@@ -1,3 +1,5 @@
+// perk source: https://deadbydaylight.wiki.gg/wiki/Perks
+
 const nextButton = document.getElementById("nextButton");
 const prevButton = document.getElementById("prevButton");
 
