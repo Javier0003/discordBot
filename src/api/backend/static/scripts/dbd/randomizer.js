@@ -110,7 +110,7 @@ function createImgElement(src) {
     const $img = document.createElement("img");
     $img.loading = "lazy";
     $img.decoding = "async";
-    $img.src = `/api/image-proxy?url=${encodeURIComponent(src)}`;
+    $img.src = src;
     $img.style.width = "64px";
     $img.style.height = "64px";
 
