@@ -88,6 +88,7 @@ function createPerkCard(perk, index, start = page * 45) {
     $checkBox.type = "checkbox";
     $checkBox.id = `checklist-item-${index + start}`;
     $checkBox.value = index + start;
+    $checkBox.disabled = true;
 
     if (checkedPerkSets[modo].includes(index + start)) {
         $checkBox.checked = true;
