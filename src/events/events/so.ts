@@ -2,7 +2,10 @@ import { Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../builders/event-builder'
 import SoTryhard from '../commands/so-tryhard'
 
-const regex = /(\b[qQ]+[uU]*[eE][uUeEqQ]*\b)|(^[¿?]+)|(\b[hH]*[mM]+[hHmM]*[¿?]+\B)|(\b[kK]+[hH]*[eE]*\b)|(\b[wW]+[hH]*[aAoOuUtT]+\b)|(\b[pP]+[oO]+[rR]+[qQkK]+[uUhHeE]*[¿?]\B|\b[qQ]+\b)+/
+// Assumes the whole message string, unsplitted
+const regex = /(\b([qQ]+[uU]*[eE][uUeEqQ]*)|^[¿?]+|\b[hH]*[mM]+[hHmM]*[¿?]+|\b[kK]+[hH]*[eE]*|\b[wW]+[hH]*[aAuUtT]+|\b[pP]+[oO]+[rR]+[qQkK]+[uUhHeE]*|\b[qQ]+)[¿?]*$/
+
+const regexTryhard = /(\b[qQ]+[uU]*[eE][uUeEqQ]*\b)|(^[¿?]+)|(\b[hH]*[mM]+[hHmM]*[¿?]+\B)|(\b[kK]+[hH]*[eE]*\b)|(\b[wW]+[hH]*[aAoOuUtT]+\b)|(\b[pP]+[oO]+[rR]+[qQkK]+[uUhHeE]*[¿?]\B|\b[qQ]+\b)+/
 
 export default class So extends Event_Builder<'messageCreate'> {
   constructor() {
@@ -37,9 +40,9 @@ function soNormal(mensaje: string){
 
 function soTryhard(mensaje: string){
   try {
-    const regex2 = /que|[?¿]|^q$|^k$|q$|k$|^k|^q/g
+    // const regex2 = /que|[?¿]|^q$|^k$|q$|k$|^k|^q/g
 
-    const isRegexTrue = regex.test(mensaje) || regex2.test(mensaje)
+    const isRegexTrue = regex.test(mensaje) || regexTryhard.test(mensaje)
     if (isRegexTrue) return 'so'
   } catch (error) {
     console.log(error)
