@@ -26,7 +26,7 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
       const mapId = content.embeds[0].author?.url?.split('/').at(-1)
 
       const token = await getOsuToken()
-      const usersData = await this.userRepository.getAll()
+      const usersData = await this.userRepository.getOsuPlayerList()
 
       const data = await Promise.all(
         usersData.map(async (v) => {
@@ -38,9 +38,11 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
               Authorization: `Bearer ${token}`
             }
           })
+
           return res.json()
         })
       ) as Welcome[]
+
 
       const scores = []
 
