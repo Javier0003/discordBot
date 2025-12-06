@@ -28,9 +28,6 @@ export default class OsuBest extends Event_Builder<'messageCreate'> {
       const token = await getOsuToken()
       const usersData = await this.userRepository.getOsuPlayerList()
 
-      console.log(usersData)
-
-
       const data = await Promise.all(
         usersData.map(async (v) => {
           const res = await fetch(`https://osu.ppy.sh/api/v2/beatmaps/${mapId}/scores/users/${v.osuId}/all`, {
