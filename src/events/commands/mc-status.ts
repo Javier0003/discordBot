@@ -108,8 +108,8 @@ export default class McStatus extends Command {
 
         client.connect(env.mcPortOpener, env.mcIp, () => {
           client.write('Open the server')
+          client.destroy()
         })
-        client.destroy()
 
         await reply.edit({ embeds: [embed], components: [] })
       } else {
