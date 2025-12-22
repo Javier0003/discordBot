@@ -50,4 +50,5 @@ volumes:
 
 networks:
   loa_network:
+    name: loa_network
     driver: bridge
