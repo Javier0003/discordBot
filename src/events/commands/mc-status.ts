@@ -106,8 +106,11 @@ export default class McStatus extends Command {
 
         const client = new Socket()
 
-        client.connect(env.mcPortOpener, env.mcIp, () => {
+        console.log('Request automcserver to open the Minecraft server...')
+
+        client.connect(env.mcPortOpener, 'automcserver', () => {
           client.write('Open the server')
+          console.log('Request sent.')
           client.destroy()
         })
 
