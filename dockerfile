@@ -10,6 +10,4 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm generate
-
 CMD [ "pnpm", "start" ]
