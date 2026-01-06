@@ -113,7 +113,7 @@ export default class McStatus extends Command {
         //   client.destroy()
         // })
 
-        await fetch("/open/cte2", {
+        await fetch(`http://localhost:${env.mcPortOpener}/open/cte2`, {
           method: "POST"
         });
 
