@@ -113,9 +113,18 @@ export default class McStatus extends Command {
         //   client.destroy()
         // })
 
-        await fetch(`http://automcserver:${env.mcPortOpener}/open/cte2`, {
+        const response = await fetch(`http://automcserver:${env.mcPortOpener}/open/cte2`, {
           method: "POST"
         });
+
+        if (response.ok) {
+          await userRes.reply('Se ha enviado la solicitud para abrir el servidor.')
+        } else {
+          await userRes.reply('Hubo un error al solicitar la apertura del servidor.')
+        }
+
+        const res = await response.json();
+        console.log(res)
 
         await reply.edit({ embeds: [embed], components: [] })
       } else {
