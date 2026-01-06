@@ -36,7 +36,6 @@ export default class McStatus extends Command {
       let players = '';
       const serverStatus = await statusJava(`${env.mcIp}`, env.mcPort);
 
-      console.log(serverStatus)
       if (serverStatus.online) {
         if (serverStatus.players!.online > 0) {
           serverStatus.players?.list.map(({ name_raw }) => {
@@ -104,15 +103,19 @@ export default class McStatus extends Command {
 
         if (!userRes) return
 
-        const client = new Socket()
+        // const client = new Socket()
 
-        console.log('Request automcserver to open the Minecraft server...')
+        // console.log('Request automcserver to open the Minecraft server...')
 
-        client.connect(env.mcPortOpener, 'automcserver', () => {
-          client.write('Open the server')
-          console.log('Request sent.')
-          client.destroy()
-        })
+        // client.connect(env.mcPortOpener, 'automcserver', () => {
+        //   client.write('Open the server')
+        //   console.log('Request sent.')
+        //   client.destroy()
+        // })
+
+        await fetch("/open/cte2", {
+          method: "POST"
+        });
 
         await reply.edit({ embeds: [embed], components: [] })
       } else {
