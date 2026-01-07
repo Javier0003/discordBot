@@ -14,8 +14,6 @@ const Home: FC<{ context: Context }> = async ({ context }) => {
     dev = await context.repositories.serverUsersRepository.getById(context.userData.id);
   }
 
-  console.log('dev', dev);
-
   return (
     <Fragment>
       <Header context={context} />
@@ -27,6 +25,10 @@ const Home: FC<{ context: Context }> = async ({ context }) => {
         <Link to="/dbd" className={linkStyles}>
           Dead by Daylight
           <img src="/static/imgs/dbd/dbd-logo.jpg" />
+        </Link>
+        <Link to="/minecraft" className={linkStyles}>
+          Minecraft
+          <img src="/static/imgs/minecraft/minecraft-logo.png" />
         </Link>
 
         {dev && (

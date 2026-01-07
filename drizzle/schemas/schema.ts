@@ -19,6 +19,13 @@ export const plays = pgTable('plays', {
   combo: integer('combo').notNull().default(0),
 })
 
+export const minecraftServers = pgTable('minecraftServers', {
+  idServer: serial('idServer').primaryKey(),
+  ip: varchar('ip').notNull(),
+  port: integer('port').notNull(),
+  name: varchar('name').notNull(),
+})
+
 export const comments = pgTable('comments', {
   commentId: serial('commentId').primaryKey(),
   mapId: integer('mapId').notNull().references(() => mapas.oldMaps),
