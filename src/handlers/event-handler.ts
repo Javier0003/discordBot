@@ -24,6 +24,8 @@ export default class Event_Handler extends LoaSingleton {
       for (const event of events) {
         console.log(`Loading event: ${event}`)
 
+        if(!event.endsWith('.ts') && !event.endsWith('.js')) continue
+
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const Event = require(`${path}/${event}`).default
         const eventInstance: EventConfiguration = new Event(this.loa.repositories)

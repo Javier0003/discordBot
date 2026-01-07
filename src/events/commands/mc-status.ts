@@ -7,7 +7,9 @@ import {
   AttachmentBuilder,
   ChatInputCommandInteraction,
   TextInputBuilder,
-  TextInputStyle
+  TextInputStyle,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder
 } from 'discord.js'
 import Command from '../../builders/command-builder'
 import { RepositoryObj } from '../../repositories/services-registration'
@@ -32,32 +34,35 @@ export default class McStatus extends Command {
 
       const embed = new EmbedBuilder()
         .setTitle('Minecraft Server Status')
-        .setDescription('Esperate un momento')
+        .setDescription('servidores de minecraft registrados')
         .setTimestamp(new Date())
 
       const servers = await this.minecraftServersRepository.getAll();
 
-      let serverString = ""
 
-      for(let i = 0; i < servers.length; i++) {
-        const server = servers[i];
-        serverString += `**${server.name}**\n`;
-      }
+      const options = servers.map(server => {
+        const obj = new StringSelectMenuOptionBuilder()
+          .setLabel(server.name)
+          .setDescription(`Check status of ${server.name}`)
+          .setValue(`${server.idServer}`)
 
-      embed.addFields({ name: 'Servers', value: serverString, inline: true })
+        return obj
+      })
 
-      const button = new ButtonBuilder()
-        .setCustomId('open_mc_modal')
-        .setLabel('Enter server name')
-        .setStyle(ButtonStyle.Primary);
+      const select = new StringSelectMenuBuilder()
+        .setCustomId('my_select')
+        .setPlaceholder('Choose an option')
+        .addOptions(
+          ...options
+        );
 
-      const row = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(button);
+      const rowSelect = new ActionRowBuilder<StringSelectMenuBuilder>()
+        .addComponents(select);
 
 
       await interaction.editReply({
         embeds: [embed],
-        components: [row],
+        components: [rowSelect],
       })
 
     } catch (error) {

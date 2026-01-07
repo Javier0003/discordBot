@@ -1,4 +1,4 @@
-import Event_Builder from '../../builders/event-builder'
+import Event_Builder from '../../../builders/event-builder'
 import { Interaction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } from 'discord.js'
 
 export default class McModal extends Event_Builder<'interactionCreate'> {

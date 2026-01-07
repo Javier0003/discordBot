@@ -1,6 +1,6 @@
-import Event_Builder from '../../builders/event-builder'
+import Event_Builder from '../../../builders/event-builder'
 import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Interaction } from 'discord.js'
-import { RepositoryObj } from '../../repositories/services-registration';
+import { RepositoryObj } from '../../../repositories/services-registration';
 import { statusJava } from 'node-mcstatus';
 
 export default class McserverModalResponseHandler extends Event_Builder<'interactionCreate'> {
