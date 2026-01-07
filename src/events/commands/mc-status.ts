@@ -10,8 +10,6 @@ import {
   TextInputStyle
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { statusJava } from 'node-mcstatus'
-import env from '../../env'
 import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class McStatus extends Command {

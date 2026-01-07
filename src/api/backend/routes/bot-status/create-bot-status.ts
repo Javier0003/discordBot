@@ -15,22 +15,22 @@ export default class CreateBotStatus extends RouteBuilder<Promise<Response> | Re
 
     public async event(c: Context): Promise<Response> {
         try {
-            const body = await c.req.json<{
-                name: string
-                type: number
-                url: string | undefined
-            }>()
+            const body = await c.req.parseBody()
 
-            if (body.name.length > 256 || (body.url && body.url.length > 256) || (body.type < 0 || body.type > 5)) {
+            const message = body.statusMessage as string
+            const type = parseInt(body.type as string)
+            const url = body.url as string | undefined
+
+            if (message.length > 256 || (url && url.length > 256) || (type < 0 || type > 5)) {
                 return c.json({ success: false, message: "Invalid body" }, 400)
             }
 
             await this.botStatusRepository.create({
-                statusMessage: body.name,
-                type: body.type,
-                url: body.url ?? undefined,
+                statusMessage: message,
+                type: type,
+                url: url ?? undefined,
             })
-            return c.json({ success: true, body })
+            return c.redirect('/bot/status')
         } catch (error) {
             console.log(error)
             return c.json({ success: false })

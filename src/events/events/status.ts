@@ -23,7 +23,7 @@ export default class Status extends Event_Builder<'ready'> {
           url: selected?.url ?? undefined,
           type: selected?.type ?? 1,
         })
-      }, 10000)
+      }, 30000)
     } catch (error) {
       console.log(error)
     }
