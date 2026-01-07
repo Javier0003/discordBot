@@ -12,9 +12,6 @@ export default class McserverModalResponseHandler extends Event_Builder<'interac
 
     async event(interaction: Interaction): Promise<void> {
         try {
-            //@ts-expect-error -- discord.js types are broken here ---
-            await interaction.deferReply();
-
             if (!interaction.isModalSubmit()) return;
 
             if (interaction.customId !== 'mcserver_modal') {
