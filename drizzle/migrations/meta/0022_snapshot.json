@@ -1,0 +1,428 @@
+{
+  "id": "bcf9dfa0-107f-4921-9312-aa2900a39189",
+  "prevId": "8bf88a2c-0bc3-4166-a9cb-b74511c462be",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.botStatus": {
+      "name": "botStatus",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "statusMessage": {
+          "name": "statusMessage",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.comments": {
+      "name": "comments",
+      "schema": "",
+      "columns": {
+        "commentId": {
+          "name": "commentId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "mapId": {
+          "name": "mapId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uId": {
+          "name": "uId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "comment": {
+          "name": "comment",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "comments_mapId_mapas_oldMaps_fk": {
+          "name": "comments_mapId_mapas_oldMaps_fk",
+          "tableFrom": "comments",
+          "tableTo": "mapas",
+          "columnsFrom": [
+            "mapId"
+          ],
+          "columnsTo": [
+            "oldMaps"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "comments_uId_users_id_fk": {
+          "name": "comments_uId_users_id_fk",
+          "tableFrom": "comments",
+          "tableTo": "users",
+          "columnsFrom": [
+            "uId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.mapas": {
+      "name": "mapas",
+      "schema": "",
+      "columns": {
+        "oldMaps": {
+          "name": "oldMaps",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "oldMapMods": {
+          "name": "oldMapMods",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "oldMapMinRank": {
+          "name": "oldMapMinRank",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mapName": {
+          "name": "mapName",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "picUrl": {
+          "name": "picUrl",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'/static/osu.svg'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.minecraftServers": {
+      "name": "minecraftServers",
+      "schema": "",
+      "columns": {
+        "idServer": {
+          "name": "idServer",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ip": {
+          "name": "ip",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "port": {
+          "name": "port",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.plays": {
+      "name": "plays",
+      "schema": "",
+      "columns": {
+        "playId": {
+          "name": "playId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "mapId": {
+          "name": "mapId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uId": {
+          "name": "uId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rank": {
+          "name": "rank",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "accuracy": {
+          "name": "accuracy",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "puntos": {
+          "name": "puntos",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "pp": {
+          "name": "pp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "combo": {
+          "name": "combo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "plays_mapId_mapas_oldMaps_fk": {
+          "name": "plays_mapId_mapas_oldMaps_fk",
+          "tableFrom": "plays",
+          "tableTo": "mapas",
+          "columnsFrom": [
+            "mapId"
+          ],
+          "columnsTo": [
+            "oldMaps"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "plays_uId_users_id_fk": {
+          "name": "plays_uId_users_id_fk",
+          "tableFrom": "plays",
+          "tableTo": "users",
+          "columnsFrom": [
+            "uId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.randomReplies": {
+      "name": "randomReplies",
+      "schema": "",
+      "columns": {
+        "idReply": {
+          "name": "idReply",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reply": {
+          "name": "reply",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.serverUsers": {
+      "name": "serverUsers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(256)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "isDev": {
+          "name": "isDev",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "isVCBan": {
+          "name": "isVCBan",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "serverUsers_id_users_id_fk": {
+          "name": "serverUsers_id_users_id_fk",
+          "tableFrom": "serverUsers",
+          "tableTo": "users",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(256)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "refreshToken": {
+          "name": "refreshToken",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_id_users_id_fk": {
+          "name": "session_id_users_id_fk",
+          "tableFrom": "session",
+          "tableTo": "users",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(256)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "osuId": {
+          "name": "osuId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
