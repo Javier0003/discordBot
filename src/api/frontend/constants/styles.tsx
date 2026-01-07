@@ -33,3 +33,39 @@ export const linkStyles = css`
     color: black;
   }
 `
+
+
+
+export const pageContainer = css`
+  min-height: 100vh;
+  background-color: rgb(25, 25, 25);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+`
+
+export const bottomRightAbsoluteContainer = css`
+    position: absolute;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: rgb(35, 35, 35);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    bottom: 16px;
+    right: 16px;
+
+    button {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #666;
+        background-color: #222;
+        color: #ccc;
+        width: 200px;
+        box-sizing: border-box;
+    }
+
+    button:hover {
+        background-color: #333;
+    }
+`

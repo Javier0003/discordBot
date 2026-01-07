@@ -22,9 +22,22 @@ export default class Event_Handler extends LoaSingleton {
       const events = readdirSync(path)
 
       for (const event of events) {
+        console.log(`Loading event: ${event}`)
+
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const Event = require(`${path}/${event}`).default
         const eventInstance: EventConfiguration = new Event(this.loa.repositories)
+
+        if (
+          eventInstance.eventType === 'interactionCreate' &&
+          eventInstance.type === 'once'
+        ) {
+          throw new Error(
+            'interactionCreate events must never be registered with "once"'
+          );
+        }
+
+
         if (!eventInstance.event) return
         this.events.set(eventInstance.name!, {
           event: eventInstance as Event_Builder<typeof eventInstance.eventType>,
@@ -42,6 +55,8 @@ export default class Event_Handler extends LoaSingleton {
     for (const event of this.events.values()) {
       //@ts-expect-error it's the proper type yet it still errors so it's fine since it
       this.loa[event.type](event.event.eventType, async (...args) => {
+        console.log(`[EventManager] Event triggered: ${event.event.name}`)
+
         try {
           await event.event.event(...(args as Parameters<typeof event.event.event>))
         } catch (error) {

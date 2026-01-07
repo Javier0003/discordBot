@@ -17,9 +17,25 @@ export default class BackendRouter {
 
     private routeBuilder() {
         const path = join(__dirname, '../routes')
-        const routes = readdirSync(path).sort((e) => e.startsWith('_') ? -1 : 1)
+        const firstCheck = readdirSync(path)
 
-        for (const filePath of routes) {
+        const folders: string[] = []
+        const routes: string[] = []
+
+        firstCheck.forEach(file => {
+            if(!file.includes('.')) {
+                folders.push(file)
+            } else {
+                routes.push(file)
+            }
+        })
+
+        for (const folder of folders) {
+            routes.push(... this.subFolderPathHandler(`${path}/${folder}`))
+        }
+        const sortedRoutes = routes.sort((e) => e.includes('_') ? -1 : 1)
+
+        for (const filePath of sortedRoutes) {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const route = require(`${path}/${filePath}`).default
 
@@ -35,6 +51,7 @@ export default class BackendRouter {
                 continue
             }
 
+            console.log(`Registering route: [${routeInstance.method.toUpperCase()}] /api${routeInstance.path}`)
             // @ts-expect-error I don't know the type for this
             this.honoApp[routeInstance.method.toLowerCase()](`/api${routeInstance.path}`, async (c: Context) => {
                 c.repositories = this.honoApp.getRepositories()
@@ -61,6 +78,22 @@ export default class BackendRouter {
                 }
             })
         }
+    }
+
+    private subFolderPathHandler(path: string): string[] {
+        const pages = readdirSync(path)
+
+        return pages.reduce<string[]>((acc, page) => {
+            const fullPath = `${path}/${page}`
+
+            if (!page.includes('.')) {
+                acc.push(...this.subFolderPathHandler(fullPath))
+            } else {
+                acc.push(fullPath.replace(join(__dirname, '../routes/') , ''))
+            }
+
+            return acc
+        }, [])
     }
 
     private staticFileHandler() {

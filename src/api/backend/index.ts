@@ -13,8 +13,6 @@ declare module 'hono' {
   }
 }
 
-
-
 class CustomHonoApp extends Hono {
   private repositories: RepositoryObj
   private readonly frontendRouter: FrontendRouter
@@ -36,7 +34,7 @@ class CustomHonoApp extends Hono {
   private init() {
     serve(
       {
-        fetch: this.fetch,
+        fetch: (req) => this.fetch(req),
         port: 42069
       },
       (info) => {

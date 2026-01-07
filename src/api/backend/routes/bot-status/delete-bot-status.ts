@@ -1,6 +1,6 @@
 import { Context } from 'hono'
-import RouteBuilder from '../../builders/route-builder'
-import { RepositoryObj } from '../../../repositories/services-registration'
+import RouteBuilder from '../../../builders/route-builder'
+import { RepositoryObj } from '../../../../repositories/services-registration'
 
 export default class DeleteBotStatus extends RouteBuilder<Promise<Response> | Response> {
     private readonly botStatusRepository: RepositoryObj['botStatusRepository']

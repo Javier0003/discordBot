@@ -11,6 +11,9 @@ const BotPage: FC = async ({ context }) => {
                 <Link to="/bot/status" className={linkStyles}>
                     Bot Status
                 </Link>
+                <Link to="/bot/responses" className={linkStyles}>
+                    Manage Responses
+                </Link>
             </div>
         </Fragment>
     )

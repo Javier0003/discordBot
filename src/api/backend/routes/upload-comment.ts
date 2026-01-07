@@ -14,18 +14,20 @@ export default class UploadComment extends RouteBuilder<Promise<Response> | Resp
 
   public async event(c: Context): Promise<Response> {
     try {
+      const id = c.req.param('id')
       const data = await c.req.formData()
       const comment = data.get('comment') as string
+
       if (!comment) return c.json({ error: 'No comment provided' }, 400)
 
       await this.commentRepository.create({  
-        mapId: Number(c.req.param('id')), 
+        mapId: Number(id), 
         uId: c.userData.id, 
         comment: comment,
         date: new Date().toISOString()
       })
 
-      return c.redirect(`/mapa/${c.req.param('id')}`)
+      return c.redirect(`/mapas/${id}`)
     } catch (error) {
       console.log(error)
     }

@@ -1,9 +1,9 @@
 import { Context, Next } from 'hono'
 import { deleteCookie, getCookie } from 'hono/cookie'
-import { getUserData } from '../../utils/discord'
-import RouteBuilder from '../../builders/route-builder'
-import { RepositoryObj } from '../../../repositories/services-registration'
-import UserRepository from '../../../repositories/user-repository'
+import RouteBuilder from '../../../builders/route-builder'
+import UserRepository from '../../../../repositories/user-repository'
+import { RepositoryObj } from '../../../../repositories/services-registration'
+import { getUserData } from '../../../utils/discord'
 
 export default class Validate extends RouteBuilder<Promise<Response | void>> {
   private readonly userRepository: UserRepository
@@ -16,9 +16,6 @@ export default class Validate extends RouteBuilder<Promise<Response | void>> {
   }
 
   public async event(c: Context, next: Next): Promise<Response | void> {
-
-    const xd = await this.userRepository.getAll()
-
     if (c.req.path === '/api/auth/discord/redirect') return await next()
     if (c.req.path === '/static/osu.svg') return await next()
 

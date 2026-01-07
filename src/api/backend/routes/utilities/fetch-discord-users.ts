@@ -1,7 +1,7 @@
 import { Context, Next } from "hono";
-import RouteBuilder from "../../builders/route-builder";
-import LoaSingleton from "../../../structures/loa-client";
-import { RepositoryObj } from "../../../repositories/services-registration";
+import RouteBuilder from "../../../builders/route-builder";
+import LoaSingleton from "../../../../structures/loa-client";
+import { RepositoryObj } from "../../../../repositories/services-registration";
 
 export default class ImportDiscordUsers extends RouteBuilder<Promise<Response>> {
     private readonly userRepository: RepositoryObj['userRepository'];

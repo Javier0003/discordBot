@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import RouteBuilder from '../../builders/route-builder'
+import RouteBuilder from '../../../builders/route-builder'
 
 export default class ImageProxy extends RouteBuilder<Promise<Response>> {
   constructor() {
@@ -31,7 +31,7 @@ export default class ImageProxy extends RouteBuilder<Promise<Response>> {
       const contentType = res.headers.get('content-type') || 'application/octet-stream'
       const buffer = await res.arrayBuffer()
 
-      return new Response(buffer, {
+      return c.body(buffer, {
         status: 200,
         headers: {
           'Content-Type': contentType,
