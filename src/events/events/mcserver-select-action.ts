@@ -46,7 +46,7 @@ export default class McserverModalResponseHandler extends Event_Builder<'interac
 
 
             const embed = new EmbedBuilder()
-                .setTitle('Minecraft Server Status')
+                .setTitle(`Status of ${server.name}`)
                 .setDescription(
                     serverStatus.online ? serverStatus.motd?.clean ?? 'No MOTD' : 'Server is Offline'
                 )

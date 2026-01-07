@@ -22,9 +22,9 @@ export default class Event_Handler extends LoaSingleton {
       const events = readdirSync(path)
 
       for (const event of events) {
-        console.log(`Loading event: ${event}`)
 
-        if(!event.endsWith('.ts') && !event.endsWith('.js')) continue
+        if (!event.endsWith('.ts') && !event.endsWith('.js')) continue
+        console.log(`Loading event: ${event}`)
 
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const Event = require(`${path}/${event}`).default
