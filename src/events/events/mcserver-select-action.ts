@@ -2,6 +2,7 @@ import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedB
 import Event_Builder from '../../builders/event-builder';
 import { RepositoryObj } from '../../repositories/services-registration';
 import { statusJava } from 'node-mcstatus';
+import env from '../../env';
 
 export default class McserverModalResponseHandler extends Event_Builder<'interactionCreate'> {
     private readonly minecraftServersRepository: RepositoryObj['minecraftServersRepository'];
@@ -105,7 +106,7 @@ export default class McserverModalResponseHandler extends Event_Builder<'interac
 
                 if (!userRes) return
 
-                const response = await fetch(`http://automcserver:${server.port}/open/${server.name}`, {
+                const response = await fetch(`http://automcserver:${env.mcPortOpener}/open/${server.name}`, {
                     method: "POST"
                 });
 
