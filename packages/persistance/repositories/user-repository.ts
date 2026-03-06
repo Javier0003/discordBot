@@ -1,11 +1,12 @@
 import { eq, inArray, ne, not } from "drizzle-orm";
-import { serverUsers, users } from "../../drizzle/schemas/schema";
-import { getSomeUserData } from "../api/utils/discord";
 import GenericRepository from "./generic-repository";
+import { serverUsers, users } from "../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { getSomeUserData } from "@loabot/discord";
 
 export default class UserRepository extends GenericRepository<typeof users> {
-    constructor() {
-        super(users);
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(users, db);
     }
 
     public async getUsersWithDiscordData(userList: typeof users.$inferSelect[]) {

@@ -1,0 +1,38 @@
+{
+  "name": "loabot",
+  "version": "1.0.0",
+  "description": "LoA Bot",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pnpm build && node dist/src/index.js",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "migrate": "tsx ./src/utils/migrator.ts",
+    "generate": "npx drizzle-kit generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "discord.js": "^14.19.3",
+    "dotenv": "16.4.5",
+    "drizzle-orm": "0.32.0",
+    "hono": "^4.6.16",
+    "node-mcstatus": "^1.2.1",
+    "osu-loa-wrapper": "^1.0.3",
+    "postgres": "3.4.4",
+    "@loabot/persistance": "workspace:*"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.9.0",
+    "drizzle-kit": "0.23.0",
+    "eslint": "9.9.0",
+    "globals": "15.9.0",
+    "tsx": "4.16.2",
+    "typescript": "5.5.3",
+    "typescript-eslint": "8.1.0"
+  },
+  "main": "index.js",
+  "packageManager": "pnpm@10.0.0"
+}

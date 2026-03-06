@@ -3,7 +3,6 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { plays, users } from '../../../drizzle/schemas/schema'
 import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class OsuRank extends Command {

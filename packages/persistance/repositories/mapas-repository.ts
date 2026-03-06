@@ -1,10 +1,11 @@
 import { desc, eq, sql } from "drizzle-orm";
-import { mapas, plays } from "../../drizzle/schemas/schema";
 import GenericRepository from "./generic-repository";
+import { mapas, plays } from "../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 export default class MapasRepository extends GenericRepository<typeof mapas> {
-    constructor() {
-        super(mapas);
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(mapas, db);
     }
 
     public async getPagedMapsWithPlays(offset: number, pageSize: number){

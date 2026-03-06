@@ -6,7 +6,7 @@ import CommandHandler from '../handlers/command-handler'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 import Event_Handler from '../handlers/event-handler'
-import { registerRepositories } from '../repositories/services-registration'
+import { registerRepositories } from '@loabot/persistance'
 import CustomHonoApp from '../api/backend'
 
 export default class LoaBot extends Client {
@@ -16,7 +16,7 @@ export default class LoaBot extends Client {
   public readonly eventHandler = new Event_Handler()
   public readonly api: CustomHonoApp
   public readonly db = drizzle(postgres(env.dbUrl));
-  public readonly repositories = registerRepositories();
+  public readonly repositories = registerRepositories(this.db);
 
   constructor() {
     super({

@@ -5,8 +5,8 @@
     "require": ["tsconfig-paths/register"]
   },
   "compilerOptions": {
-    "target": "es2021",
-    "lib": ["es2021"],
+    "target": "es2022",
+    "lib": ["es2022"],
     "module": "Node16",
     "moduleResolution": "Node16",
     "outDir": "./dist",
@@ -19,6 +19,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
   },
-  "include": ["src", "drizzle/schemas/schema.ts"],
+  "include": ["src", "packages/persistance/drizzle/schemas/schema.ts"],
   "exclude": ["node_modules", "dist"]
 }

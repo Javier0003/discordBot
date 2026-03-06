@@ -1,7 +1,7 @@
 import { PgTable } from "drizzle-orm/pg-core";
-import LoaSingleton from "../structures/loa-client";
 import { eq } from "drizzle-orm";
 import { Column } from "drizzle-orm";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 type DataTypeToPrimitive<T extends string> =
     T extends 'string' ? string :
@@ -9,12 +9,14 @@ type DataTypeToPrimitive<T extends string> =
     T extends 'boolean' ? boolean :
     never;
 
-export default abstract class GenericRepository<T extends PgTable> extends LoaSingleton {
+export default abstract class GenericRepository<T extends PgTable> {
     protected readonly entity: T;
     private readonly idColumn: Column;
-    constructor(entity: T) {
-        super();
+    protected readonly db: PostgresJsDatabase<Record<string, never>>
+
+    constructor(entity: T, db: PostgresJsDatabase<Record<string, never>>) {
         this.entity = entity;
+        this.db = db;
 
         const pk = this.getPk();
         if (!pk) {

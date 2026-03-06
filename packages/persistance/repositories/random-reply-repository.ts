@@ -1,9 +1,10 @@
-import { randomReplies } from "../../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { randomReplies } from "../drizzle/schemas/schema";
 import GenericRepository from "./generic-repository";
 
 export default class RandomReplyRepository extends GenericRepository<typeof randomReplies>{
-    constructor(){
-        super(randomReplies)
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(randomReplies, db);
     }
 
 

@@ -1,10 +1,11 @@
 import { eq } from "drizzle-orm";
-import { comments } from "../../drizzle/schemas/schema";
 import GenericRepository from "./generic-repository";
+import { comments } from "../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js/driver";
 
 export default class CommentRepository extends GenericRepository<typeof comments>{
-    constructor() {
-        super(comments);
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(comments, db);
     }
 
 

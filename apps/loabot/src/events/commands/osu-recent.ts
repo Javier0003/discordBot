@@ -6,8 +6,6 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { users } from '../../../drizzle/schemas/schema'
-import { eq } from 'drizzle-orm'
 import getOsuMap from '../../utils/get-osu-map'
 import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, { mods, Score } from '../../utils/osu-daily.config'

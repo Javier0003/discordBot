@@ -1,0 +1,23 @@
+{
+    "name": "@loabot/persistance",
+    "version": "0.1.0",
+    "private": true,
+    "type": "commonjs",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "check-types": "tsc -p tsconfig.json --noEmit"
+    },
+    "dependencies": {
+        "drizzle-orm": "0.32.0",
+        "postgres": "3.4.4",
+        "@loabot/discord": "workspace:*"
+        
+    },
+    "devDependencies": {
+        "@types/node": "^24.5.1",
+        "drizzle-kit": "0.23.0",
+        "typescript": "5.5.3"
+    }
+}

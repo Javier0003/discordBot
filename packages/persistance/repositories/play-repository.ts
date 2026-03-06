@@ -1,10 +1,11 @@
 import { and, asc, eq } from "drizzle-orm";
-import { plays } from "../../drizzle/schemas/schema";
 import GenericRepository from "./generic-repository"
+import { plays } from "../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 export default class PlayRepository extends GenericRepository<typeof plays> {
-    constructor() {
-        super(plays)
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(plays, db);
     }
 
 

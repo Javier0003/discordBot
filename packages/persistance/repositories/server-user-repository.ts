@@ -1,10 +1,11 @@
 import { and, eq } from "drizzle-orm";
-import { serverUsers } from "../../drizzle/schemas/schema";
 import GenericRepository from "./generic-repository";
+import { serverUsers } from "../drizzle/schemas/schema";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 export default class ServerUserRepository extends GenericRepository<typeof serverUsers>{
-    constructor() {
-        super(serverUsers)
+    constructor(db: PostgresJsDatabase<Record<string, never>>) {
+        super(serverUsers, db);
     }
 
     public async isUserBanned(userId: string){
