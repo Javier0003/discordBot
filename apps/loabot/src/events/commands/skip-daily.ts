@@ -7,8 +7,8 @@ import {
 } from 'discord.js'
 import Command from '../../builders/command-builder'
 import MapasOsu, { generateDifficulty, getMapaRandom, getRandomDifficulty } from '../events/daily-map'
-import { RepositoryObj } from '../../repositories/services-registration'
 import { DailyMap, mods } from '../../utils/osu-daily.config'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class skipDaily extends Command {
   private readonly mapasRepository: RepositoryObj['mapasRepository']

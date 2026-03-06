@@ -11,7 +11,7 @@ import getOsuRecent from '../../utils/osu-recent'
 import osuConfig, { mods, Score } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
 import OsuDaily from './osu-daily'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class osuRecent extends Command {
   private readonly userRepository: RepositoryObj['userRepository']

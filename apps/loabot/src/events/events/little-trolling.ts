@@ -1,7 +1,7 @@
 import { Message, OmitPartialGroupDMChannel } from 'discord.js'
 import Event_Builder from '../../builders/event-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
-import RandomReplyRepository from '../../repositories/random-reply-repository'
+import RandomReplyRepository from '@loabot/persistance/dist/repositories/random-reply-repository'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class Troll extends Event_Builder<'messageCreate'> {
   private static howManyToTrigger = 0

@@ -10,8 +10,6 @@ const BotStatusPage: FC<{ context: Context }> = async ({ context }) => {
 
     const status = await botStatusRepository.getPaged(1, 10);
 
-
-
     return (
         <Fragment>
             <Header context={context} />

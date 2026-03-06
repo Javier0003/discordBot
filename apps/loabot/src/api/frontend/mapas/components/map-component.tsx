@@ -1,6 +1,6 @@
+import { Mapas } from '@loabot/persistance/dist/drizzle/schemas/schema'
 import { css } from 'hono/css'
 import { FC } from 'hono/jsx'
-import { Mapas } from '../../../../../drizzle/schemas/schema'
 
 const mapStyle = css`
   width: fit-content;

@@ -1,9 +1,9 @@
 import { Context } from 'hono'
 import { setCookie } from 'hono/cookie'
 import RouteBuilder from '../../../builders/route-builder'
-import SessionRepository from '../../../../repositories/session-repository'
-import { RepositoryObj } from '../../../../repositories/services-registration'
 import { checkGuild, createToken, getUserData } from '../../../utils/discord'
+import { RepositoryObj } from '@loabot/persistance'
+import SessionRepository from '@loabot/persistance/dist/repositories/session-repository'
 
 export default class auth extends RouteBuilder<Promise<Response> | Response> {
   private readonly sessionRepository: SessionRepository

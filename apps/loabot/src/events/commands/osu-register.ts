@@ -6,7 +6,7 @@ import {
 import Command from '../../builders/command-builder'
 import getOsuToken from '../../utils/osu-token'
 import OptionBuilder from '../../builders/option-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 const options = new OptionBuilder()
   .addStringOption({ description: 'Pon tu id de osu!', name: 'id' })

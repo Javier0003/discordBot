@@ -1,6 +1,6 @@
+import { RepositoryObj } from '@loabot/persistance'
 import Event_Builder from '../../builders/event-builder'
 import LoaSingleton from '../../structures/loa-client'
-import { RepositoryObj } from '../../repositories/services-registration'
 
 export default class Status extends Event_Builder<'ready'> {
   private readonly botStatusRepository: RepositoryObj['botStatusRepository']

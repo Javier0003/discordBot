@@ -5,9 +5,9 @@ import {
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
 import OsuDaily from './osu-daily'
-import { RepositoryObj } from '../../repositories/services-registration'
-import UserRepository from '../../repositories/user-repository'
-import PlayRepository from '../../repositories/play-repository'
+import UserRepository from '@loabot/persistance/dist/repositories/user-repository'
+import PlayRepository from '@loabot/persistance/dist/repositories/play-repository'
+import { RepositoryObj } from '@loabot/persistance'
 
 const options = new OptionBuilder()
   .addUserOption({

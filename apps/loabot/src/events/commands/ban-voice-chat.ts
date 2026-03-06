@@ -1,9 +1,9 @@
 import { CacheType, ChatInputCommandInteraction, MessageFlags } from 'discord.js'
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
-import ServerUserRepository from '../../repositories/server-user-repository'
-import UserRepository from '../../repositories/user-repository'
+import UserRepository from '@loabot/persistance/dist/repositories/user-repository'
+import ServerUserRepository from '@loabot/persistance/dist/repositories/server-user-repository'
+import { RepositoryObj } from '@loabot/persistance'
 
 const options = new OptionBuilder()
   .addUserOption({ description: 'User to ban', name: 'user', required: true })

@@ -3,7 +3,7 @@ import Event_Builder from '../../builders/event-builder'
 import getOsuToken from '../../utils/osu-token'
 import { Welcome } from '../../utils/osu-daily.config'
 import OsuDaily from '../commands/osu-daily'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class OsuBest extends Event_Builder<'messageCreate'> {
   private readonly userRepository: RepositoryObj['userRepository']

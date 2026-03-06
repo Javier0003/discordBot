@@ -13,7 +13,7 @@ import osuConfig, {
   Score
 } from '../../utils/osu-daily.config'
 import getOsuToken from '../../utils/osu-token'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class OsuDaily extends Command {
   private readonly userRepository: RepositoryObj['userRepository']

@@ -5,7 +5,7 @@
   "description": "LoA Bot monorepo",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "dotenv turbo run dev --parallel",
     "start": "turbo run start",
     "check-types": "turbo run check-types",
     "migrate": "pnpm --filter loabot migrate",
@@ -17,5 +17,8 @@
   "devDependencies": {
     "turbo": "^2.8.13"
   },
-  "packageManager": "pnpm@10.0.0"
+  "packageManager": "pnpm@10.0.0",
+  "dependencies": {
+    "dotenv-cli": "^11.0.0"
+  }
 }

@@ -1,8 +1,8 @@
 import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Interaction } from 'discord.js'
 import Event_Builder from '../../builders/event-builder';
-import { RepositoryObj } from '../../repositories/services-registration';
 import { statusJava } from 'node-mcstatus';
 import env from '../../env';
+import { RepositoryObj } from '@loabot/persistance';
 
 export default class McserverModalResponseHandler extends Event_Builder<'interactionCreate'> {
     private readonly minecraftServersRepository: RepositoryObj['minecraftServersRepository'];

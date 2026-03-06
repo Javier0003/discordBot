@@ -15,13 +15,11 @@ export default class FrontendRouter {
 
     private getLayout(path: string, pages: string[]) {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
             const Layout = require(`${path}/${pages.filter((page) =>
                 page.startsWith('Layout')
             )}`).default
 
             return Layout
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {
             return null
         }
@@ -31,11 +29,9 @@ export default class FrontendRouter {
         const path = join(__dirname, '../../frontend')
         const pages = readdirSync(path)
 
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const HomePage = require(`${path}/${pages.filter((page) =>
             page.startsWith('page')
         )}`).default
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const Layout = require(`${path}/${pages.filter((page) =>
             page.startsWith('Layout')
         )}`).default

@@ -6,7 +6,7 @@ import osuConfig, {
   mods,
   OsuRanks,
 } from '../../utils/osu-daily.config'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export function generateDifficulty() {
   const mods: mods[] = []

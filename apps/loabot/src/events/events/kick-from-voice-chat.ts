@@ -1,6 +1,6 @@
 import { VoiceState } from 'discord.js'
 import Event_Builder from '../../builders/event-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class KickFromVoiceChat extends Event_Builder<'voiceStateUpdate'> {
   private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']

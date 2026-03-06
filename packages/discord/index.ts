@@ -1,4 +1,4 @@
-import { BOT_TOKEN } from "./env";
+import { BOT_TOKEN } from "./utils/env";
 
 
 export async function getSomeUserData(id: string) {

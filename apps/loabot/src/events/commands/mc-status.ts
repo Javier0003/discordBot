@@ -12,7 +12,7 @@ import {
   StringSelectMenuOptionBuilder
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance';
 
 export default class McStatus extends Command {
   private readonly minecraftServersRepository: RepositoryObj['minecraftServersRepository'];

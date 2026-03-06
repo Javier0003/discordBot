@@ -3,7 +3,7 @@ import {
   ChatInputCommandInteraction,
 } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class OsuRank extends Command {
   private readonly userRepository: RepositoryObj['userRepository']

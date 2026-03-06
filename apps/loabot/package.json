@@ -1,6 +1,7 @@
 {
   "name": "loabot",
   "version": "1.0.0",
+  "main": "index.js",
   "description": "LoA Bot",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,6 +26,7 @@
     "@loabot/persistance": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^24.5.1",
     "@eslint/js": "9.9.0",
     "drizzle-kit": "0.23.0",
     "eslint": "9.9.0",
@@ -33,6 +35,5 @@
     "typescript": "5.5.3",
     "typescript-eslint": "8.1.0"
   },
-  "main": "index.js",
   "packageManager": "pnpm@10.0.0"
 }

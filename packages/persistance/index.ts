@@ -8,6 +8,7 @@ import RandomReplyRepository from "./repositories/random-reply-repository";
 import ServerUserRepository from "./repositories/server-user-repository";
 import SessionRepository from "./repositories/session-repository";
 import UserRepository from "./repositories/user-repository";
+import { runMigration } from "./utils/migrator";
 
 export type RepositoryObj = {
     userRepository: UserRepository;
@@ -22,6 +23,9 @@ export type RepositoryObj = {
 }
 
 export function registerRepositories(db: PostgresJsDatabase<Record<string, never>>): RepositoryObj {
+  runMigration()
+
+
   return {
     userRepository: new UserRepository(db),
     mapasRepository: new MapasRepository(db),

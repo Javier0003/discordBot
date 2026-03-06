@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "types": ["node"]
+  },
+  "include": ["src", "drizzle/schemas/schema.ts"],
+  "exclude": ["node_modules", "dist"]
+}

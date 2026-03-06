@@ -1,8 +1,8 @@
 import { ActionRowBuilder, CacheType, ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
 import Command from '../../builders/command-builder'
 import OptionBuilder from '../../builders/option-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
-import UserRepository from '../../repositories/user-repository'
+import UserRepository from '@loabot/persistance/dist/repositories/user-repository'
+import { RepositoryObj } from '@loabot/persistance'
 
 const options = new OptionBuilder().build()
 export default class TestCommand extends Command<typeof options> {

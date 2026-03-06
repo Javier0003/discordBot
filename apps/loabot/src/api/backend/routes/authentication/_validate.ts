@@ -1,9 +1,9 @@
 import { Context, Next } from 'hono'
 import { deleteCookie, getCookie } from 'hono/cookie'
 import RouteBuilder from '../../../builders/route-builder'
-import UserRepository from '../../../../repositories/user-repository'
-import { RepositoryObj } from '../../../../repositories/services-registration'
 import { getUserData } from '../../../utils/discord'
+import UserRepository from '@loabot/persistance/dist/repositories/user-repository'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class Validate extends RouteBuilder<Promise<Response | void>> {
   private readonly userRepository: UserRepository

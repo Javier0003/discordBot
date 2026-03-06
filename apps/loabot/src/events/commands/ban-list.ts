@@ -1,6 +1,6 @@
 import { CacheType, ChatInputCommandInteraction } from 'discord.js'
 import Command from '../../builders/command-builder'
-import { RepositoryObj } from '../../repositories/services-registration'
+import { RepositoryObj } from '@loabot/persistance'
 
 export default class BanList extends Command {
   private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']

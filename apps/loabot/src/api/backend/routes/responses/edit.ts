@@ -1,6 +1,6 @@
 import { Context, Next } from "hono";
 import RouteBuilder from "../../../builders/route-builder";
-import { RepositoryObj } from "../../../../repositories/services-registration";
+import { RepositoryObj } from "@loabot/persistance";
 
 export default class EditBotResponse extends RouteBuilder<Promise<Response>> {
     private readonly randomReplyRepository: RepositoryObj["randomReplyRepository"];
