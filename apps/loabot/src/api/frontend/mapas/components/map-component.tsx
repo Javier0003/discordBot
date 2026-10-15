@@ -1,6 +1,6 @@
-import { Mapas } from '@loabot/persistance/dist/drizzle/schemas/schema'
-import { css } from 'hono/css'
-import { FC } from 'hono/jsx'
+import { Mapas } from "@loabot/persistance/dist/drizzle/schemas/schema";
+import { css } from "hono/css";
+import { FC } from "hono/jsx";
 
 const mapStyle = css`
   width: fit-content;
@@ -13,8 +13,8 @@ const mapStyle = css`
   height: fit-content;
   display: flex;
   flex-direction: row;
-  gap: 20px
-`
+  gap: 20px;
+`;
 
 const buttonDateStyles = css`
   display: flex;
@@ -36,18 +36,18 @@ const buttonDateStyles = css`
   button:hover {
     background-color: #e0e0e0;
   }
-`
+`;
 
 const mapDataStyles = css`
   display: flex;
   flex-direction: column;
   gap: 4px;
-`
+`;
 
 type MapasWithPlays = {
-  playCount: string
-  mapas: Mapas
-}
+  playCount: string;
+  mapas: Mapas;
+};
 
 export const MapComponent: FC<MapasWithPlays> = (map) => (
   <form action={`/mapas/${map.mapas.oldMaps}`} method="get" class={mapStyle}>
@@ -64,4 +64,4 @@ export const MapComponent: FC<MapasWithPlays> = (map) => (
       </div>
     </div>
   </form>
-)
+);

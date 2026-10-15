@@ -92,12 +92,8 @@
           "name": "plays_mapId_mapas_oldMaps_fk",
           "tableFrom": "plays",
           "tableTo": "mapas",
-          "columnsFrom": [
-            "mapId"
-          ],
-          "columnsTo": [
-            "oldMaps"
-          ],
+          "columnsFrom": ["mapId"],
+          "columnsTo": ["oldMaps"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -105,12 +101,8 @@
           "name": "plays_uid_users_id_fk",
           "tableFrom": "plays",
           "tableTo": "users",
-          "columnsFrom": [
-            "uid"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["uid"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

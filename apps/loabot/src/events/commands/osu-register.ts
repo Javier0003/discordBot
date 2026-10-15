@@ -1,97 +1,87 @@
-import {
-  CacheType,
-  ChatInputCommandInteraction,
-  MessageFlags,
-} from 'discord.js'
-import Command from '../../builders/command-builder'
-import getOsuToken from '../../utils/osu-token'
-import OptionBuilder from '../../builders/option-builder'
-import { RepositoryObj } from '@loabot/persistance'
+import { CacheType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
+import Command from "../../builders/command-builder";
+import getOsuToken from "../../utils/osu-token";
+import OptionBuilder from "../../builders/option-builder";
+import { RepositoryObj } from "@loabot/persistance";
 
 const options = new OptionBuilder()
-  .addStringOption({ description: 'Pon tu id de osu!', name: 'id' })
-  .addStringOption({ description: 'Pon tu nombre de osu!', name: 'name' })
-  .build()
+  .addStringOption({ description: "Pon tu id de osu!", name: "id" })
+  .addStringOption({ description: "Pon tu nombre de osu!", name: "name" })
+  .build();
 
 export default class OsuRegister extends Command<typeof options> {
-  private readonly userRepository: RepositoryObj['userRepository']
-  private readonly serverUsersRepository: RepositoryObj['serverUsersRepository']
-  
-  constructor({userRepository, serverUsersRepository}: RepositoryObj) {
+  private readonly userRepository: RepositoryObj["userRepository"];
+  private readonly serverUsersRepository: RepositoryObj["serverUsersRepository"];
+
+  constructor({ userRepository, serverUsersRepository }: RepositoryObj) {
     super({
-      name: 'osu-register',
-      description: 'osu!',
+      name: "osu-register",
+      description: "osu!",
       options: options,
       notUpdated: true,
-    })
-    
-    this.userRepository = userRepository
-    this.serverUsersRepository = serverUsersRepository
+    });
+
+    this.userRepository = userRepository;
+    this.serverUsersRepository = serverUsersRepository;
   }
 
-  public async command(
-    interaction: ChatInputCommandInteraction<CacheType>
-  ): Promise<void> {
+  public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
     try {
       this.reply = await interaction.reply({
-        content: 'Espera un segundo',
-        flags: MessageFlags.Ephemeral
-      })
+        content: "Espera un segundo",
+        flags: MessageFlags.Ephemeral,
+      });
 
-      if (interaction.options.data.length === 0)
-        throw new Error('No data inserted')
+      if (interaction.options.data.length === 0) throw new Error("No data inserted");
 
-      const insertedData = interaction.options.data[0]
+      const insertedData = interaction.options.data[0];
 
-      if (!insertedData) throw new Error('No data inserted')
+      if (!insertedData) throw new Error("No data inserted");
 
-      if (insertedData.name === 'id') {
-        if(!interaction.user.globalName) return
+      if (insertedData.name === "id") {
+        if (!interaction.user.globalName) return;
 
         await this.userRepository.create({
           id: interaction.user.id,
           name: interaction.user.globalName,
           osuId: Number(interaction.options.data[0].value),
-        })
+        });
       }
 
-      if (insertedData.name === 'name') {
-        const token = await getOsuToken()
-        const res = await fetch(
-          `https://osu.ppy.sh/api/v2/users/@${insertedData.value}/osu`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        const osuName = (await res.json()) as { username: string; id: string }
+      if (insertedData.name === "name") {
+        const token = await getOsuToken();
+        const res = await fetch(`https://osu.ppy.sh/api/v2/users/@${insertedData.value}/osu`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const osuName = (await res.json()) as { username: string; id: string };
 
         await this.userRepository.create({
           id: interaction.user.id,
           name: osuName.username,
           osuId: Number(osuName.id),
-        })
+        });
 
-        await this.serverUsersRepository.create({ idServerUser: interaction.user.id })
+        await this.serverUsersRepository.create({ idServerUser: interaction.user.id });
       }
 
       this.reply = await this.reply.edit({
         content: `Usuario registrado: ${interaction.user.globalName}`,
-      })
+      });
     } catch (error: Error | unknown) {
-      if (error instanceof Error && error.message === 'No data inserted') {
+      if (error instanceof Error && error.message === "No data inserted") {
         if (this.reply) {
           this.reply = await this.reply.edit({
-            content: 'No has insertado ningun dato',
-          })
+            content: "No has insertado ningun dato",
+          });
         }
       }
 
       if (this.reply) {
-        this.reply = await this.reply.edit({ content: 'ya estas registrado' })
+        this.reply = await this.reply.edit({ content: "ya estas registrado" });
       }
     }
   }

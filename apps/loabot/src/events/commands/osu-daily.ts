@@ -1,91 +1,77 @@
-import {
-  CacheType,
-  ChatInputCommandInteraction,
-} from 'discord.js'
-import Command from '../../builders/command-builder'
-import MapasOsu from '../events/daily-map'
-import getOsuMap from '../../utils/get-osu-map'
-import getOsuRecent from '../../utils/osu-recent'
-import osuConfig, {
-  DailyMap,
-  dailyPlays,
-  OsuRanks,
-  Score
-} from '../../utils/osu-daily.config'
-import getOsuToken from '../../utils/osu-token'
-import { RepositoryObj } from '@loabot/persistance'
+import { CacheType, ChatInputCommandInteraction } from "discord.js";
+import Command from "../../builders/command-builder";
+import MapasOsu from "../events/daily-map";
+import getOsuMap from "../../utils/get-osu-map";
+import getOsuRecent from "../../utils/osu-recent";
+import osuConfig, { DailyMap, dailyPlays, OsuRanks, Score } from "../../utils/osu-daily.config";
+import getOsuToken from "../../utils/osu-token";
+import { RepositoryObj } from "@loabot/persistance";
 
 export default class OsuDaily extends Command {
-  private readonly userRepository: RepositoryObj['userRepository']
-  private readonly playRepository: RepositoryObj['playRepository']
+  private readonly userRepository: RepositoryObj["userRepository"];
+  private readonly playRepository: RepositoryObj["playRepository"];
   constructor({ userRepository, playRepository }: RepositoryObj) {
     super({
-      name: 'osu-daily',
-      description: 'osu!',
-      notUpdated: true
-    })
+      name: "osu-daily",
+      description: "osu!",
+      notUpdated: true,
+    });
 
-    this.playRepository = playRepository
-    this.userRepository = userRepository
+    this.playRepository = playRepository;
+    this.userRepository = userRepository;
   }
-  public async command(
-    interaction: ChatInputCommandInteraction<CacheType>
-  ): Promise<void> {
-    this.embed = this.embed.setTitle('osu! Daily map').setDescription('Espera un momento')
+  public async command(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
+    this.embed = this.embed.setTitle("osu! Daily map").setDescription("Espera un momento");
 
-    this.reply = await interaction.reply({ embeds: [this.embed] })
+    this.reply = await interaction.reply({ embeds: [this.embed] });
     try {
-      const token = await getOsuToken()
+      const token = await getOsuToken();
 
-      const user = await this.userRepository.getById(interaction.user.id)
+      const user = await this.userRepository.getById(interaction.user.id);
 
+      if (!user) throw new Error("No estas registrado");
 
-      if (!user) throw new Error('No estas registrado')
-
-      const dailyMap = MapasOsu.dailyMap
-      const daily = await getOsuMap(dailyMap.id, token)
-      const userPlays = await getOsuRecent(user.osuId, token)
+      const dailyMap = MapasOsu.dailyMap;
+      const daily = await getOsuMap(dailyMap.id, token);
+      const userPlays = await getOsuRecent(user.osuId, token);
       const userPlay = userPlays.find(
-        (play: { beatmap: { id: number } }) => play.beatmap.id === dailyMap.id
-      )
+        (play: { beatmap: { id: number } }) => play.beatmap.id === dailyMap.id,
+      );
 
-      const mods = dailyMap.mods.join(' ') || 'nomod'
+      const mods = dailyMap.mods.join(" ") || "nomod";
 
       this.embed = this.embed
         .setThumbnail(daily.beatmapset.covers.list)
         .setURL(daily.url)
         .setTitle(daily.beatmapset.title)
-        .setColor('Random')
+        .setColor("Random")
         .setDescription(
-          `Difficulty: ${daily.difficulty_rating.toFixed(2)} ★\n${daily.beatmapset.artist} - ${daily.beatmapset.title} [${daily.version}] \n Max Combo: ${daily.max_combo}`
+          `Difficulty: ${daily.difficulty_rating.toFixed(2)} ★\n${daily.beatmapset.artist} - ${daily.beatmapset.title} [${daily.version}] \n Max Combo: ${daily.max_combo}`,
         )
-        .addFields(
-          { name: 'Mods', value: mods },
-          { name: 'Min Rank', value: dailyMap.minRank }
-        )
+        .addFields({ name: "Mods", value: mods }, { name: "Min Rank", value: dailyMap.minRank });
 
-      this.reply = await this.reply.edit({ embeds: [this.embed] })
+      this.reply = await this.reply.edit({ embeds: [this.embed] });
 
       if (userPlay) {
         this.embed = this.embed.addFields({
-          name: 'Tu ultima jugada',
-          value: `Score: ${userPlay.score}\nCombo: ${userPlay?.max_combo
-            }\nRank: ${userPlay?.rank} \n Accuracy: ${OsuDaily.accuracy(
-              userPlay.accuracy
-            )}\n Mods: ${userPlay.mods.join(' ')} `
-        })
+          name: "Tu ultima jugada",
+          value: `Score: ${userPlay.score}\nCombo: ${
+            userPlay?.max_combo
+          }\nRank: ${userPlay?.rank} \n Accuracy: ${OsuDaily.accuracy(
+            userPlay.accuracy,
+          )}\n Mods: ${userPlay.mods.join(" ")} `,
+        });
 
         if (
           (this.validateRank(dailyMap.minRank, userPlay.rank) &&
             OsuDaily.validateMods(dailyMap, userPlay)) ||
-          (this.validateRank(dailyMap.minRank, userPlay.rank) &&
-            dailyMap.mods.length === 0)
+          (this.validateRank(dailyMap.minRank, userPlay.rank) && dailyMap.mods.length === 0)
         ) {
-          const scoredPoints = this.getPoints(userPlay, dailyMap)
+          const scoredPoints = this.getPoints(userPlay, dailyMap);
           this.embed = this.embed.addFields({
-            name: 'GG',
-            value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`
-          })
+            name: "GG",
+            value: `Has hecho el daily \nHas ganado ${scoredPoints} puntos`,
+          });
           await this.addPlay({
             mapId: dailyMap.id,
             uid: user.id,
@@ -94,99 +80,91 @@ export default class OsuDaily extends Command {
             accuracy: userPlay.accuracy,
             points: scoredPoints,
             pp: Math.ceil(userPlay.pp || 0),
-            combo: userPlay.max_combo
-          })
+            combo: userPlay.max_combo,
+          });
         }
-        this.reply = await this.reply.edit({ embeds: [this.embed] })
+        this.reply = await this.reply.edit({ embeds: [this.embed] });
       }
     } catch (error: Error | unknown) {
-      if (error instanceof Error && error.message === 'No estas registrado') {
+      if (error instanceof Error && error.message === "No estas registrado") {
         this.reply = await this.reply.edit({
-          content: 'No estas registrado',
-          embeds: []
-        })
+          content: "No estas registrado",
+          embeds: [],
+        });
       } else {
-        console.log(error)
+        console.log(error);
       }
     }
   }
 
   public static validateMods(dailyMap: DailyMap, userPlay: Score) {
-    const modBan = osuConfig.modBansWhenNotAskedFor
+    const modBan = osuConfig.modBansWhenNotAskedFor;
 
-    if (
-      modBan.some(
-        (mod) => !dailyMap.mods.includes(mod) && userPlay.mods.includes(mod)
-      )
-    ) {
-      return false
+    if (modBan.some((mod) => !dailyMap.mods.includes(mod) && userPlay.mods.includes(mod))) {
+      return false;
     }
 
     if (dailyMap.mods.every((mod) => userPlay.mods.includes(mod))) {
-      return true
+      return true;
     }
   }
 
   private getPoints(rank: Score, requiredRank: DailyMap): number {
-    let score = osuConfig.points.completePoints
-    let rankFixer = '' as OsuRanks
+    let score = osuConfig.points.completePoints;
+    let rankFixer = "" as OsuRanks;
 
     switch (rank.rank) {
-      case 'XH':
-        rankFixer = 'SS'
-        break
-      case 'X':
-        rankFixer = 'SS'
-        break
+      case "XH":
+        rankFixer = "SS";
+        break;
+      case "X":
+        rankFixer = "SS";
+        break;
       default:
-        rankFixer = rank.rank
-        break
+        rankFixer = rank.rank;
+        break;
     }
 
-    if (!rank.mods.includes('NF') && requiredRank.mods.includes('NF'))
-      score += osuConfig.points.noNFwhenNF
-    if (rank.mods.includes('FL')) score += osuConfig.points.FLPlay
+    if (!rank.mods.includes("NF") && requiredRank.mods.includes("NF"))
+      score += osuConfig.points.noNFwhenNF;
+    if (rank.mods.includes("FL")) score += osuConfig.points.FLPlay;
 
-    if (rankFixer === requiredRank.minRank) return score
+    if (rankFixer === requiredRank.minRank) return score;
 
-    const rankIndex = osuConfig.ranks.indexOf(rankFixer)
-    const requiredIndex = osuConfig.ranks.indexOf(requiredRank.minRank)
-    score +=
-      (rankIndex - requiredIndex) *
-      osuConfig.points.multiplierForBetterRankThanAsked
+    const rankIndex = osuConfig.ranks.indexOf(rankFixer);
+    const requiredIndex = osuConfig.ranks.indexOf(requiredRank.minRank);
+    score += (rankIndex - requiredIndex) * osuConfig.points.multiplierForBetterRankThanAsked;
 
-    return score
+    return score;
   }
 
   public validateRank(requiredRank: OsuRanks, rank: OsuRanks): boolean {
     let actualRank: OsuRanks;
 
-    if (rank === 'XH') actualRank = 'SS'
-    else if (rank === 'X') actualRank = 'SS'
-    else actualRank = rank
+    if (rank === "XH") actualRank = "SS";
+    else if (rank === "X") actualRank = "SS";
+    else actualRank = rank;
 
-    const requiredIndex = osuConfig.ranks.indexOf(requiredRank)
-    const rankIndex = osuConfig.ranks.indexOf(actualRank)
+    const requiredIndex = osuConfig.ranks.indexOf(requiredRank);
+    const rankIndex = osuConfig.ranks.indexOf(actualRank);
 
-
-    return requiredIndex <= rankIndex
+    return requiredIndex <= rankIndex;
   }
   public async addPlay(play: dailyPlays) {
-    const playInDb = await this.playRepository.getUserPlay(play.uid, play.mapId)
+    const playInDb = await this.playRepository.getUserPlay(play.uid, play.mapId);
 
     if (playInDb) {
       if (playInDb.score < play.score) {
         await this.playRepository.updateUserPlay(play.uid, play.mapId, {
           accuracy: play.accuracy.toString(),
-            rank: play.rank,
-            score: play.score,
-            puntos: play.points,
-            pp: play.pp,
-            combo: play.combo
-        })
-
+          rank: play.rank,
+          score: play.score,
+          puntos: play.points,
+          pp: play.pp,
+          combo: play.combo,
+        });
       }
-      return
+      return;
     } else {
       await this.playRepository.create({
         accuracy: play.accuracy.toString(),
@@ -196,20 +174,20 @@ export default class OsuDaily extends Command {
         uId: play.uid,
         puntos: play.points,
         pp: play.pp,
-        combo: play.combo
-      })
+        combo: play.combo,
+      });
     }
   }
 
   public static accuracy(input: number): string {
-    if (input === 1) return '100'
-    const numberString = input.toString().split('.').pop()
+    if (input === 1) return "100";
+    const numberString = input.toString().split(".").pop();
 
-    if (!numberString) return '0'
+    if (!numberString) return "0";
 
-    const integerPart = numberString.slice(0, 2)
-    const decimalPart = numberString.slice(2, 4)
+    const integerPart = numberString.slice(0, 2);
+    const decimalPart = numberString.slice(2, 4);
 
-    return `${integerPart},${decimalPart}`
+    return `${integerPart},${decimalPart}`;
   }
 }

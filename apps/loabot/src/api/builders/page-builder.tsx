@@ -1,31 +1,27 @@
-import { FC } from 'hono/jsx'
-import { Context } from 'hono'
-import RouteBuilder from './route-builder'
+import { FC } from "hono/jsx";
+import { Context } from "hono";
+import RouteBuilder from "./route-builder";
 
 export default class Page extends RouteBuilder<Promise<Response> | Response> {
-  static LayoutDefault: FC
-  HomePage: FC
-  Layout: FC
+  static LayoutDefault: FC;
+  HomePage: FC;
+  Layout: FC;
 
-  constructor(
-    HomePage: FC,
-    path: string,
-    LayoutCustom: FC = Page.LayoutDefault
-  ) {
+  constructor(HomePage: FC, path: string, LayoutCustom: FC = Page.LayoutDefault) {
     super({
       path: `/${path}`,
-      method: 'get'
-    })
+      method: "get",
+    });
 
-    this.Layout = LayoutCustom
-    this.HomePage = HomePage
+    this.Layout = LayoutCustom;
+    this.HomePage = HomePage;
   }
 
   public event(c: Context): Promise<Response> | Response {
     return c.html(
       <this.Layout>
-        <this.HomePage context={c}/>
-      </this.Layout>
-    )
+        <this.HomePage context={c} />
+      </this.Layout>,
+    );
   }
 }

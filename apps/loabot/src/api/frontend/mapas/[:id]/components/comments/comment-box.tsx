@@ -1,5 +1,5 @@
-import { css } from 'hono/css'
-import { FC } from 'hono/jsx'
+import { css } from "hono/css";
+import { FC } from "hono/jsx";
 
 const container = css`
   display: flex;
@@ -30,13 +30,13 @@ const container = css`
     border-radius: 5px;
     overflow: auto;
   }
-`
+`;
 
 const CommentBox: FC<{ mapId: string }> = ({ mapId }) => (
   <form action={`/api/comment/upload/${mapId}`} method="post" class={container}>
-    <textarea name="comment" placeholder='Deja tu comentario aqui...'/>
+    <textarea name="comment" placeholder="Deja tu comentario aqui..." />
     <button type="submit">Submit</button>
   </form>
-)
+);
 
-export default CommentBox
+export default CommentBox;

@@ -4,19 +4,19 @@ import { container, linkStyles } from "../constants/styles";
 import Link from "../components/Link";
 
 const BotPage: FC = async ({ context }) => {
-    return (
-        <Fragment>
-            <Header context={context} />
-            <div className={container}>
-                <Link to="/bot/status" className={linkStyles}>
-                    Bot Status
-                </Link>
-                <Link to="/bot/responses" className={linkStyles}>
-                    Manage Responses
-                </Link>
-            </div>
-        </Fragment>
-    )
-}
+  return (
+    <Fragment>
+      <Header context={context} />
+      <div className={container}>
+        <Link to="/bot/status" className={linkStyles}>
+          Bot Status
+        </Link>
+        <Link to="/bot/responses" className={linkStyles}>
+          Manage Responses
+        </Link>
+      </div>
+    </Fragment>
+  );
+};
 
 export default BotPage;

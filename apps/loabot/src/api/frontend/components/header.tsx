@@ -1,7 +1,7 @@
-import { css } from 'hono/css'
-import { FC } from 'hono/jsx'
-import env from '../../../env'
-import { Context } from 'hono'
+import { css } from "hono/css";
+import { FC } from "hono/jsx";
+import env from "../../../env";
+import { Context } from "hono";
 
 const headerStyles = css`
   background-color: #333;
@@ -11,12 +11,12 @@ const headerStyles = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 const linkStyles = css`
   color: white;
   text-decoration: none;
-`
+`;
 
 const userStyles = css`
   display: flex;
@@ -36,7 +36,7 @@ const userStyles = css`
       width: 50%;
     }
   }
-`
+`;
 
 const logInStyles = css`
   display: flex;
@@ -49,7 +49,7 @@ const logInStyles = css`
   font-size: 1.5rem;
 
   button {
-    background-color:rgb(58, 58, 58);
+    background-color: rgb(58, 58, 58);
     color: white;
     border: none;
     padding: 10px;
@@ -63,9 +63,9 @@ const logInStyles = css`
     border: 1px solid white;
     transition: 0.5s;
   }
-`
+`;
 
-export const Header: FC<{ context?: Context, children?: unknown }> = ({ context, children }) => {
+export const Header: FC<{ context?: Context; children?: unknown }> = ({ context, children }) => {
   return (
     <header class={headerStyles}>
       <h1>
@@ -92,5 +92,5 @@ export const Header: FC<{ context?: Context, children?: unknown }> = ({ context,
         </div>
       )}
     </header>
-  )
-}
+  );
+};

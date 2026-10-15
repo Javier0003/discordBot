@@ -2,9 +2,9 @@ services:
   discord-bot:
     build:
       context: .
-      dockerfile: dockerfile  
+      dockerfile: dockerfile
     ports:
-      - '42069:42069'
+      - "42069:42069"
     environment:
       - DOMAIN=${DOMAIN:-https://loabot.darkjaslo.dev}
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres_db:5432/${POSTGRES_DB:-loabot}
@@ -24,7 +24,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB:-loabot}
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - postgres_db:/var/lib/postgresql/data
     env_file:
@@ -37,7 +37,7 @@ services:
 
 volumes:
   postgres_db:
-    driver: local 
+    driver: local
 
 networks:
   default:

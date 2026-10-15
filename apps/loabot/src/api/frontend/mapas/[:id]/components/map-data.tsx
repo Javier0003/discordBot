@@ -1,6 +1,6 @@
-import { css } from 'hono/css'
-import { FC } from 'hono/jsx'
-import getOsuMap from '../../../../../utils/get-osu-map'
+import { css } from "hono/css";
+import { FC } from "hono/jsx";
+import getOsuMap from "../../../../../utils/get-osu-map";
 
 const mapStyle = css`
   display: flex;
@@ -17,7 +17,7 @@ const mapStyle = css`
   img {
     width: 200px;
   }
-`
+`;
 const mapInfoStyle = css`
   display: flex;
   flex-direction: column;
@@ -25,11 +25,16 @@ const mapInfoStyle = css`
   p {
     margin: 0;
   }
-`
+`;
 
-const MapData: FC<{mapId: string, token: string, mods: string, date: string}> = async ({mapId, token, mods, date}) => {
-  const mapData = await getOsuMap(Number(mapId), token)
-    
+const MapData: FC<{ mapId: string; token: string; mods: string; date: string }> = async ({
+  mapId,
+  token,
+  mods,
+  date,
+}) => {
+  const mapData = await getOsuMap(Number(mapId), token);
+
   return (
     <section class={mapStyle}>
       <div class={mapInfoStyle}>
@@ -43,7 +48,7 @@ const MapData: FC<{mapId: string, token: string, mods: string, date: string}> = 
       </div>
       <img src={`${mapData.beatmapset.covers.list}`} alt="" />
     </section>
-  )
-}
+  );
+};
 
-export default MapData
+export default MapData;

@@ -1,38 +1,37 @@
-import { Context, Hono, Next } from 'hono'
-import LoaSingleton from '../../structures/loa-client'
+import { Context, Hono, Next } from "hono";
+import LoaSingleton from "../../structures/loa-client";
 
-type Path = `/${string}`
+type Path = `/${string}`;
 
 type ConstructorObject = {
-  path: Path
-  method: keyof Hono
-  devOnly?: boolean
-}
+  path: Path;
+  method: keyof Hono;
+  devOnly?: boolean;
+};
 
-export default abstract class RouteBuilder<O> extends LoaSingleton{
-  private _path: Path
-  private _method: keyof Hono
-  private _devOnly: boolean
-
+export default abstract class RouteBuilder<O> extends LoaSingleton {
+  private _path: Path;
+  private _method: keyof Hono;
+  private _devOnly: boolean;
 
   constructor(data: ConstructorObject) {
-    super()
-    this._path = data.path
-    this._method = data.method
-    this._devOnly = data.devOnly ?? false
+    super();
+    this._path = data.path;
+    this._method = data.method;
+    this._devOnly = data.devOnly ?? false;
   }
 
   public get path(): string {
-    return this._path
+    return this._path;
   }
 
   public get method(): keyof Hono {
-    return this._method
+    return this._method;
   }
 
   public get devOnly(): boolean {
-    return this._devOnly
+    return this._devOnly;
   }
 
-  public abstract event(c: Context, next?: Next): O
+  public abstract event(c: Context, next?: Next): O;
 }

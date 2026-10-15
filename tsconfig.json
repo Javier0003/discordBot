@@ -17,7 +17,7 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
+    "jsxImportSource": "hono/jsx"
   },
   "include": ["src", "packages/persistance/drizzle/schemas/schema.ts"],
   "exclude": ["node_modules", "dist"]

@@ -1,33 +1,27 @@
 {
-    "name": "@loabot/persistance",
-    "version": "0.1.0",
-    "private": true,
-    "type": "commonjs",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "./dist/*": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
-      }
-    },
-    "scripts": {
-        "build": "tsc -p tsconfig.json",
-        "check-types": "tsc -p tsconfig.json --noEmit"
-    },
-    "dependencies": {
-        "drizzle-orm": "0.32.0",
-        "postgres": "3.4.4",
-        "@loabot/discord": "workspace:*"
-        
-    },
-    "devDependencies": {
-        "@types/node": "^24.5.1",
-        "drizzle-kit": "0.23.0",
-        "typescript": "5.5.3"
-    }
+  "name": "@loabot/persistance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "migrate": "tsx ./utils/migrator.ts",
+    "generate": "npx drizzle-kit generate"
+  },
+  "dependencies": {
+    "@loabot/discord": "workspace:*",
+    "drizzle-orm": "0.32.0",
+    "postgres": "3.4.4",
+    "tsx": "4.16.2",
+    "typescript": "5.5.3",
+    "typescript-eslint": "8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.1",
+    "drizzle-kit": "0.23.0",
+    "typescript": "5.5.3"
+  }
 }

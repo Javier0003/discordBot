@@ -79,12 +79,8 @@
           "name": "comments_mapId_mapas_oldMaps_fk",
           "tableFrom": "comments",
           "tableTo": "mapas",
-          "columnsFrom": [
-            "mapId"
-          ],
-          "columnsTo": [
-            "oldMaps"
-          ],
+          "columnsFrom": ["mapId"],
+          "columnsTo": ["oldMaps"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -92,12 +88,8 @@
           "name": "comments_uId_users_id_fk",
           "tableFrom": "comments",
           "tableTo": "users",
-          "columnsFrom": [
-            "uId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["uId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -248,12 +240,8 @@
           "name": "plays_mapId_mapas_oldMaps_fk",
           "tableFrom": "plays",
           "tableTo": "mapas",
-          "columnsFrom": [
-            "mapId"
-          ],
-          "columnsTo": [
-            "oldMaps"
-          ],
+          "columnsFrom": ["mapId"],
+          "columnsTo": ["oldMaps"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -261,12 +249,8 @@
           "name": "plays_uId_users_id_fk",
           "tableFrom": "plays",
           "tableTo": "users",
-          "columnsFrom": [
-            "uId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["uId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -297,12 +281,8 @@
           "name": "session_id_users_id_fk",
           "tableFrom": "session",
           "tableTo": "users",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

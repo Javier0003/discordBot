@@ -1,9 +1,8 @@
-import { FC, Fragment } from 'hono/jsx'
-import { Header } from './components/header'
-import { Context } from 'hono'
-import Link from './components/Link'
-import { container, linkStyles } from './constants/styles'
-
+import { FC, Fragment } from "hono/jsx";
+import { Header } from "./components/header";
+import { Context } from "hono";
+import Link from "./components/Link";
+import { container, linkStyles } from "./constants/styles";
 
 const Home: FC<{ context: Context }> = async ({ context }) => {
   const authenticated = context.userData?.id !== undefined;
@@ -43,7 +42,7 @@ const Home: FC<{ context: Context }> = async ({ context }) => {
         )}
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

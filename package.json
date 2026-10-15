@@ -3,22 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "description": "LoA Bot monorepo",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "build": "turbo run build",
     "dev": "dotenv turbo run dev --parallel",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "start": "turbo run start",
     "check-types": "turbo run check-types",
     "migrate": "pnpm --filter loabot migrate",
     "generate": "pnpm --filter loabot generate"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "turbo": "^2.8.13"
-  },
-  "packageManager": "pnpm@10.0.0",
   "dependencies": {
     "dotenv-cli": "^11.0.0"
-  }
+  },
+  "devDependencies": {
+    "oxfmt": "^0.73.0",
+    "turbo": "^2.8.13"
+  },
+  "packageManager": "pnpm@10.0.0"
 }

@@ -1,7 +1,7 @@
-import { FC } from 'hono/jsx'
-import { css } from 'hono/css'
-import { getSomeUserData } from '../../../../../utils/discord'
-import { Comments } from '@loabot/persistance/dist/drizzle/schemas/schema'
+import { FC } from "hono/jsx";
+import { css } from "hono/css";
+import { getSomeUserData } from "../../../../../utils/discord";
+import { Comments } from "@loabot/persistance/dist/drizzle/schemas/schema";
 
 const commentStyle = css`
   display: flex;
@@ -38,13 +38,13 @@ const commentStyle = css`
     width: fit-content;
     margin-left: auto;
   }
-`
+`;
 
 const Comment: FC<{ comment: Comments }> = async ({ comment }) => {
-  const userData = await getSomeUserData(comment.uId)
-  if (!userData) return <div>Usuario no encontrado</div>
+  const userData = await getSomeUserData(comment.uId);
+  if (!userData) return <div>Usuario no encontrado</div>;
 
-  const date = new Date(comment.date)
+  const date = new Date(comment.date);
 
   return (
     <div class={commentStyle}>
@@ -56,11 +56,11 @@ const Comment: FC<{ comment: Comments }> = async ({ comment }) => {
         <p>{comment.comment}</p>
       </div>
       <p>
-        {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`} <br />{' '}
-        {`${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`}
+        {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`} <br />{" "}
+        {`${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`}
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;
