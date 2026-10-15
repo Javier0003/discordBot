@@ -5,14 +5,15 @@ import { OsuClient } from "osu-loa-wrapper";
 import CommandHandler from "../handlers/command-handler";
 import Event_Handler from "../handlers/event-handler";
 import { registerRepositories } from "@loabot/persistance";
-import CustomHonoApp from "../api/backend";
+import HonoClient from '@loabot/hono-api'
+import { ServerType } from "@hono/node-server";
 
 export default class LoaBot extends Client {
   public readonly clientLoa = new LoaSingleton(this);
   public readonly osuClient = new OsuClient(env.osu.clientId, env.osu.apiKey);
   public readonly commandHandler = new CommandHandler();
   public readonly eventHandler = new Event_Handler();
-  public readonly api: CustomHonoApp;
+  public readonly api: ServerType;
   public readonly repositories = registerRepositories();
 
   constructor() {
@@ -27,7 +28,7 @@ export default class LoaBot extends Client {
         GatewayIntentBits.GuildMembers,
       ],
     });
-    this.api = new CustomHonoApp(this.repositories);
+    this.api = HonoClient.init(env.DOMAIN ?? 'http://localhost:');
     this.init();
   }
 

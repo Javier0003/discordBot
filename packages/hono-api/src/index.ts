@@ -23,7 +23,7 @@ const app = new Hono()
   .route("/hello", helloRouter);
 
 function init(domain: string) {
-  serve(
+  return serve(
     {
       fetch: (req) => app.fetch(req),
       port: 42069,
