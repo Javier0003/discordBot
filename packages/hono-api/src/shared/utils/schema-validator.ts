@@ -1,6 +1,5 @@
 import type { ZodType } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { jsonErr } from "./result.js";
 type ValidationTarget = Parameters<typeof zValidator>[0];
 
 export const schemaValidator = <Target extends ValidationTarget, Schema extends ZodType>(
@@ -12,5 +11,5 @@ export const schemaValidator = <Target extends ValidationTarget, Schema extends 
       return;
     }
 
-    return jsonErr(c, "BAD_REQUEST");
+    return c.json({ message: "BAD_REQUEST", detail: "Invalid request body." }, 400);
   });

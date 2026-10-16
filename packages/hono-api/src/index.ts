@@ -7,6 +7,10 @@ import type { RepositoryObj } from "@loabot/persistance";
 import { setRepositories } from "./shared/middlewares/persistance.js";
 import authRouter from "./modules/auth/index.router.js";
 import helloRouter from "./modules/hello/hello.router.js";
+import botRouter from "./modules/bot/bot.router.js";
+import minecraftRouter from "./modules/minecraft/minecraft.router.js";
+import osuRouter from "./modules/osu/osu.router.js";
+import userRouter from "./modules/users/users.router.js";
 
 declare module "hono" {
   interface Context {
@@ -20,7 +24,11 @@ const app = new Hono()
   .use("/*", setRepositories)
   .use("/*", loggerMiddleware)
   .route("/auth", authRouter)
-  .route("/hello", helloRouter);
+  .route("/hello", helloRouter)
+  .route("/bot", botRouter)
+  .route("/minecraft", minecraftRouter)
+  .route("/osu", osuRouter)
+  .route("/users", userRouter);
 
 function init(domain: string) {
   return serve(

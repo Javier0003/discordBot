@@ -49,3 +49,5 @@ const userRouter = new Hono()
       return c.json({ success: false });
     }
   });
+
+export default userRouter;
